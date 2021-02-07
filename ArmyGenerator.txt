@@ -1,0 +1,149 @@
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:51]
+Getting mandatory units   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:51]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:51]
+Force size is 19   : [07, 02 2021 16:35:51]
+String is    : [07, 02 2021 16:35:51]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_1   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_mon_chaos_warhounds_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_cav_chaos_chariot   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
+GenerateForceForTurn: chaos_army_force   : [07, 02 2021 16:35:52]
+Getting mandatory units   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_dlc01_chs_inf_forsaken_0   : [07, 02 2021 16:35:52]
+Adding subculture unit: wh_main_chs_inf_chaos_warriors_0   : [07, 02 2021 16:35:52]
+Force size is 19   : [07, 02 2021 16:35:52]
+String is    : [07, 02 2021 16:35:52]
+FINISHED
+
