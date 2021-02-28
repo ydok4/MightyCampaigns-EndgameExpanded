@@ -1,0 +1,141 @@
+Anyway, do you want to know more about what I'm planning for the end game thing?
+
+I've been working on a chaos invasion expansion (working title Endgame Expanded) and was hoping to get some feedback on some of the problems I see with the end game and some proposed solutions.
+I think some of these were improved in the last patch but I several are ongoing.
+
+Overall I'm hoping to to bring back some of the 'o shit' factor from the chaos invasion.
+
+Issues:
+-AI has too many armies to fight back against chaos and the player isn't involved.
+-Beastmen spawn with too few armies
+-The main Chaos force spawns in a single location far away from most order factions
+-A loss can stall the invasion due to the AI retaking land
+-Easy to wipe invasion by killing Archaon, Sigvald and Kholek
+-No respawning armies mean once you break the invasion your're essentially done
+-Chaos ends up at war with almost everyone and split up to fight different enemies
+-Army compositions aren't very thematic
+-Inconsistent threat in Lustria, Badlands, Ulthuan
+
+Solutions:
+-Improve army and building compositions
+-Spawn more beastmen
+-Create additional spawn locations for Chaos
+-Have armies spawn inside Old World order territories (Beastmen in Forests and Skaven in undercities)
+-Through alliances and forced diplomacy encourage Norsca and Skaven to hold razed territory
+-Spawn Archaon, Sigvald and Kholek at the rear
+-Exclude some factions from war declaration, at least for the first wave (eg Kraka Drak and the Silver Pinnacle)
+-Allow the razed settlement counter to increase when a settlement is razed by ANY Norsca, Beastmen, Skaven or Chaos faction
+-Create additional invasions (MCT toggleable)
+
+Current expanded invasion list includes:
+-Chaos Wastes (Chaos, stage 2/3)
+-Naggaroth (Chaos, stage 2/3)
+-Darklands (Chaos, stage 2/3)
+-South west lustria (Skaven, stage 2)
+-South east lustria (Skaven, stage 3)
+-Norsca (Norsca, stage 3). This is to retake any lost norscan territory.
+-Hung warband (Rogue chaos/beastmen, stage 2/3)
+-Tip of lustria (Vashnarr, stage 2)
+-Norther Ulthuan Ocean (Norsca, stage 2/3)
+-Southwest Ulthuan ocean (Cylostra, stage 2)
+-South Ulthuan Ocean (Noctilus, stage 3)
+
+Recurring spawns
+These trigger periodically and are influenced by the number of razed settlements from Chaos, Norsca, Skaven and Beastmen factions.
+-Skaven undercity expansion (stage 2)
+An undercity is spawned in the following areas: Old World, Southern Realms, Lustria, Badlands, Nehekhara
+-Skaven undercity invasion (stage 3)
+A random selection of undercities in the same areas as above spawn an undercity army
+-Beastmen forest invasion
+2 beastmen armies spawn around forest locations in the Old World.
+
+
+-Not enough of a threat
+	Issues:
+	-AI has too many armies to fight back against chaos and the player isn't involved.
+	-Beastmen spawn with too few armies
+	-The main Chaos force spawns in a single location
+	-Easy to wipe invasion by killing Archaon, Sigvald and Kholek
+	Solutions:
+	-Improve army composition
+	-Spawn better buildings fitting the army theme
+	-Change Archaon, Kholek and Sigvald to spawn at the rear
+-Momentum issues
+	Issues:
+	-A loss can stall the invasion due to the AI retaking land
+	-No respawns mean once you break the invasion your're done
+	-Solutions:
+	-Have norscan and skaven factions hold territory
+	-Spawn more investment
+-AI is 'distracted'
+	Issues:
+	-Chaos ends up at war with almost everyone
+	-They split to fight different enemies
+	Solutions:
+	-Exclude some factions from war declaration
+-Inconsistent threat level
+	-The old world and naggaroth have a threat but not the new world and southlands
+	
+-Not enough variety
+	Issues:
+	-It's all chaos and its all the same army composition
+	Solutions:
+	-Create different invasion armies
+	
+	
+Attempts to solve several issues with the vanilla end game invasions.
+This is intended to bring back some of the 'o shit' factor present in WH1 without (only) increasing the number of armies spawned.
+This is achieved through tuning the spawn behaviour of the vanilla chaos/beastmen armies as well as introducing more mid/late game spawns.
+
+Features:
+-Improved army composition with more thematic armies (and custom unit/lord support).
+-New and Improved Chaos spawn locations (Darklands spawns)
+-New world invasion spawns featuring Skaven in Lustria, Vashnarr in Lustria, Vampire Coast Ocean spawns and additional Norscan spawn locations
+-Earlier invasion spawns
+-Additional razed settlement mechanics
+-Tailored diplomacy; war declaration and alliances have been tuned to support the invasions
+
+Improved army composition
+Army spawns have been changed to fit thematic compositions. This is expanded when other mods are detected.
+This includes support for Balint's/Chaos Robies Daemons (Plague Bearers, Bloodletters and Daemonettes need to be installed), Mixu's TTL and Deco's Expanded Beastmen
+Eg in the late game invasion, Monster themed armies lead by Mixu's Shaggoth Champion may be present.
+The buildings hordes spawn with have also been improved and will add thematically appropriate buildings (where appropriate).
+Lord will spawned with randomised levels (Capped with minimum and maximum values) improve strength and variety of armies
+
+New and Improved Chaos spawn locations
+Archaon and friends will spawn at the rear of the invasion. Will give the stop the invasion from being cut off at the head as easily.
+The main Chaos Invasion has less chaos armies but more Beastmen armies (overall more armies than vanilla at all invasion difficulty levels)
+Naggaroth Chaos Invasion has less armies, will increase the liklihood of the Dark Elves being a threat in the late game.
+Additional spawns locations have been added east of the worlds edge mountains. They will harass the Dwarfs and open up a second front.
+A Norscan invasion force will spawn in the mid and late game near North East Ulthuan.
+Recurring spawns added for Beastmen and Skaven (see additional razed settlement mechanics below)
+
+New world invasion spawn
+Skaven will spawn in Southern Lustria (at the same time as the mid (Clan Fester) and late game (Clan Pestilens))
+Vashnarr will spawn in between mid and late game in Northern Lustria
+Cylostra will receive an invasion force near South West Ulthuan in the mid game invasion.
+Noctilus will receive an invasion force near South East Ulthuan in the late game invasion.
+All invasions can be enabled/disabled.
+
+Earlier invasion spawns
+Invasion spawn times have been brought forward so the Order aligned AI is not as effective at dealing with the invasion.
+The invasion spawns are closer together so that the second wave can still capitilise on any progress the first wave made.
+This also helps some of the start locations which are a bit safer, feel less stale.
+Mid game will start between turn 80 and 90 (vanilla is 90 and 110)
+Vashnarr will spawn between turn 85 and 95
+Mid game will start between turn 95 and 105 (vanilla is 140 and 160)
+
+Additional razed settlement mechanics
+The global chaos corruption counter has been tweaked so the count will increase when a settlement is razed by ANY Beastmen, Chaos, Norscan or Skaven faction (in the base game it is just the main chaos faction and the invasion beastmen/norscan factions that increase this).
+Every 5 razed settlements increases the number of Beastmen Forest Spawns and Skaven Undercity Army spawns throughout the Old World.
+Every couple of turns, if enough settlements have been raised a Beastmen Herd and/or Skaven Undercity Army will spawn throughout the Old World.
+This forces the Order tide to split their forces to deal with the spawns inside their territory and gives the main invasion room to do its thing.
+During the mid game event the number of razed settlements will increase the amount of available Beastmen spawns. When the end game begins, the number of spawns will decrease as herds are spawned throughout the Old World.
+During the mid game event Skaven undercities will spawn throughout the world. When the end game begins these undercities will spawn Skaven Undercity armies and decrease the number of available spawns. Note: Undercities will periodically expand throughout the old world without decreasing this counter.
+These spawns can be disabled.
+
+Tailored diplomacy
+Invasion diplomacy behaves differently depending on the invasion stage (ie mid/late) and which faction is invading.
+Eg 1 the mid game chaos invasion won't declare war on Kraka Drak and the Silver Pinnacle so the AI focuses more on weakening Kislev and Dwarf factions.
+Eg 2 Vashnarr will only be forced into war with the relevant Lustria factions (Hexoatl, Itza, Huntsmarshals expedition) instead of declaring war on almost everyone like Chaos/Norsca/Beastmen
+Any Norscan factions alive when the late game invasion triggers will be forced into an unbreakable alliance with the main chaos faction and forced into war with the a subset of Old World factions (Nordland, Ostland, Middenland, Couronne etc).

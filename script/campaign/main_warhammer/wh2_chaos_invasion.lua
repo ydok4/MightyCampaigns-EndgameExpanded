@@ -2,17 +2,19 @@ CI_DEBUG = false;
 CI_EVENTS = {
 	INTRO = {key = "INTRO", required_stage = 1, first_turn = 15, last_turn = 25, army_spawns = 0, agent_spawns = 0, chaos_effect = ""},
 	-- rises events
-	MID_CYLOSTRA = {key = "MID_CYLOSTRA", required_stage = 2, first_turn = 60, last_turn = 70, army_spawns = 6, agent_spawns = 3, chaos_effect = ""}, 
+	--MID_CYLOSTRA = {key = "MID_CYLOSTRA", required_stage = 2, first_turn = 60, last_turn = 70, army_spawns = 6, agent_spawns = 3, chaos_effect = ""}, 
 	MID_GAME = {key = "MID_GAME", required_stage = 2, first_turn = 80, last_turn = 90, army_spawns = 5, agent_spawns = 3, chaos_effect = "rises"},
-	MID_VASHNARR = {key = "MID_VASHNARR", required_stage = 2, first_turn = 85, last_turn = 95, army_spawns = 6, agent_spawns = 3, chaos_effect = ""},
+	--MID_VASHNARR = {key = "MID_VASHNARR", required_stage = 2, first_turn = 85, last_turn = 95, army_spawns = 6, agent_spawns = 3, chaos_effect = ""},
 	-- major invasion events
-	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 95, last_turn = 105, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
-	LATE_NOCTILUS = {key = "LATE_NOCTILUS", required_stage = 3, first_turn = 100, last_turn = 110, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
+	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 95, last_turn = 105, army_spawns = 9, agent_spawns = 4, chaos_effect = ""},
+	--LATE_NOCTILUS = {key = "LATE_NOCTILUS", required_stage = 3, first_turn = 100, last_turn = 110, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
 	VICTORY = {key = "VICTORY", required_stage = -1, first_turn = -1, last_turn = -1, army_spawns = 0, agent_spawns = 0, chaos_effect = ""}
 };
 CI_RECURRING_EVENTS = {
-	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 2, turn_interval = 5, spawns = 1, },
-	{key = "SKV_UNDERCITY_SPAWNS", required_stage = 3, turn_interval = 5, spawns = 2, },
+	-- Expansion happens during the mid game and late game
+	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 3, turn_interval = 2, spawns = 1, },
+	-- These only trigger during the late game
+	{key = "SKV_UNDERCITY_SPAWNS", required_stage = 3, turn_interval = 4, spawns = 2, },
 	{key = "BST_FOREST_SPAWNS", required_stage = 3, turn_interval = 3, spawns = 2, },
 };
 -- Contains all spawn data information
@@ -76,6 +78,8 @@ CI_EVENT_DATA = {
 				"wh_main_emp_ostland",
 				"wh_main_dwf_kraka_drak",
 				"wh_main_emp_nordland",
+				"wh_dlc05_wef_wood_elves",
+				"wh_dlc05_wef_argwylon",
 				--[["wh2_main_hef_eataine",
 				"wh2_main_hef_order_of_loremasters",
 				"wh2_main_hef_nagarythe",
@@ -152,7 +156,7 @@ CI_EVENT_DATA = {
 						["force_key"] = "CI_archaon",
 						["force_xp"] = 9,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
-						["spawn_pos_center"] = {x = 766, y = 650}
+						["spawn_pos_center"] = {x = 775, y = 625}
 					},
 					["kholek"] = {
 						["id"] = "kholek",
@@ -164,7 +168,7 @@ CI_EVENT_DATA = {
 						["force_key"] = "CI_kholek",
 						["force_xp"] = 0,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
-						["spawn_pos_center"] = {x = 771, y = 652}
+						["spawn_pos_center"] = {x = 770, y = 625}
 					},
 					["sigvald"] = {
 						["id"] = "sigvald",
@@ -176,7 +180,7 @@ CI_EVENT_DATA = {
 						["force_key"] = "CI_sigvald",
 						["force_xp"] = 0,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
-						["spawn_pos_center"] = {x = 761, y = 652}
+						["spawn_pos_center"] = {x = 780, y = 625}
 					},
 					["sarthorael"] = {
 						["id"] = "sarthorael",
@@ -188,7 +192,7 @@ CI_EVENT_DATA = {
 						["force_key"] = "CI_sarthorael",
 						["force_xp"] = 0,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
-						["spawn_pos_center"] = {x = 766, y = 657}
+						["spawn_pos_center"] = {x = 775, y = 628}
 					}
 				},
 			},
@@ -241,13 +245,14 @@ CI_EVENT_DATA = {
 					enabled = true,
 					use_random_spawn = false,
 					positions = {
-						{770, 609+5}, {775, 611+5}, {780, 611+5},
-						{770, 609+10}, {775, 611+10}, {780, 611+10},
-						{770, 609+15}, {775, 611+15}, {780, 611+15},
-						{770, 609+20}, {775, 611+20}, {780, 611+20},
-						{770, 609+25}, {775, 611+25}, {780, 611+25}
+						{770, 607+3 }, {775, 607+3 }, {780, 607+3 },
+						{770, 607+6 }, {775, 607+6 }, {780, 607+6 },
+						{770, 607+9 }, {775, 607+9 }, {780, 607+9 },
+						{770, 607+12}, {775, 607+12}, {780, 607+12},
+						{770, 607+15}, {775, 607+15}, {780, 607+15}
 					},
-					character_xp_levels = 10,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 25,
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -299,7 +304,8 @@ CI_EVENT_DATA = {
 						-- Order is reversed from vanilla. This means that more armies spawn away from Naggarond
 						{213, 710}, {172, 713}, {130, 711}, {91, 712}, {49, 712}
 					},
-					character_xp_levels = 10,
+					min_character_xp_levels = 8,
+					max_character_xp_levels = 16,
 					-- I've made this weaker so Naggarond has an easier time dealing with Chaos
 					-- They should be the main antagonist of the High Elves
 					army_spawn_multiplier = 0.6,
@@ -347,7 +353,8 @@ CI_EVENT_DATA = {
 					positions = {
 						{824, 470}, {819, 388},
 					},
-					character_xp_levels = 10,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -445,7 +452,8 @@ CI_EVENT_DATA = {
 					positions = {
 						{770, 605}, {775, 605}, {780, 605},
 					},
-					character_xp_levels = 5,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 0.5,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -553,7 +561,8 @@ CI_EVENT_DATA = {
 						{420, 625}, {447, 639}, {519, 662}, {589, 688}, {495, 635}, {437, 610},
 						{504, 609}, {448, 589}, {377, 565}
 					},
-					character_xp_levels = 7,
+					min_character_xp_levels = 12,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 3 (end game)
@@ -578,13 +587,14 @@ CI_EVENT_DATA = {
 					enabled = true,
 					use_random_spawn = true,
 					positions = {
-						{272, 509}, {276, 502}, {283, 502},
-						{284, 507}, {290, 512}, {289, 507}
+						{262, 504}, {266, 497}, {273, 497},
+						{174, 502}, {280, 507}, {279, 502}
 					},
-					character_xp_levels = 7,
+					min_character_xp_levels = 15,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 0.8,
 					army_compositions = {
-						-- Invasion stage 2 (end game)
+						-- Invasion stage 1 (mid game)
 						[2] = {
 							ChieftainChaosInvasionStage2 = {
 								Key = "ChieftainChaosInvasionStage1",
@@ -617,7 +627,8 @@ CI_EVENT_DATA = {
 						{835, 305}, {830, 305},
 						{835, 300}, {830, 300},
 					},
-					character_xp_levels = 7,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 14,
 					army_spawn_multiplier = 0.4,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -692,8 +703,8 @@ CI_EVENT_DATA = {
 						{21, 30}, {19, 25}, {23, 22},
 						{29, 22}, {29, 28}, {32, 32},
 					},
-					character_xp_levels = 5,
-					army_spawn_multiplier = 1,
+					min_character_xp_levels = 5,
+					max_character_xp_levels = 12,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -709,11 +720,12 @@ CI_EVENT_DATA = {
 					enabled = true,
 					use_random_spawn = true,
 					positions = {
-						{200, 13}, {200, 13+5}, {200, 13+10},
-						{200+5, 13}, {200+5, 13+5}, {200+5, 13+10},
+						{200,    13}, {200,    13+5}, {200,    13+10},
+						{200+5,  13}, {200+5,  13+5}, {200+5,  13+10},
 						{200+10, 13}, {200+10, 13+5}, {200+10, 13+10},
 					},
-					character_xp_levels = 8,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 3 (end game)
@@ -732,8 +744,14 @@ CI_EVENT_DATA = {
 			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
 			default_force_key = "CI_coast",
 			included_war_declaration = {
-				wh2_main_sc_hef_high_elves = true,
-				wh_main_sc_brt_bretonnia = true,
+				--wh2_main_sc_hef_high_elves = true,
+				--wh_main_sc_brt_bretonnia = true,
+				-- We need to focus Cylostra onto a few factions
+				wh2_main_hef_eataine = true,
+				wh2_main_hef_caledor = true,
+				wh2_main_hef_tiranoc = true,
+				wh2_main_hef_avelorn = true,
+				wh2_main_hef_ellyrion = true,
 			},
 			army_archetypes = {
 				VampireAdmiralGhostsInvasionStage1 = {
@@ -763,7 +781,8 @@ CI_EVENT_DATA = {
 					positions = {
 						{120, 246}, {128, 240}, {139, 234},
 					},
-					character_xp_levels = 5,
+					min_character_xp_levels = 8,
+					max_character_xp_levels = 12,
 					army_spawn_multiplier = 0.5,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -786,9 +805,18 @@ CI_EVENT_DATA = {
 			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
 			default_force_key = "CI_coast",
 			included_war_declaration = {
-				wh2_main_sc_hef_high_elves = true,
-				wh_main_sc_brt_bretonnia = true,
-				wh_main_sc_teb_teb = true,
+				--wh2_main_sc_hef_high_elves = true,
+				--wh_main_sc_brt_bretonnia = true,
+				--wh_main_sc_teb_teb = true,
+				wh2_main_hef_eataine = true,
+				wh2_main_hef_saphery = true,
+				wh2_main_hef_avelorn = true,
+				wh2_main_hef_yvresse = true,
+				wh_main_teb_estalia = true,
+				wh_main_teb_tilea = true,
+				wh_main_brt_carcassonne = true,
+				wh_main_brt_parravon = true,
+				wh_main_brt_bordeleaux = true,
 				wh2_dlc11_cst_pirates_of_sartosa = true,
 			},
 			army_archetypes = {
@@ -830,7 +858,8 @@ CI_EVENT_DATA = {
 					positions = {
 						{302, 234}, {313, 234}, {327, 249},
 					},
-					character_xp_levels = 5,
+					min_character_xp_levels = 10,
+					max_character_xp_levels = 20,
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
@@ -857,7 +886,15 @@ CI_EVENT_DATA = {
 			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
 			default_force_key = "CI_vashnarr_def",
 			included_war_declaration = {
-				wh2_main_sc_lzd_lizardmen = true,
+				--wh2_main_sc_lzd_lizardmen = true,
+				--wh2_main_sc_hef_high_elves = true,
+				-- Vashnarrs AI will travel across the world to fight other lizardmen factions
+				-- Need to focus them on the major players of Lustria
+				wh2_dlc12_lzd_cult_of_sotek = true,
+				wh2_main_lzd_hexoatl = true,
+				wh2_main_lzd_itza = true,
+				wh2_dlc13_emp_the_huntmarshals_expedition = true,
+				wh2_main_emp_new_world_colonies = true,
 			},
 			invasions = {
 				lustria_def_chs = {
@@ -866,8 +903,9 @@ CI_EVENT_DATA = {
 					positions = {
 						{40, 336}, {33, 334}, {6, 337},
 					},
-					character_xp_levels = 5,
-					army_spawn_multiplier = 0.6,
+					min_character_xp_levels = 8,
+					max_character_xp_levels = 12,
+					army_spawn_multiplier = 0.5,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
 						[2] = {
@@ -917,6 +955,11 @@ CI_EVENT_DATA = {
 				-- New
 				wh2_main_sc_skv_skaven = -1,
 			},
+			alliance_factions = {
+				-- Invasion factions
+				wh_dlc03_bst_beastmen_chaos = 2,
+				wh_main_chs_chaos = 2,
+			},
 			army_archetypes = {
 				BeastLordGorsChaosInvasionStage1 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
@@ -965,14 +1008,16 @@ CI_EVENT_DATA = {
 						{470, 439}, -- Reikland
 						-- Eastern Empire
 						{660, 505}, -- Ostermark
+						-- Disabled for now, Empire needs more of a focus
 						-- Northern Bretonnia
-						{365, 433}, -- Lyonesse
+						--[[{365, 433}, -- Lyonesse
 						{370, 466}, -- Couronne
 						-- Southern Bretonnia
 						{432, 392}, -- Bastonne
-						{432, 348}, -- Parravon
+						{432, 348}, -- Parravon--]]
 					},
-					character_xp_levels = 5,
+					min_character_xp_levels = 5,
+					max_character_xp_levels = 10,
 					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 2 (mid game)
@@ -1040,13 +1085,15 @@ CI_EVENT_DATA = {
 					"wh_main_rib_peaks_grom_peak",
 					"wh_main_zhufbar_karag_dromar",
 					"wh_main_zhufbar_oakenhammer",
-					"wh_main_bordeleaux_et_aquitaine_aquitaine",
 					"wh_main_northern_grey_mountains_karak_ziflin",
 					"wh_main_southern_grey_mountains_karak_azgaraz",
-					"wh_main_forest_of_arden_castle_artois",
 					"wh_main_eastern_oblast_praag",
 					"wh_main_northern_oblast_fort_ostrosk",
 				},
+				--[[bretonnia = {
+					"wh_main_bordeleaux_et_aquitaine_aquitaine",
+					"wh_main_forest_of_arden_castle_artois",
+				},--]]
 				southern_realms = {
 					"wh_main_estalia_tobaro",
 					"wh_main_estalia_bilbali",
@@ -1228,18 +1275,23 @@ function CI_FactionTurnStart(context)
 				out.chaos("Beastmen forest spawns: "..CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS);
 			end
 			CI_DATA.CI_LAST_UPDATE = turn_number;
+			out.chaos("turn_number: "..turn_number);
+			out.chaos("CI_DATA.CI_INVASION_STAGE_START_TURN: "..CI_DATA.CI_INVASION_STAGE_START_TURN);
 			-- Check for recurring triggers
 			for i = 1, #CI_RECURRING_EVENTS do
+				out.chaos("CI_RECURRING_EVENTS[i].turn_interval: "..CI_RECURRING_EVENTS[i].turn_interval);
 				if CI_RECURRING_EVENTS[i].required_stage == CI_DATA.CI_INVASION_STAGE
-				and ((turn_number - CI_DATA.CI_INVASION_STAGE_START_TURN) % CI_RECURRING_EVENTS[i].turn_interval) then
-					out.chaos("\t\tSpawning recurring event!");
+				and ((turn_number - CI_DATA.CI_INVASION_STAGE_START_TURN) % CI_RECURRING_EVENTS[i].turn_interval == 0) then
 					if CI_RECURRING_EVENTS[i].key == "SKV_UNDERCITY_EXPANSION" then
+						out.chaos("\t\tSpawning recurring event!: "..CI_RECURRING_EVENTS[i].key);
 						CI_Event_2_Undercity_Expansion(CI_RECURRING_EVENTS[i]);
 					elseif CI_RECURRING_EVENTS[i].key == "BST_FOREST_SPAWNS"
 					and CI_SPAWNED_EVENTS["END_GAME"] then
+						out.chaos("\t\tSpawning recurring event!: "..CI_RECURRING_EVENTS[i].key);
 						CI_Event_3_Forest_Spawns(CI_RECURRING_EVENTS[i]);
-					elseif CI_RECURRING_EVENTS[i].key == "SKV_UNDERCITY_SPAWNS" 
+					elseif CI_RECURRING_EVENTS[i].key == "SKV_UNDERCITY_SPAWNS"
 					and CI_SPAWNED_EVENTS["END_GAME"] then
+						out.chaos("\t\tSpawning recurring event!: "..CI_RECURRING_EVENTS[i].key);
 						CI_Event_3_Undercity_Spawns(CI_RECURRING_EVENTS[i]);
 					end
 				end
@@ -1307,21 +1359,32 @@ function CI_CharacterRazedSettlement(context)
 		return;
 	end
 	local culture = faction:culture();
-	if CI_DATA.CI_INVASION_STAGE == 2 then
+	if CI_DATA.CI_INVASION_STAGE == 2
+	or (CI_DATA.CI_INVASION_STAGE == 3
+	and not CI_SPAWNED_EVENTS["END_GAME"]) then
+		-- wh_main_chs_chaos includes Norsca
 		if culture == "wh_main_chs_chaos"
 		or culture == "wh_dlc03_bst_beastmen"
 		or culture == "wh2_main_skv_skaven" then
+			out.chaos("Mid game settlement razed");
 			CI_DATA.CI_RAZED_REGIONS_STAGE_2 = CI_DATA.CI_RAZED_REGIONS_STAGE_2 + 1;
+			out.chaos("Total settlements razed is now: "..CI_DATA.CI_RAZED_REGIONS_STAGE_2);
 		end
 	elseif CI_DATA.CI_INVASION_STAGE == 3
 	and CI_SPAWNED_EVENTS["END_GAME"] then
+		-- wh_main_chs_chaos includes Norsca
 		if culture == "wh_main_chs_chaos"
 		or culture == "wh_dlc03_bst_beastmen"
 		or culture == "wh2_main_skv_skaven" then
 			CI_DATA.CI_RAZED_REGIONS = CI_DATA.CI_RAZED_REGIONS + 1;
+			out.chaos("Late game settlement razed");
+			out.chaos("Total settlements razed is now: "..CI_DATA.CI_RAZED_REGIONS);
 			if CI_DATA.CI_RAZED_REGIONS % 5 == 0 then
+				out.chaos("Increasing beastment/skaven spawns");
 				CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS + 1;
-				CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS + 1;
+				CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS + 1;
+				out.chaos("Total skaven city spawns is now: "..CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS);
+				out.chaos("Total beastmen forest spawns is now: "..CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS);
 			end
 			CI_invasion_effect_bundle_update();
 		end
@@ -1409,13 +1472,13 @@ function CI_Event_2_MidGame(event)
 			end;
 		end
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, event);
+		-- Cylostra isn't chaos aligned but will have a greater impact if they spawn at the same time
+		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_CYLOSTRA_ARMY_SPAWNS, event);
 
 		CI_apply_chaos_corruption(event.chaos_effect);
 		CI_personality_swap(2);
 		cm:set_camera_position(518.37, 473.95, 10.83, 0.0, 11.30);
 		out.dec_tab("chaos");
-	elseif event.key == "MID_CYLOSTRA" then
-		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_CYLOSTRA_ARMY_SPAWNS, event);
 	elseif event.key == "MID_VASHNARR" then
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_LUSTRIA_VASHNARR_ARMY_SPAWNS, event);
 	end
@@ -1449,7 +1512,8 @@ function CI_Event_3_EndGame(event)
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS, event);
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS, event);
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, event);
-
+		-- Noctilus isn't chaos aligned but will have a greater impact if they spawn at the same time
+		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_NOCTILUS_ARMY_SPAWNS, event);
 		CI_apply_chaos_corruption(event.chaos_effect);
 		CI_personality_swap(3);
 
@@ -1464,8 +1528,6 @@ function CI_Event_3_EndGame(event)
 			CI_update_global_diplomacy(false);
 		end,
 		0.3);
-	elseif event.key == "LATE_NOCTILUS" then
-		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_NOCTILUS_ARMY_SPAWNS, event);
 	end
 	CI_SPAWNED_EVENTS[event.key] = true;
 	out.dec_tab("chaos");
@@ -1592,6 +1654,8 @@ function CI_Event_3_Undercity_Spawns(event)
 	if invasion_data.enabled == false then
 		return;
 	end
+	out.chaos("Starting undercity spawns");
+	-- Upgrade war camps to spawn army
 	local alive_skaven_factions = {};
 	for index, faction_key in pairs(invasion_data.factions) do
 		local faction = cm:get_faction(faction_key);
@@ -1602,7 +1666,7 @@ function CI_Event_3_Undercity_Spawns(event)
 			table.insert(alive_skaven_factions, faction_key);
 		end
 	end
-
+	local spawned_undercity_army = false;
 	for index, faction_key in pairs(alive_skaven_factions) do
 		local skv_faction = cm:get_faction(faction_key);
 		local fsm_skv_faction = skv_faction:foreign_slot_managers();
@@ -1613,8 +1677,12 @@ function CI_Event_3_Undercity_Spawns(event)
 				local fslot = first_fsm_slots:item_at(0);
 				out.chaos("Upgrading war camp for faction: "..skv_faction:name());
 				cm:foreign_slot_instantly_upgrade_building(fslot, "wh2_dlc12_under_empire_annexation_war_camp_2");
+				spawned_undercity_army = true;
 			end
 		end
+	end
+	if spawned_undercity_army == true then
+		CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS - 1;
 	end
 end
 
@@ -1668,7 +1736,9 @@ function CI_spawn_invasion_for_event(invasion_data, event)
 			end
 		end
 	end
-	CI_spawn_unique_characters(invasion_data);
+	if not _G.IsIDE then
+		CI_spawn_unique_characters(invasion_data);
+	end
 	CI_spawn_invasion(invasion_data, event.army_spawns);
 	CI_spawn_agents(invasion_data, event.agent_spawns);
 	cm:callback(function()
@@ -1815,8 +1885,8 @@ function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier
 								force = random_army_manager:generate_force(invasion_data.default_force_key, 19, false);
 								invasion_object = invasion_manager:new_invasion(invasion_key, spawn_faction_key, force, {x, y});
 							end--]]
-
-							invasion_object:add_character_experience(invasion.character_xp_levels, true);
+							local character_levels = cm:random_number(invasion.max_character_xp_levels, invasion.min_character_xp_levels);
+							invasion_object:add_character_experience(character_levels, true);
 							invasion_object:apply_effect(invasion_data.effect_bundle, 0);
 							local xp = CI_army_xp();
 							if xp > 0 then
@@ -2341,10 +2411,15 @@ function CI_update_global_diplomacy(diplomacyValue)
 			if faction
 			and faction:is_null_interface() == false
 			and faction:is_dead() == false then
+				--[[cm:callback(function()
+					cm:force_alliance(invasion_spawn_data.faction_key, norscan_faction_key, true);
+					cm:force_diplomacy("faction:"..invasion_spawn_data.faction_key, "faction:"..faction_key, "war,break vassal,break alliance,break client state", false, false, true);
+				end, 
+				0.2);--]]
 				cm:callback(function()
 					cm:force_declare_war(norscan_faction_key, enemy_of_chaos, false, false);
 				end, 
-				0.2);
+				0.3);
 			end
 		end
 	end
