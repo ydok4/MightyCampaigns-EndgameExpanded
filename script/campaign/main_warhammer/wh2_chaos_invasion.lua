@@ -14,6 +14,7 @@ CI_RECURRING_EVENTS = {
 	-- Expansion happens during the mid game and late game
 	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 3, turn_interval = 2, spawns = 1, },
 	-- These only trigger during the late game
+	{key = "CHS_DOOM_TIDE", required_stage = 3, turn_interval = 1, spawns = 4, }, -- This gets checked every turn to see if a spawn triggers
 	{key = "SKV_UNDERCITY_SPAWNS", required_stage = 3, turn_interval = 4, spawns = 2, },
 	{key = "BST_FOREST_SPAWNS", required_stage = 3, turn_interval = 3, spawns = 2, },
 };
@@ -38,6 +39,9 @@ CI_EVENT_DATA = {
 			"wh_main_nor_varg",
 			"wh_dlc08_nor_norsca",
 			"wh_dlc08_nor_wintertooth",
+			"wh_main_nor_bjornling",
+			-- Skaven
+			"wh2_main_skv_clan_moulder",
 		};
 		CI_Manual_diplomacy_changes = {
 			ForcesOfChaos = {
@@ -80,6 +84,8 @@ CI_EVENT_DATA = {
 				"wh_main_emp_nordland",
 				"wh_dlc05_wef_wood_elves",
 				"wh_dlc05_wef_argwylon",
+				"wh2_dlc16_wef_drycha",
+				"wh_main_emp_hochland",
 				--[["wh2_main_hef_eataine",
 				"wh2_main_hef_order_of_loremasters",
 				"wh2_main_hef_nagarythe",
@@ -106,11 +112,11 @@ CI_EVENT_DATA = {
 	Invasions = {
 		CI_CHAOS_ARMY_SPAWNS = {
 			faction_key = "wh_main_chs_chaos",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			default_force_key = "CI_chaos",
 			buildings = {
 				-- Used for the special characters (this is all buildings)
-				[1] = {"wh_main_horde_chaos_settlement_5",	"wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_trolls_1", "wh_main_horde_chaos_magic_2", "wh_main_horde_chaos_knights_2", "wh_main_horde_chaos_dragon_ogres_2", "wh_main_horde_chaos_giants_1", "wh_main_horde_chaos_marauders_3", "wh_main_horde_chaos_forge_2",},
+				[1] = {"wh_main_horde_chaos_settlement_5",	"wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_trolls_1", "wh_main_horde_chaos_magic_2", "wh_main_horde_chaos_knights_2", "wh_main_horde_chaos_dragon_ogres_2", "wh_main_horde_chaos_giants_1", "wh_main_horde_chaos_forge_2",},
 				-- Defaults used at different invasion stages
 				[2] = { "wh_main_horde_chaos_settlement_3", "wh_main_horde_chaos_warriors_2", "wh_main_horde_chaos_forge_1", },
 				[3] = { "wh_main_horde_chaos_settlement_5",	"wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_forge_2", "wh_main_horde_chaos_knights_2", },
@@ -124,14 +130,15 @@ CI_EVENT_DATA = {
 				-- New
 				wh2_main_sc_skv_skaven = -1,
 				-- Targeted
-				wh_main_vmp_vampire_counts = 2,
+				wh_main_vmp_vampire_counts = 2, -- I've found the Vamps need all the help they can get
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the darklands invasion doesn't get distracted by the vamps
-				wh_main_dwf_kraka_drak = 2, -- Chaos typically splits its forces to deal with kraka drak. We can let the norscan invasion deal with them.
+				wh_main_dwf_kraka_drak = 2, -- Chaos typically splits its forces to deal with kraka drak. Fine for the late game invasion, not so much for mid game.
 			},
 			alliance_factions = {
 				-- Invasion factions
 				wh_dlc03_bst_beastmen_chaos = 2,
-				wh_main_nor_bjornling = 2,
+				wh2_main_chs_chaos_incursion_def = 2,
+				wh2_main_chs_chaos_incursion_hef = 2,
 				-- Other chaos aligned factions
 				-- Beastmen
 				wh_dlc03_bst_beastmen = 2,
@@ -299,6 +306,7 @@ CI_EVENT_DATA = {
 				naggaroth = {
 					key = "naggaroth",
 					enabled = true,
+					faction_key_override = "wh2_main_chs_chaos_incursion_def",
 					use_random_spawn = false,
 					positions = {
 						-- Order is reversed from vanilla. This means that more armies spawn away from Naggarond
@@ -349,6 +357,7 @@ CI_EVENT_DATA = {
 				darklands = {
 					key = "darklands",
 					enabled = true,
+					faction_key_override = "wh2_main_chs_chaos_incursion_hef",
 					use_random_spawn = false,
 					positions = {
 						{824, 470}, {819, 388},
@@ -387,7 +396,7 @@ CI_EVENT_DATA = {
 		},
 		CI_BEASTMEN_ARMY_SPAWNS = {
 			faction_key = "wh_dlc03_bst_beastmen_chaos",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			buildings = {
 				--"wh_dlc03_horde_beastmen_herd_5", "wh_dlc03_horde_beastmen_gors_3", "wh_dlc03_horde_beastmen_minotaurs_1"
 				-- Will be used for the special characters (this is all buildings)
@@ -501,7 +510,7 @@ CI_EVENT_DATA = {
 		},
 		CI_NORSCA_ARMY_SPAWNS = {
 			faction_key = "wh_main_nor_bjornling",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			default_force_key = "CI_norsca",
 			excluded_war_declaration = {
 				-- Vanilla equivalent
@@ -557,9 +566,18 @@ CI_EVENT_DATA = {
 					enabled = true,
 					use_random_spawn = true,
 					positions = {
-						{630, 680},	{697, 659}, {588, 708}, {540, 698}, {520, 693}, {494, 675}, {411, 673}, {374, 644},
-						{420, 625}, {447, 639}, {519, 662}, {589, 688}, {495, 635}, {437, 610},
-						{504, 609}, {448, 589}, {377, 565}
+						{630, 680},	
+						{697, 659}, -- Kraka Drak
+						-- {588, 708}, 
+						-- {540, 698}, 
+						--{520, 693}, 
+						-- {494, 675}, 
+						--{411, 673}, 
+						--{374, 644},
+						--{420, 625}, 
+						{447, 639}, {519, 662}, {589, 688}, {495, 635}, {437, 610},
+						{504, 609}, {448, 589}, 
+						--{377, 565}
 					},
 					min_character_xp_levels = 12,
 					max_character_xp_levels = 20,
@@ -661,7 +679,7 @@ CI_EVENT_DATA = {
 		},
 		CI_SKAVEN_LUSTRIA_ARMY_SPAWNS = {
 			faction_key = "wh2_main_skv_clan_pestilens",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			default_force_key = "CI_skaven",
 			included_war_declaration = {
 				wh2_main_sc_lzd_lizardmen = true,
@@ -741,7 +759,7 @@ CI_EVENT_DATA = {
 		},
 		CI_VAMPIRE_COAST_CYLOSTRA_ARMY_SPAWNS = {
 			faction_key = "wh2_dlc11_cst_the_drowned",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			default_force_key = "CI_coast",
 			included_war_declaration = {
 				--wh2_main_sc_hef_high_elves = true,
@@ -802,7 +820,7 @@ CI_EVENT_DATA = {
 		},
 		CI_VAMPIRE_COAST_NOCTILUS_ARMY_SPAWNS = {
 			faction_key = "wh2_dlc11_cst_noctilus",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			default_force_key = "CI_coast",
 			included_war_declaration = {
 				--wh2_main_sc_hef_high_elves = true,
@@ -938,7 +956,7 @@ CI_EVENT_DATA = {
 		-- Slightly different spawns
 		CI_BEASTMEN_FOREST_SPAWNS = {
 			faction_key = "wh_dlc03_bst_beastmen_chaos",
-			effect_bundle = "wh_main_bundle_military_upkeep_free_force",
+			effect_bundle = "wh_main_bundle_military_upkeep_free_force_chaos_invasion",
 			buildings = {
 				-- Will be used for the special characters (this is all buildings)
 				[1] = { "wh_dlc03_horde_beastmen_herd_5", "wh_dlc03_horde_beastmen_gors_3", "wh_dlc03_horde_beastmen_creatures_3", "wh_dlc03_horde_beastmen_centigors_3", "wh_dlc03_horde_beastmen_arcane_2", "wh_dlc03_horde_beastmen_giants_1", "wh_dlc03_horde_beastmen_minotaurs_3", "wh_dlc03_horde_beastmen_razorgors_2", "wh_dlc03_horde_beastmen_arcane_2", "wh_dlc03_horde_beastmen_weapons_2", },
@@ -1143,7 +1161,8 @@ CI_DATA = {
 	CI_INVASION_STAGE_START_TURN = 0,
 	CI_RAZED_REGIONS_STAGE_2 = 0,
 	CI_RAZED_SKAVEN_CITY_SPAWNS = 0,
-	CI_RAZED_BEASTMEN_CITY_SPAWNS = 0
+	CI_RAZED_BEASTMEN_CITY_SPAWNS = 0,
+	CI_RAZED_CHAOS_WAVE_SPAWNS = 0,
 };
 CI_SPAWNED_EVENTS = {
 
@@ -1183,6 +1202,17 @@ function CI_setup()
 				out.dec_tab("chaos");
 				Setup_Norsca_Chaos_Invasion();
 				return;
+			end
+
+			-- Tweak number of army spawns and spawn turn if the human player is Kislev or Kraka Drak
+			if player_faction:subculture() == "wh_main_sc_ksl_kislev"
+			or player_faction:name() == "wh_main_dwf_kraka_drak" then
+				CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
+				CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
+				CI_EVENTS["MID_GAME"].first_turn = 95;
+				CI_EVENTS["MID_GAME"].last_turn = 105;
+				CI_EVENTS["END_GAME"].first_turn = 105;
+				CI_EVENTS["END_GAME"].last_turn = 115;
 			end
 		end
 
@@ -1260,6 +1290,13 @@ function CI_setup()
 end
 
 function CI_FactionTurnStart(context)
+	if context:faction():name() == "wh_main_chs_chaos" then
+		out.chaos("Chaos reasury information");
+		out.chaos("Treasury: "..context:faction():treasury());
+		out.chaos("losing_money: "..tostring(context:faction():losing_money()));
+		out.chaos("upkeep_expenditure_percent: "..context:faction():upkeep_expenditure_percent());
+		out.chaos("num_generals: "..context:faction():num_generals());
+	end
 	if context:faction():is_human() == true or CI_DATA.CI_AUTORUN == true then
 		local turn_number = cm:model():turn_number();
 
@@ -1273,6 +1310,7 @@ function CI_FactionTurnStart(context)
 				out.chaos("Razed regions in stage 2: "..CI_DATA.CI_RAZED_REGIONS_STAGE_2);
 				out.chaos("Skaven undercity spawns: "..CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS);
 				out.chaos("Beastmen forest spawns: "..CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS);
+				out.chaos("Chaos wave spawns: "..CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS)
 			end
 			CI_DATA.CI_LAST_UPDATE = turn_number;
 			out.chaos("turn_number: "..turn_number);
@@ -1293,6 +1331,9 @@ function CI_FactionTurnStart(context)
 					and CI_SPAWNED_EVENTS["END_GAME"] then
 						out.chaos("\t\tSpawning recurring event!: "..CI_RECURRING_EVENTS[i].key);
 						CI_Event_3_Undercity_Spawns(CI_RECURRING_EVENTS[i]);
+					elseif CI_RECURRING_EVENTS[i].key == "CHS_DOOM_TIDE"
+					and CI_SPAWNED_EVENTS["END_GAME"] then
+						CI_Event_3_Doom_Tide(CI_RECURRING_EVENTS[i]);
 					end
 				end
 			end
@@ -1385,6 +1426,10 @@ function CI_CharacterRazedSettlement(context)
 				CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS + 1;
 				out.chaos("Total skaven city spawns is now: "..CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS);
 				out.chaos("Total beastmen forest spawns is now: "..CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS);
+			end
+			if CI_DATA.CI_RAZED_REGIONS % 10 == 0 then
+				CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS + 1;
+				out.chaos("Total Chaos wave spawns is now: "..CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS);
 			end
 			CI_invasion_effect_bundle_update();
 		end
@@ -1519,6 +1564,7 @@ function CI_Event_3_EndGame(event)
 
 		CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 3 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
 		CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 4 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
+		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 10);
 		CI_invasion_effect_bundle_update();
 
 		cm:register_instant_movie("Warhammer/chs_rises");
@@ -1718,6 +1764,36 @@ function CI_Event_3_Forest_Spawns(event)
 				end;
 			end
 		end
+	end
+end
+
+function CI_Event_3_Doom_Tide(event)
+	out.chaos("Checking doomtide event");
+	out.chaos("There are: "..	CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS.." waves remaining.");
+	local invasion = CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS;
+	local spawnedNumberOfHordes = math.ceil(CI_EVENTS["END_GAME"].army_spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+	out.chaos("Event spawned: "..spawnedNumberOfHordes);
+	local currentNumberOfHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items() + cm:get_faction("wh_dlc03_bst_beastmen_chaos"):military_force_list():num_items();
+	out.chaos("Current number of hordes is: "..currentNumberOfHordes);
+	if CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS > 0
+	and currentNumberOfHordes <= math.floor(spawnedNumberOfHordes * 0.75) then
+		CI_spawn_invasion(invasion, event.spawns);
+
+		local human_factions = cm:get_human_factions();			
+		for i = 1, #human_factions do
+			cm:show_message_event_located(
+				human_factions[i],
+				"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_primary_detail",
+				"",
+				"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_late_secondary_detail",
+				775,
+				605,
+				true,
+				32
+			);
+		end;
+
+		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS - 1;
 	end
 end
 
@@ -2736,12 +2812,17 @@ cm:add_loading_game_callback(
 					CI_DATA.CI_RAZED_REGIONS_STAGE_2 = 5;
 					CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 1;
 					CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 1;
+					CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2;
 				else
 					CI_DATA.CI_INVASION_STAGE_START_TURN = CI_DATA.CI_LAST_UPDATE;
 					CI_DATA.CI_RAZED_REGIONS_STAGE_2 = 0;
 					CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 0;
 					CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 0;
+					CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 0;
 				end
+			-- Remove this after testing the new feature
+			elseif CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS == nil then
+				CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2;
 			end
 		end
 	end

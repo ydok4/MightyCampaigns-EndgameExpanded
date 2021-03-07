@@ -548,6 +548,8 @@ function get_cm()
         end,
         make_region_visible_in_shroud = function()
         end,
+        complete_scripted_mission_objective = function()
+        end,
     };
 end
 
@@ -749,7 +751,7 @@ testFaction.subculture = function()
 end;
 
 CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);--]]
-
+CI_FactionTurnStart(mock_faction_turn_start_context);
 
 CI_DATA.CI_INVASION_STAGE = 3;
 CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
