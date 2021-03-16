@@ -753,6 +753,9 @@ end;
 CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);--]]
 CI_FactionTurnStart(mock_faction_turn_start_context);
 
+CI_DATA.CI_INVASION_STAGE = 2;
+CI_Event_2_MidGame(CI_EVENTS["MID_GAME"]);
+
 CI_DATA.CI_INVASION_STAGE = 3;
 CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
 testFaction.subculture = function()

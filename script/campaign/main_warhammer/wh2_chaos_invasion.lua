@@ -133,6 +133,7 @@ CI_EVENT_DATA = {
 				wh_main_vmp_vampire_counts = 2, -- I've found the Vamps need all the help they can get
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the darklands invasion doesn't get distracted by the vamps
 				wh_main_dwf_kraka_drak = 2, -- Chaos typically splits its forces to deal with kraka drak. Fine for the late game invasion, not so much for mid game.
+				wh2_main_rogue_def_chs_vashnaar = -1,
 			},
 			alliance_factions = {
 				-- Invasion factions
@@ -174,7 +175,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_kholek",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
 						["spawn_pos_center"] = {x = 770, y = 625}
 					},
 					["sigvald"] = {
@@ -186,7 +187,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_sigvald",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
 						["spawn_pos_center"] = {x = 780, y = 625}
 					},
 					["sarthorael"] = {
@@ -198,7 +199,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_sarthorael",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
 						["spawn_pos_center"] = {x = 775, y = 628}
 					}
 				},
@@ -418,6 +419,7 @@ CI_EVENT_DATA = {
 				wh_main_vmp_vampire_counts = 2,
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the badlands invasion doesn't get distracted by the vamps
 				wh_main_dwf_kraka_drak = 2, -- Chaos typically splits its forces to deal with kraka drak. We can let the norscan invasion deal with them.
+				wh2_main_rogue_def_chs_vashnaar = -1,
 			},
 			army_archetypes = {
 				BeastLordGorsChaosInvasionStage1 = {
@@ -520,6 +522,7 @@ CI_EVENT_DATA = {
 				-- New
 				wh2_main_sc_skv_skaven = -1,
 				wh_main_sc_vmp_vampire_counts = 2,
+				wh2_main_rogue_def_chs_vashnaar = -1,
 			},
 			army_archetypes = {
 				ChieftainChaosInvasionStage1 = {
@@ -610,7 +613,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 15,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 0.8,
+					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 1 (mid game)
 						[2] = {
@@ -685,6 +688,7 @@ CI_EVENT_DATA = {
 				wh2_main_sc_lzd_lizardmen = true,
 				wh2_main_hef_order_of_loremasters = true,
 				wh2_dlc11_def_the_blessed_dread = true,
+				wh2_main_dwf_spine_of_sotek_dwarfs = true,
 			},
 			alliance_factions = {
 				-- Invasion factions
@@ -723,6 +727,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 5,
 					max_character_xp_levels = 12,
+					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -801,7 +806,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 8,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 0.5,
+					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -878,7 +883,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 0.75,
+					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
 						[3] = {
@@ -913,6 +918,7 @@ CI_EVENT_DATA = {
 				wh2_main_lzd_itza = true,
 				wh2_dlc13_emp_the_huntmarshals_expedition = true,
 				wh2_main_emp_new_world_colonies = true,
+				wh2_main_hef_nagarythe = true,
 			},
 			invasions = {
 				lustria_def_chs = {
@@ -923,10 +929,10 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 8,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 0.5,
+					army_spawn_multiplier = 0.6,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
-						[2] = {
+						[3] = {
 							CI_vashnarr_def = {
 								Key = "CI_vashnarr_def",
 								AgentSubtypes = {
@@ -972,6 +978,7 @@ CI_EVENT_DATA = {
 				wh_main_sc_nor_norsca = -1,
 				-- New
 				wh2_main_sc_skv_skaven = -1,
+				wh2_main_rogue_def_chs_vashnaar = -1,
 			},
 			alliance_factions = {
 				-- Invasion factions
@@ -1518,14 +1525,17 @@ function CI_Event_2_MidGame(event)
 		end
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, event);
 		-- Cylostra isn't chaos aligned but will have a greater impact if they spawn at the same time
+		if _G.IsIDE == true then
+			testFaction.subculture = function()
+				return "wh2_dlc11_sc_cst_vampire_coast";
+			end;
+		end
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_CYLOSTRA_ARMY_SPAWNS, event);
 
 		CI_apply_chaos_corruption(event.chaos_effect);
 		CI_personality_swap(2);
 		cm:set_camera_position(518.37, 473.95, 10.83, 0.0, 11.30);
 		out.dec_tab("chaos");
-	elseif event.key == "MID_VASHNARR" then
-		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_LUSTRIA_VASHNARR_ARMY_SPAWNS, event);
 	end
 	CI_SPAWNED_EVENTS[event.key] = true;
 end
@@ -1557,6 +1567,7 @@ function CI_Event_3_EndGame(event)
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS, event);
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS, event);
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, event);
+		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_LUSTRIA_VASHNARR_ARMY_SPAWNS, event);
 		-- Noctilus isn't chaos aligned but will have a greater impact if they spawn at the same time
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_NOCTILUS_ARMY_SPAWNS, event);
 		CI_apply_chaos_corruption(event.chaos_effect);
@@ -1776,9 +1787,8 @@ function CI_Event_3_Doom_Tide(event)
 	local currentNumberOfHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items() + cm:get_faction("wh_dlc03_bst_beastmen_chaos"):military_force_list():num_items();
 	out.chaos("Current number of hordes is: "..currentNumberOfHordes);
 	if CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS > 0
-	and currentNumberOfHordes <= math.floor(spawnedNumberOfHordes * 0.75) then
+	and currentNumberOfHordes <= math.floor(spawnedNumberOfHordes * 0.85) then
 		CI_spawn_invasion(invasion, event.spawns);
-
 		local human_factions = cm:get_human_factions();			
 		for i = 1, #human_factions do
 			cm:show_message_event_located(
@@ -2074,7 +2084,8 @@ function CI_get_army_data(invasionData, armyFactionKey, armyArchetypes)
 	local armyString = "";
 	local agentSubTypeKey = "";
 	local buildings = nil;
-	if string.match(armySubculture, "rogue") then
+	if string.match(armySubculture, "rogue")
+	or armyFactionKey == "wh2_main_rogue_hung_warband" then
 		local force = GetRandomItemFromWeightedList(armyArchetypes);
 		armyString = random_army_manager:generate_force(force.Key, 19, false);
 		agentSubTypeKey = GetRandomItemFromWeightedList(force.AgentSubtypes, true);
