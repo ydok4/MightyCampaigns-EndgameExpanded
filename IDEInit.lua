@@ -42,7 +42,7 @@ humanFaction = {
         return "wh_main_brt_bretonnia";
     end,
     subculture = function()
-        return "wh_main_sc_emp_empire";
+        return "wh2_main_sc_def_dark_elves";
     end,
     is_dead = function() return false; end,
     character_list = function()

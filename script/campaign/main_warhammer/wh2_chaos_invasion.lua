@@ -523,6 +523,12 @@ CI_EVENT_DATA = {
 				wh2_main_sc_skv_skaven = -1,
 				wh_main_sc_vmp_vampire_counts = 2,
 				wh2_main_rogue_def_chs_vashnaar = -1,
+				-- Stops the norscan invasions (NE Ulthuan) from being distracted by the Def AI
+				wh2_main_def_naggarond = -1,
+				wh2_main_def_har_ganeth = -1,
+				wh2_twa03_def_rakarth = -1,
+				wh2_main_def_karond_kar = -1,
+				wh2_main_def_the_forgebound = -1,
 			},
 			army_archetypes = {
 				ChieftainChaosInvasionStage1 = {
@@ -1531,11 +1537,12 @@ function CI_Event_2_MidGame(event)
 			end;
 		end
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_CYLOSTRA_ARMY_SPAWNS, event);
-
-		CI_apply_chaos_corruption(event.chaos_effect);
-		CI_personality_swap(2);
-		cm:set_camera_position(518.37, 473.95, 10.83, 0.0, 11.30);
-		out.dec_tab("chaos");
+		if _G.IsIDE ~= true then
+			CI_apply_chaos_corruption(event.chaos_effect);
+			CI_personality_swap(2);
+			cm:set_camera_position(518.37, 473.95, 10.83, 0.0, 11.30);
+			out.dec_tab("chaos");
+		end
 	end
 	CI_SPAWNED_EVENTS[event.key] = true;
 end
@@ -1570,9 +1577,10 @@ function CI_Event_3_EndGame(event)
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_LUSTRIA_VASHNARR_ARMY_SPAWNS, event);
 		-- Noctilus isn't chaos aligned but will have a greater impact if they spawn at the same time
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_VAMPIRE_COAST_NOCTILUS_ARMY_SPAWNS, event);
-		CI_apply_chaos_corruption(event.chaos_effect);
-		CI_personality_swap(3);
-
+		if _G.IsIDE ~= true then
+			CI_apply_chaos_corruption(event.chaos_effect);
+			CI_personality_swap(3);
+		end
 		CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 3 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
 		CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 4 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
 		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 10);
@@ -2085,7 +2093,8 @@ function CI_get_army_data(invasionData, armyFactionKey, armyArchetypes)
 	local agentSubTypeKey = "";
 	local buildings = nil;
 	if string.match(armySubculture, "rogue")
-	or armyFactionKey == "wh2_main_rogue_hung_warband" then
+	or armyFactionKey == "wh2_main_rogue_hung_warband"
+	or armyFactionKey == "wh2_main_rogue_def_chs_vashnaar" then
 		local force = GetRandomItemFromWeightedList(armyArchetypes);
 		armyString = random_army_manager:generate_force(force.Key, 19, false);
 		agentSubTypeKey = GetRandomItemFromWeightedList(force.AgentSubtypes, true);
@@ -2573,7 +2582,7 @@ function CI_declare_war(invasion_spawn_data, faction_key_override)
 				and invasion_spawn_data.excluded_war_declaration[faction:name()] ~= -1))
 				-- If the human player is one of the excluded factions we still want them to declare war
 				-- unless they're Skaven
-				or (faction:is_human() and faction:subculture() ~= "wh2_main_sc_skv_skaven") then
+				or (faction:is_human() and invasion_spawn_data.included_war_declaration == nil) then
 					cm:force_declare_war(warring_faction, faction_key, true, false);
 					declared_war = true;
 				end
