@@ -110,7 +110,7 @@ function ChaosVassalisationController:SetupListeners(core)
         true
     );--]]
 
-    core:add_listener(
+    --[[core:add_listener(
         "MC_CVC_RemoveNorscanDiplomacy",
         "FactionTurnEnd",
         function(context)
@@ -125,7 +125,7 @@ function ChaosVassalisationController:SetupListeners(core)
             self.Logger:Log_Finished();
         end,
         false
-    );
+    );--]]
 
     --[[core:add_listener(
         "MC_CVC_RemoveDiplomacyChanges",
@@ -142,7 +142,7 @@ function ChaosVassalisationController:SetupListeners(core)
         true
     );--]]
 
-    core:remove_listener("Chaos_FactionBecomesLiberationVassal");
+    --[[core:remove_listener("Chaos_FactionBecomesLiberationVassal");
     core:add_listener(
         "Chaos_FactionBecomesLiberationVassal",
         "FactionBecomesLiberationVassal",
@@ -163,7 +163,7 @@ function ChaosVassalisationController:SetupListeners(core)
             self.Logger:Log_Finished();
         end,
         true
-    );
+    );--]]
 
     --[[core:add_listener(
 		"Chaos_Troubleshooting",

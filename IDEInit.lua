@@ -3,9 +3,11 @@ testCharacter = {
     cqi = function() return 123 end,
     get_forename = function() return "Direfan"; end,
     get_surname = function() return "Cylostra"; end,
-    character_subtype_key = function() return "brt_louen_leoncouer"; end,
+    character_subtype_key = function() return "chs_archaon"; end,
+    character_subtype = function() return true; end,
+    is_faction_leader = function() return true; end,
     command_queue_index = function() end,
-    has_military_force = function() return true end,
+    has_military_force = function() return false end,
     military_force = function() return testMilitaryForce; end,
     faction = function() return humanFaction; end,
     region = function() return get_cm():get_region(); end,
@@ -20,6 +22,7 @@ testCharacter = {
 testMilitaryForce = {
     is_null_interface = function() return false; end,
     command_queue_index = function() return 10; end,
+    has_general = function() return true; end,
     is_armed_citizenry = function () return false; end,
     general_character = function() return testCharacter; end,
     faction = function() return humanFaction; end,
@@ -125,7 +128,7 @@ humanFaction = {
 testFaction = {
     command_queue_index = function() return 10; end,
     name = function()
-        return "wh_main_dwf_dwarfs";
+        return "wh_main_chs_chaos";
     end,
     culture = function()
         return "wh_main_grn_greenskins";
@@ -209,6 +212,17 @@ testFaction = {
     is_allowed_to_capture_territory = function() return true; end,
     treasury = function() return 2000; end,
     imperium_level = function() return 2; end,
+    military_force_list = function()
+        return {
+            num_items = function()
+                return 1;
+            end,
+            item_at = function(self, index)
+                return testMilitaryForce;
+            end,
+            is_null_interface = function() return false; end,
+        };
+    end,
 }
 
 testFaction2 = {
@@ -423,7 +437,7 @@ function get_cm()
                 world = function()
                     return {
                         faction_by_key = function ()
-                            return humanFaction;
+                            return testFaction;
                         end,
                         faction_list = function ()
                             return {
@@ -751,13 +765,40 @@ testFaction.subculture = function()
 end;
 
 CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);--]]
+
+CI_setup();
+CI_DATA.CI_SETTING = 2;
+local CI_CharacterCreated = {
+    Key = "CI_CharacterCreated",
+    Context = {
+        character = function()
+            return testCharacter;
+        end,
+    },
+};
+turn_number = 2;
+mock_listeners:trigger_listener(CI_CharacterCreated);
+
+CI_SPAWNED_EVENTS["END_GAME"] = true;
+local CI_FactionTurnStartChaos = {
+    Key = "CI_FactionTurnStartChaos",
+    Context = {
+        faction = function()
+            return testFaction;
+        end,
+    },
+};
+turn_number = 2;
+mock_listeners:trigger_listener(CI_FactionTurnStartChaos);
+
 CI_FactionTurnStart(mock_faction_turn_start_context);
 
 CI_DATA.CI_INVASION_STAGE = 2;
 CI_Event_2_MidGame(CI_EVENTS["MID_GAME"]);
-
+CI_Event_Doom_Tide(CI_RECURRING_EVENTS[1]);
 CI_DATA.CI_INVASION_STAGE = 3;
 CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
+CI_Event_Doom_Tide(CI_RECURRING_EVENTS[3]);
 testFaction.subculture = function()
     return "wh_main_sc_chs_chaos";
 end;

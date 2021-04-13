@@ -2,19 +2,17 @@ CI_DEBUG = false;
 CI_EVENTS = {
 	INTRO = {key = "INTRO", required_stage = 1, first_turn = 15, last_turn = 25, army_spawns = 0, agent_spawns = 0, chaos_effect = ""},
 	-- rises events
-	--MID_CYLOSTRA = {key = "MID_CYLOSTRA", required_stage = 2, first_turn = 60, last_turn = 70, army_spawns = 6, agent_spawns = 3, chaos_effect = ""}, 
-	MID_GAME = {key = "MID_GAME", required_stage = 2, first_turn = 80, last_turn = 90, army_spawns = 5, agent_spawns = 3, chaos_effect = "rises"},
-	--MID_VASHNARR = {key = "MID_VASHNARR", required_stage = 2, first_turn = 85, last_turn = 95, army_spawns = 6, agent_spawns = 3, chaos_effect = ""},
+	MID_GAME = {key = "MID_GAME", required_stage = 2, first_turn = 80, last_turn = 90, army_spawns = 3, agent_spawns = 3, chaos_effect = "rises"},
 	-- major invasion events
-	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 95, last_turn = 105, army_spawns = 9, agent_spawns = 4, chaos_effect = ""},
-	--LATE_NOCTILUS = {key = "LATE_NOCTILUS", required_stage = 3, first_turn = 100, last_turn = 110, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
+	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 90, last_turn = 100, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
 	VICTORY = {key = "VICTORY", required_stage = -1, first_turn = -1, last_turn = -1, army_spawns = 0, agent_spawns = 0, chaos_effect = ""}
 };
 CI_RECURRING_EVENTS = {
+	{key = "CHS_DOOM_TIDE_MID", required_stage = 2, turn_interval = 1, spawns = 3, },
 	-- Expansion happens during the mid game and late game
-	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 3, turn_interval = 2, spawns = 1, },
+	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 2, turn_interval = 2, spawns = 1, },
 	-- These only trigger during the late game
-	{key = "CHS_DOOM_TIDE", required_stage = 3, turn_interval = 1, spawns = 4, }, -- This gets checked every turn to see if a spawn triggers
+	{key = "CHS_DOOM_TIDE_LATE", required_stage = 3, turn_interval = 1, spawns = 5, }, -- This gets checked every turn to see if a spawn triggers
 	{key = "SKV_UNDERCITY_SPAWNS", required_stage = 3, turn_interval = 4, spawns = 2, },
 	{key = "BST_FOREST_SPAWNS", required_stage = 3, turn_interval = 3, spawns = 2, },
 };
@@ -175,7 +173,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_kholek",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_kholek",
 						["spawn_pos_center"] = {x = 770, y = 625}
 					},
 					["sigvald"] = {
@@ -187,7 +185,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_sigvald",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_sigvald",
 						["spawn_pos_center"] = {x = 780, y = 625}
 					},
 					["sarthorael"] = {
@@ -199,7 +197,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_sarthorael",
 						["force_xp"] = 0,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon",
 						["spawn_pos_center"] = {x = 775, y = 628}
 					}
 				},
@@ -261,6 +259,9 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 25,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -315,6 +316,9 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 8,
 					max_character_xp_levels = 16,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
 					-- I've made this weaker so Naggarond has an easier time dealing with Chaos
 					-- They should be the main antagonist of the High Elves
 					army_spawn_multiplier = 0.6,
@@ -365,6 +369,9 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -465,6 +472,9 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
 					army_spawn_multiplier = 0.5,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
@@ -523,12 +533,15 @@ CI_EVENT_DATA = {
 				wh2_main_sc_skv_skaven = -1,
 				wh_main_sc_vmp_vampire_counts = 2,
 				wh2_main_rogue_def_chs_vashnaar = -1,
-				-- Stops the norscan invasions (NE Ulthuan) from being distracted by the Def AI
-				wh2_main_def_naggarond = -1,
-				wh2_main_def_har_ganeth = -1,
-				wh2_twa03_def_rakarth = -1,
+				wh_main_dwf_kraka_drak = 2,
+				-- Stops the norscan invasions (NE Ulthuan) from being distracted by the some of the AI in the Mid invasion
+				wh2_main_def_naggarond = 2,
+				wh2_main_def_har_ganeth = 2,
+				wh2_twa03_def_rakarth = 2,
 				wh2_main_def_karond_kar = -1,
 				wh2_main_def_the_forgebound = -1,
+				wh_main_brt_bretonnia = 2,
+				wh_main_emp_marienburg = 2,
 			},
 			army_archetypes = {
 				ChieftainChaosInvasionStage1 = {
@@ -590,6 +603,9 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 12,
 					max_character_xp_levels = 20,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
 					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 3 (end game)
@@ -609,7 +625,7 @@ CI_EVENT_DATA = {
 						},
 					},
 				},
-				nor_ne_ulthuan = {
+				nor_ne_ulthuan_mid = {
 					key = "nor_ne_ulthuan",
 					enabled = true,
 					use_random_spawn = true,
@@ -619,7 +635,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 15,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 1,
+					army_spawn_multiplier = 3,
 					army_compositions = {
 						-- Invasion stage 1 (mid game)
 						[2] = {
@@ -632,6 +648,20 @@ CI_EVENT_DATA = {
 								Weighting = 3,
 							},
 						},
+					},
+				},
+				nor_ne_ulthuan_late = {
+					key = "nor_ne_ulthuan",
+					enabled = true,
+					use_random_spawn = true,
+					positions = {
+						{262, 504}, {266, 497}, {273, 497},
+						{174, 502}, {280, 507}, {279, 502}
+					},
+					min_character_xp_levels = 15,
+					max_character_xp_levels = 20,
+					army_spawn_multiplier = 1.5,
+					army_compositions = {
 						-- Invasion stage 2 (end game)
 						[3] = {
 							ChieftainChaosInvasionStage2 = {
@@ -656,7 +686,10 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 14,
-					army_spawn_multiplier = 0.4,
+					event_xp_multiplier = {
+						[2] = 0.5,
+					},
+					army_spawn_multiplier = 1.2,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -733,7 +766,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 5,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 1,
+					army_spawn_multiplier = 2,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -755,7 +788,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 1,
+					army_spawn_multiplier = 1.5,
 					army_compositions = {
 						-- Invasion stage 3 (end game)
 						[3] = {
@@ -776,7 +809,7 @@ CI_EVENT_DATA = {
 				--wh2_main_sc_hef_high_elves = true,
 				--wh_main_sc_brt_bretonnia = true,
 				-- We need to focus Cylostra onto a few factions
-				wh2_main_hef_eataine = true,
+				--wh2_main_hef_eataine = true,
 				wh2_main_hef_caledor = true,
 				wh2_main_hef_tiranoc = true,
 				wh2_main_hef_avelorn = true,
@@ -812,7 +845,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 8,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 0.75,
+					army_spawn_multiplier = 1,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -922,6 +955,8 @@ CI_EVENT_DATA = {
 				wh2_dlc12_lzd_cult_of_sotek = true,
 				wh2_main_lzd_hexoatl = true,
 				wh2_main_lzd_itza = true,
+				wh2_main_lzd_xlanhuapec = true,
+				wh2_main_lzd_tlaxtlan = true,
 				wh2_dlc13_emp_the_huntmarshals_expedition = true,
 				wh2_main_emp_new_world_colonies = true,
 				wh2_main_hef_nagarythe = true,
@@ -935,7 +970,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 8,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 0.6,
+					army_spawn_multiplier = 0.3,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
 						[3] = {
@@ -1014,13 +1049,14 @@ CI_EVENT_DATA = {
 					key = "bst_old_world_forests",
 					enabled = true,
 					faction_key_override = {
-						"wh_dlc03_bst_beastmen",
+						"wh_dlc03_bst_beastmen_chaos",
+						--[["wh_dlc03_bst_beastmen",
 						"wh_dlc03_bst_redhorn",
 						"wh_dlc03_bst_jagged_horn",
 						"wh2_main_bst_blooded_axe",
 						"wh2_main_bst_manblight",
 						"wh2_main_bst_ripper_horn",
-						"wh2_main_bst_shadowgor",
+						"wh2_main_bst_shadowgor",--]]
 					},
 					use_random_spawn = true,
 					use_same_spawn_pos = true,
@@ -1082,21 +1118,21 @@ CI_EVENT_DATA = {
 			enabled = true,
 			factions = {
 				"wh2_dlc09_skv_clan_rictus",
-				"wh2_dlc12_skv_clan_fester",
-				"wh2_dlc12_skv_clan_mange",
-				"wh2_dlc15_skv_clan_ferrik",
-				"wh2_dlc15_skv_clan_kreepus",
-				"wh2_dlc15_skv_clan_volkn",
-				"wh2_dlc16_skv_clan_gritus",
+				--"wh2_dlc12_skv_clan_fester",
+				--"wh2_dlc12_skv_clan_mange",
+				--"wh2_dlc15_skv_clan_ferrik",
+				--"wh2_dlc15_skv_clan_kreepus",
+				--"wh2_dlc15_skv_clan_volkn",
+				--"wh2_dlc16_skv_clan_gritus",
 				"wh2_main_skv_clan_eshin",
-				"wh2_main_skv_clan_gnaw",
-				"wh2_main_skv_clan_mordkin",
+				--"wh2_main_skv_clan_gnaw",
+				--"wh2_main_skv_clan_mordkin",
 				"wh2_main_skv_clan_mors",
 				"wh2_main_skv_clan_moulder",
 				"wh2_main_skv_clan_pestilens",
-				"wh2_main_skv_clan_septik",
+				--"wh2_main_skv_clan_septik",
 				"wh2_main_skv_clan_skyre",
-				"wh2_main_skv_clan_spittel",
+				--"wh2_main_skv_clan_spittel",
 			},
 			regions = {
 				old_world = {
@@ -1172,6 +1208,7 @@ CI_DATA = {
 	CI_AUTORUN = false,
 	-- New
 	CI_INVASION_STAGE_START_TURN = 0,
+	CI_INVASION_LAST_DOOM_TIDE = 0,
 	CI_RAZED_REGIONS_STAGE_2 = 0,
 	CI_RAZED_SKAVEN_CITY_SPAWNS = 0,
 	CI_RAZED_BEASTMEN_CITY_SPAWNS = 0,
@@ -1222,14 +1259,15 @@ function CI_setup()
 			or player_faction:name() == "wh_main_dwf_kraka_drak" then
 				CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
 				CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
-				CI_EVENTS["MID_GAME"].first_turn = 95;
-				CI_EVENTS["MID_GAME"].last_turn = 105;
-				CI_EVENTS["END_GAME"].first_turn = 105;
-				CI_EVENTS["END_GAME"].last_turn = 115;
+				CI_EVENTS["MID_GAME"].first_turn = 90;
+				CI_EVENTS["MID_GAME"].last_turn = 100;
+				CI_EVENTS["END_GAME"].first_turn = 130;
+				CI_EVENTS["END_GAME"].last_turn = 140;
 			end
 		end
 
-		if cm:is_new_game() == true then
+		if cm:is_new_game() == true 
+		and _G.IsIDE == false then
 			if cm:is_multiplayer() == false then
 				out.chaos("Reading Singleplayer Chaos Setting");
 				local shared_states_manager = cm:model():shared_states_manager();
@@ -1270,11 +1308,123 @@ function CI_setup()
 
 		if CI_DATA.CI_SETTING > 1 then
 			out.chaos("Creating Script Listeners");
+			-- The AI won't always replace existing chaos generals with the
+			-- special characters, this takes care of that
 			core:add_listener(
 				"CI_FactionTurnStart",
 				"FactionTurnStart",
 				true,
 				function(context) CI_FactionTurnStart(context); end,
+				true
+			);
+			core:add_listener(
+				"CI_FactionTurnStartChaos",
+				"FactionTurnStart",
+				function(context)
+					local faction = context:faction();
+					return CI_SPAWNED_EVENTS["END_GAME"] == true
+					and faction:name() == "wh_main_chs_chaos"
+					and not faction:is_dead();
+				end,
+				function(context)
+					out.chaos("Checking for characters to appoint");
+					local chaos_faction = context:faction();
+					local deadCharacters = {};
+					local char_list = chaos_faction:character_list();
+					for i = 0, char_list:num_items() - 1 do
+						local current_char = char_list:item_at(i);
+						if current_char:character_subtype("chs_archaon") or current_char:character_subtype("chs_kholek_suneater") or current_char:character_subtype("chs_prince_sigvald") then
+							out.chaos("Found special character:"..current_char:character_subtype_key());
+							if current_char:is_wounded() == true then
+								out.chaos("Special character is wounded");
+							end
+							if current_char:has_military_force() == true then
+								out.chaos("Special character has military force");
+							end
+							if current_char:has_military_force() == false
+							and current_char:is_wounded() == false then
+								if current_char:character_subtype("chs_archaon") == true and current_char:is_faction_leader() == true then
+									deadCharacters["chs_archaon"] = {
+										cqi = current_char:command_queue_index(),
+										familyCqi = current_char:family_member():command_queue_index(),
+									};
+									out.chaos("Found Archaon without army: "..current_char:command_queue_index());
+								elseif current_char:character_subtype("chs_kholek_suneater") == true then
+									deadCharacters["chs_kholek_suneater"] = {
+										cqi = current_char:command_queue_index(),
+										familyCqi = current_char:family_member():command_queue_index(),
+									};
+									out.chaos("Found Kholek without army: "..current_char:command_queue_index());
+								elseif current_char:character_subtype("chs_prince_sigvald") == true then
+									deadCharacters["chs_prince_sigvald"] = {
+										cqi = current_char:command_queue_index(),
+										familyCqi = current_char:family_member():command_queue_index(),
+									};
+									out.chaos("Found Sigvald without army: "..current_char:command_queue_index());
+								end
+							end
+						end
+					end
+					if not next(deadCharacters) then
+						out.chaos("No dead special characters found");
+						return;
+					end
+					local forceList = chaos_faction:military_force_list();
+					local strongestForces = {};
+					local index;
+					for i = 0, forceList:num_items() - 1 do
+						local force = forceList:item_at(i);
+						if not force:is_armed_citizenry()
+						and force:has_general()
+						and not force:general_character():is_null_interface()
+						and not force:general_character():character_subtype("chs_archaon")
+						and not force:general_character():character_subtype("chs_prince_sigvald")
+						and not force:general_character():character_subtype("chs_kholek_suneater") then
+							table.insert(strongestForces, {cqi = force:command_queue_index(), strength = force:strength()});
+						end
+					end
+					if not next(strongestForces) then
+						out.chaos("No valid forces to appoint to");
+						return;
+					end
+					table.sort(strongestForces, function(a,b) return a.strength > b.strength; end);
+					local appointedForceIndex = 1;
+					for subtype, cqiData in pairs(deadCharacters) do
+						out.chaos("Assigning: "..subtype);
+						if strongestForces[appointedForceIndex] == nil then
+							out.chaos("Not enough forces to assign special character to...breaking");
+							break;
+						end
+						cm:appoint_character_to_force("character_cqi:"..cqiData.cqi, strongestForces[appointedForceIndex].cqi);
+						out.chaos("Appointed to force: "..strongestForces[appointedForceIndex].cqi);
+						cm:callback(function()
+							if subtype == "chs_archaon" then
+								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon", strongestForces[appointedForceIndex].cqi, 0);
+							elseif subtype == "chs_prince_sigvald" then
+								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_sigvald", strongestForces[appointedForceIndex].cqi, 0);
+							elseif subtype == "chs_kholek_suneater" then
+								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_kholek", strongestForces[appointedForceIndex].cqi, 0);
+							end
+						end,
+						0.5);
+						local missionString = "";
+						if subtype == "chs_archaon" then
+							missionString = "mc_endgame_expanded_archaon_tracker";
+						elseif subtype == "chs_prince_sigvald" then
+							missionString = "mc_endgame_expanded_sigvald_tracker";
+						elseif subtype == "chs_kholek_suneater" then
+							missionString = "mc_endgame_expanded_kholek_tracker";
+						end
+						if missionString ~= "" then
+							local human_factions = cm:get_human_factions();
+							for i = 1, #human_factions do
+								CI_Event_Missions(human_factions[i], cqiData.familyCqi, missionString);
+							end
+						end
+						appointedForceIndex = appointedForceIndex + 1;
+					end
+					out.chaos("Finished checking special characters")
+				end,
 				true
 			);
 			core:add_listener(
@@ -1291,6 +1441,39 @@ function CI_setup()
 				function(context) CI_CharacterConvalescedOrKilled(context) end,
 				true
 			);
+			core:add_listener(
+				"CI_CharacterCreated",
+				"CharacterCreated",
+				function(context)
+					local character = context:character();
+					return cm:is_new_game() == false
+					and CI_SPAWNED_EVENTS["END_GAME"] == true
+					and (character:character_subtype("chs_archaon") == true
+					or character:character_subtype("chs_prince_sigvald") == true
+					or character:character_subtype("chs_kholek_suneater") == true);
+				end,
+				function(context)
+					local character = context:character();
+					if cm:char_is_mobile_general_with_army(character) then
+						local characterFamilyCqi = character:family_member():command_queue_index();
+						local missionString = "";
+						if character:character_subtype("chs_archaon") == true then
+							missionString = "mc_endgame_expanded_archaon_tracker";
+						elseif character:character_subtype("chs_prince_sigvald") == true then
+							missionString = "mc_endgame_expanded_sigvald_tracker";
+						elseif character:character_subtype("chs_kholek_suneater") == true then
+							missionString = "mc_endgame_expanded_kholek_tracker";
+						end
+						if missionString ~= "" then
+							local human_factions = cm:get_human_factions();
+							for i = 1, #human_factions do
+								CI_Event_Missions(human_factions[i], characterFamilyCqi, missionString);
+							end
+						end
+					end
+				end,
+				true
+			);
 		else
 			out.chaos("Disabling Chaos Invasion! (Off Setting)");
 			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
@@ -1304,7 +1487,7 @@ end
 
 function CI_FactionTurnStart(context)
 	if context:faction():name() == "wh_main_chs_chaos" then
-		out.chaos("Chaos reasury information");
+		out.chaos("Chaos Treasury information");
 		out.chaos("Treasury: "..context:faction():treasury());
 		out.chaos("losing_money: "..tostring(context:faction():losing_money()));
 		out.chaos("upkeep_expenditure_percent: "..context:faction():upkeep_expenditure_percent());
@@ -1344,9 +1527,13 @@ function CI_FactionTurnStart(context)
 					and CI_SPAWNED_EVENTS["END_GAME"] then
 						out.chaos("\t\tSpawning recurring event!: "..CI_RECURRING_EVENTS[i].key);
 						CI_Event_3_Undercity_Spawns(CI_RECURRING_EVENTS[i]);
-					elseif CI_RECURRING_EVENTS[i].key == "CHS_DOOM_TIDE"
+					elseif CI_RECURRING_EVENTS[i].key == "CHS_DOOM_TIDE_MID"
+					and CI_SPAWNED_EVENTS["MID_GAME"] 
+					and not CI_SPAWNED_EVENTS["END_GAME"] then
+						CI_Event_Doom_Tide(CI_RECURRING_EVENTS[i]);
+					elseif CI_RECURRING_EVENTS[i].key == "CHS_DOOM_TIDE_LATE"
 					and CI_SPAWNED_EVENTS["END_GAME"] then
-						CI_Event_3_Doom_Tide(CI_RECURRING_EVENTS[i]);
+						CI_Event_Doom_Tide(CI_RECURRING_EVENTS[i]);
 					end
 				end
 			end
@@ -1374,33 +1561,34 @@ function CI_FactionTurnStart(context)
 							elseif event.required_stage == 3 then
 								CI_Event_3_EndGame(CI_EVENTS[event_key]);
 							end
-							local go_to_next_stage = true;
-							-- If the invasion stage is 3 or higher then we use a different method to progress
-							if CI_DATA.CI_INVASION_STAGE < 3 then
-								-- We only progress to the next stage if all the events have been triggered
-								for event_key, event_data in pairs(CI_EVENTS) do
-									if event_data.required_stage == CI_DATA.CI_INVASION_STAGE
-									and not CI_SPAWNED_EVENTS[event_key] then
-										go_to_next_stage = false;
-									end
-								end
-							else
-								go_to_next_stage = false;
-							end
-
-							if go_to_next_stage == true then
-								out.chaos("All events triggered. Progressing to next stage.");
-								out.chaos("Last stage: "..CI_DATA.CI_INVASION_STAGE);
-								CI_DATA.CI_INVASION_STAGE_START_TURN = turn_number;
-								CI_DATA.CI_INVASION_STAGE = CI_DATA.CI_INVASION_STAGE + 1;
-								out.chaos("Next stage: "..CI_DATA.CI_INVASION_STAGE);
-							end
-							break;
 						else
 							out.chaos("\t\tFailed!");
 						end
 					end
 				end
+			end
+
+			local go_to_next_stage = false;
+			-- If the invasion stage is 3 or higher then we use a different method to progress
+			if CI_DATA.CI_INVASION_STAGE < 3 then
+				-- We only progress to the next stage if all the events have been triggered
+				for event_key, event_data in pairs(CI_EVENTS) do
+					if event_data.required_stage == CI_DATA.CI_INVASION_STAGE + 1
+					and turn_number > event_data.first_turn then
+						go_to_next_stage = true;
+					end
+				end
+			else
+				go_to_next_stage = false;
+			end
+
+			if go_to_next_stage == true then
+				out.chaos("All events triggered. Progressing to next stage.");
+				out.chaos("Last stage: "..CI_DATA.CI_INVASION_STAGE);
+				CI_DATA.CI_INVASION_STAGE_START_TURN = turn_number;
+				CI_DATA.CI_INVASION_LAST_DOOM_TIDE = turn_number;
+				CI_DATA.CI_INVASION_STAGE = CI_DATA.CI_INVASION_STAGE + 1;
+				out.chaos("Next stage: "..CI_DATA.CI_INVASION_STAGE);
 			end
 		end
 	end
@@ -1423,6 +1611,10 @@ function CI_CharacterRazedSettlement(context)
 			out.chaos("Mid game settlement razed");
 			CI_DATA.CI_RAZED_REGIONS_STAGE_2 = CI_DATA.CI_RAZED_REGIONS_STAGE_2 + 1;
 			out.chaos("Total settlements razed is now: "..CI_DATA.CI_RAZED_REGIONS_STAGE_2);
+			if CI_DATA.CI_RAZED_REGIONS_STAGE_2 % 10 == 0 then
+				CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS + 1;
+				out.chaos("Total Chaos wave spawns is now: "..CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS);
+			end
 		end
 	elseif CI_DATA.CI_INVASION_STAGE == 3
 	and CI_SPAWNED_EVENTS["END_GAME"] then
@@ -1543,6 +1735,7 @@ function CI_Event_2_MidGame(event)
 			cm:set_camera_position(518.37, 473.95, 10.83, 0.0, 11.30);
 			out.dec_tab("chaos");
 		end
+		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 5;
 	end
 	CI_SPAWNED_EVENTS[event.key] = true;
 end
@@ -1583,7 +1776,9 @@ function CI_Event_3_EndGame(event)
 		end
 		CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 3 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
 		CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 4 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 5);
-		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2 + math.ceil(CI_DATA.CI_RAZED_REGIONS_STAGE_2 / 10);
+		-- CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS will increase during the mid game so we only want to top it up
+		-- a little. It will continue to grow while the invasion does well
+		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2 + CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS;
 		CI_invasion_effect_bundle_update();
 
 		cm:register_instant_movie("Warhammer/chs_rises");
@@ -1593,8 +1788,48 @@ function CI_Event_3_EndGame(event)
 			CI_update_global_diplomacy(false);
 		end,
 		0.3);
+
+		cm:callback(function()
+			-- Grabs CQIs required for mission
+			out.chaos("Starting mission setup");
+			local chaos_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
+			local archaonCqi = 0;
+			local kholekCqi = 0;
+			local sigvaldCqi = 0;
+			local char_list = chaos_faction:character_list();
+			for i = 0, char_list:num_items() - 1 do
+				local current_char = char_list:item_at(i);
+				if current_char:character_subtype("chs_archaon") or current_char:character_subtype("chs_kholek_suneater") or current_char:character_subtype("chs_prince_sigvald") then
+					if current_char:has_military_force() == true then
+						if current_char:is_wounded() == false then
+							if current_char:character_subtype("chs_archaon") == true and current_char:is_faction_leader() == true then
+								archaonCqi = current_char:family_member():command_queue_index();
+								out.chaos("Found Archaon: "..archaonCqi);
+							elseif current_char:character_subtype("chs_kholek_suneater") == true  then
+								kholekCqi = current_char:family_member():command_queue_index();
+								out.chaos("Found Kholek: "..kholekCqi);
+							elseif current_char:character_subtype("chs_prince_sigvald") == true  then
+								sigvaldCqi = current_char:family_member():command_queue_index();
+								out.chaos("Found Sigvald: "..sigvaldCqi);
+							end
+						end
+					end
+				end
+			end
+			-- Trigger the mission which is really just so the player knows where the big 3 are
+			-- This is done for each player
+			for i = 1, #human_factions do
+				out.chaos("Triggering Chaos Invasion mission for: "..human_factions[i]);
+				CI_Event_Missions(human_factions[i], archaonCqi, "mc_endgame_expanded_archaon_tracker");
+				CI_Event_Missions(human_factions[i], sigvaldCqi, "mc_endgame_expanded_sigvald_tracker");
+				CI_Event_Missions(human_factions[i], kholekCqi, "mc_endgame_expanded_kholek_tracker");
+			end
+			out.chaos("Finished mission setup");
+			-- The event hasn't finished spawning until these missions are setup
+			CI_SPAWNED_EVENTS[event.key] = true;
+		end,
+		0.5);
 	end
-	CI_SPAWNED_EVENTS[event.key] = true;
 	out.dec_tab("chaos");
 end
 
@@ -1605,15 +1840,23 @@ function CI_Event_4_Victory(event)
 	local human_factions = cm:get_human_factions();
 
 	for i = 1, #human_factions do
-		cm:show_message_event(
-			human_factions[i],
-			"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_primary_detail",
-			"",
-			"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_secondary_detail",
-			true, 35
-		);
-		cm:remove_effect_bundle("wh2_main_bundle_chaos_invasion", human_factions[i]);
-		out.chaos("Showing Chaos Event : "..human_factions[i]);
+		local humanFaction = cm:get_faction(human_factions[i]);
+		if humanFaction
+		and not humanFaction:is_null_interface() then
+			local secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_secondary_detail";
+			if humanFaction:culture() == "wh_main_vmp_vampire_counts" then
+				secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_secondary_detail_vmp";
+			end;
+			cm:show_message_event(
+				human_factions[i],
+				"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_primary_detail",
+				"",
+				secondary_detail,
+				true, 35
+			);
+			cm:remove_effect_bundle("wh2_main_bundle_chaos_invasion", human_factions[i]);
+			out.chaos("Showing Chaos Event : "..human_factions[i]);
+		end
 	end
 
 	local region_list = cm:model():world():region_manager():region_list();
@@ -1652,6 +1895,16 @@ function CI_Event_4_Victory(event)
 	out.dec_tab("chaos");
 end
 
+function CI_Event_Missions(faction, characterFamilyCqi, missionString)
+	local mm = mission_manager:new(faction, missionString);
+	mm:set_mission_issuer("CLAN_ELDERS");
+	mm:add_new_objective("KILL_CHARACTER_BY_ANY_MEANS");
+	mm:add_condition("family_member "..characterFamilyCqi);
+	mm:add_payload("effect_bundle{bundle_key mc_endgame_expanded_archaon_tracker_dummy_reward;turns 0;}");
+	mm:set_should_whitelist(false);
+	mm:trigger();
+end
+
 function CI_Event_2_Undercity_Expansion(event)
 	local invasion_data = CI_EVENT_DATA.Invasions.CI_UNDER_EMPIRE_SPAWNS;
 	if invasion_data.enabled == false then
@@ -1678,7 +1931,9 @@ function CI_Event_2_Undercity_Expansion(event)
 			local rand_faction_index = cm:random_number(#alive_skaven_factions);
 			local spawn_for_faction_key = alive_skaven_factions[rand_faction_index];
 			if area_key == "lustria" then
-				if CI_DATA.CI_INVASION_STAGE == 2 then
+				if CI_DATA.CI_INVASION_STAGE == 2 
+				or (CI_DATA.CI_INVASION_STAGE == 3
+				and not CI_SPAWNED_EVENTS["END_GAME"]) then
 					spawn_for_faction_key = "wh2_dlc12_skv_clan_fester";
 				else
 					spawn_for_faction_key = "wh2_main_skv_clan_pestilens";
@@ -1786,32 +2041,100 @@ function CI_Event_3_Forest_Spawns(event)
 	end
 end
 
-function CI_Event_3_Doom_Tide(event)
-	out.chaos("Checking doomtide event");
-	out.chaos("There are: "..	CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS.." waves remaining.");
+function CI_Event_Doom_Tide(event)
+	local turn_number = cm:model():turn_number();
 	local invasion = CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS;
-	local spawnedNumberOfHordes = math.ceil(CI_EVENTS["END_GAME"].army_spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
-	out.chaos("Event spawned: "..spawnedNumberOfHordes);
+	local spawnedNumberOfHordes = math.ceil(event.spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
 	local currentNumberOfHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items() + cm:get_faction("wh_dlc03_bst_beastmen_chaos"):military_force_list():num_items();
+	out.chaos("Checking doomtide event");
+	out.chaos("Last doom tide spawn was: "..CI_DATA.CI_INVASION_LAST_DOOM_TIDE);
+	out.chaos("There are: "..	CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS.." waves remaining.");
+	out.chaos("Event spawned: "..spawnedNumberOfHordes);
 	out.chaos("Current number of hordes is: "..currentNumberOfHordes);
+	-- There are two triggers for a new doom tide, its been 5 turns since the last doom tide spawn
+	-- Or they've lost enough armies to trigger another
+	-- Note: The main invasion is the driving force of the campaign and the driving force for respawns
+	-- Respawns in Naggaroth and the Darklands will only occur if the main force needs to spawn
+	-- This is by design
+	local turnsSinceInvasionStarted = turn_number - CI_DATA.CI_INVASION_STAGE_START_TURN;
+	local spawnInterval = 5;
+	if turnsSinceInvasionStarted < 10
+	or CI_EVENT_DATA.CI_INVASION_STAGE == 2 then
+		spawnInterval = 8;
+	end
 	if CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS > 0
-	and currentNumberOfHordes <= math.floor(spawnedNumberOfHordes * 0.85) then
-		CI_spawn_invasion(invasion, event.spawns);
-		local human_factions = cm:get_human_factions();			
-		for i = 1, #human_factions do
-			cm:show_message_event_located(
-				human_factions[i],
-				"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_primary_detail",
-				"",
-				"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_late_secondary_detail",
-				775,
-				605,
-				true,
-				32
-			);
-		end;
-
-		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS - 1;
+	and ((turn_number - CI_DATA.CI_INVASION_LAST_DOOM_TIDE) % spawnInterval == 0
+	-- Worth noting, currentNumberOfHordes is both chaos + beastmen
+	-- but spawnedNumberOfHordes is just chaos
+	-- So once all the beastmen are wiped then more chaos can spawn more often
+	or currentNumberOfHordes <= math.floor(spawnedNumberOfHordes)) then
+		out.chaos("Checking Doom tide");
+		local anySpawned = false;
+		local showMessage = false;
+		-- The main invasion needs a constant flow of chaos warriors
+		-- This is a higher limit that the Darklands and Naggaroth
+		local spawnedNumberOfMainInvasionHordes = math.ceil(event.spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+		local currentNumberOfMainInvasionHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items();
+		if currentNumberOfMainInvasionHordes <= math.floor(spawnedNumberOfMainInvasionHordes * 3)
+		or event.key == "END_GAME" then
+			local numberOfSpawns = event.spawns - 1;
+			local spawnForInvasionLocations = {
+				chaos_wastes = true,
+			};
+			CI_spawn_invasion(invasion, numberOfSpawns, false, spawnForInvasionLocations);
+			out.chaos("Spawned chaos wasteland tide armies");
+			anySpawned = true;
+			showMessage = true;
+		end
+		
+		-- These areas only need to respawn when they are weak
+		-- These values should come back up to their initial spawn numbers
+		local spawnedNumberOfNaggarothHordes = math.ceil(event.spawns * invasion.invasions["naggaroth"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+		local currentNumberOfNaggarothHordes = cm:get_faction("wh2_main_chs_chaos_incursion_def"):military_force_list():num_items();
+		if currentNumberOfNaggarothHordes <= math.floor(spawnedNumberOfNaggarothHordes * 0.6) then
+			local spawnForNaggarothInvasionLocations = {
+				naggaroth = true,
+			};
+			CI_spawn_invasion(invasion, event.spawns - 1, false, spawnForNaggarothInvasionLocations);
+			out.chaos("Spawned naggaroth tide armies");
+			anySpawned = true;
+		end
+		local spawnedNumberOfDarklandsHordes = math.ceil(event.spawns * invasion.invasions["darklands"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+		local currentNumberOfDarklandsHordes = cm:get_faction("wh2_main_chs_chaos_incursion_hef"):military_force_list():num_items();
+		if currentNumberOfDarklandsHordes <= math.floor(spawnedNumberOfDarklandsHordes * 0.4) then
+			local spawnForInvasionDarklandsLocations = {
+				darklands = true,
+			};
+			CI_spawn_invasion(invasion, event.spawns, false, spawnForInvasionDarklandsLocations);
+			out.chaos("Spawned darklands tide armies");
+			anySpawned = true;
+		end
+		if showMessage == true then
+			local human_factions = cm:get_human_factions();			
+			local secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_secondary_detail";
+			if event.key == "CHS_DOOM_TIDE_LATE" then
+				secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_late_secondary_detail";
+			end
+			for i = 1, #human_factions do
+				cm:show_message_event_located(
+					human_factions[i],
+					"event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_wave_primary_detail",
+					"",
+					secondary_detail,
+					775,
+					605,
+					true,
+					32
+				);
+				cm:make_region_visible_in_shroud(human_factions[i], "wh_main_chaos_wastes");
+			end;
+			out.chaos("Triggered message event");
+		end
+		if anySpawned == true then
+			CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS - 1;
+		end
+		CI_DATA.CI_INVASION_LAST_DOOM_TIDE = turn_number;
+		out.chaos("Finished doom tide");
 	end
 end
 
@@ -1892,12 +2215,14 @@ function CI_spawn_character(char_details, invasion_data)
 	end
 end
 
-function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier)
+function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier, spawnForInvasionLocations)
 	local x = -1;
 	local y = -1;
 	if invasion_data.invasions then
 		for invasion_key, invasion in pairs(invasion_data.invasions) do
-			if invasion.enabled == true then
+			if invasion.enabled == true 
+			and (spawnForInvasionLocations == nil
+		 	or spawnForInvasionLocations[invasion_key] ~= nil) then
 				local army_compositions = invasion.army_compositions[CI_DATA.CI_INVASION_STAGE];
 				if army_compositions ~= nil then
 					local position_key = invasion.key;
@@ -1979,7 +2304,16 @@ function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier
 								force = random_army_manager:generate_force(invasion_data.default_force_key, 19, false);
 								invasion_object = invasion_manager:new_invasion(invasion_key, spawn_faction_key, force, {x, y});
 							end--]]
-							local character_levels = cm:random_number(invasion.max_character_xp_levels, invasion.min_character_xp_levels);
+							local minCharacterLevel = invasion.min_character_xp_levels;
+							local maxCharacterLevel = invasion.max_character_xp_levels;
+							local xpMultiplier = 1;
+							if invasion.event_xp_multiplier ~= nil
+							and invasion.event_xp_multiplier[CI_DATA.CI_INVASION_STAGE] ~= nil then
+								xpMultiplier = invasion.event_xp_multiplier[CI_DATA.CI_INVASION_STAGE];
+								minCharacterLevel = math.floor(minCharacterLevel * xpMultiplier);
+								maxCharacterLevel = math.floor(maxCharacterLevel * xpMultiplier);
+							end
+							local character_levels = cm:random_number(maxCharacterLevel, minCharacterLevel);
 							invasion_object:add_character_experience(character_levels, true);
 							invasion_object:apply_effect(invasion_data.effect_bundle, 0);
 							local xp = CI_army_xp();
@@ -2829,20 +3163,19 @@ cm:add_loading_game_callback(
 			if CI_DATA.CI_INVASION_STAGE_START_TURN == nil then
 				if CI_DATA.CI_INVASION_STAGE > 1 then
 					CI_DATA.CI_INVASION_STAGE_START_TURN = CI_DATA.CI_LAST_UPDATE;
+					CI_DATA.CI_INVASION_LAST_DOOM_TIDE = CI_DATA.CI_LAST_UPDATE;
 					CI_DATA.CI_RAZED_REGIONS_STAGE_2 = 5;
 					CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 1;
 					CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 1;
 					CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2;
 				else
 					CI_DATA.CI_INVASION_STAGE_START_TURN = CI_DATA.CI_LAST_UPDATE;
+					CI_DATA.CI_INVASION_LAST_DOOM_TIDE = 0;
 					CI_DATA.CI_RAZED_REGIONS_STAGE_2 = 0;
 					CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS = 0;
 					CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 0;
 					CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 0;
 				end
-			-- Remove this after testing the new feature
-			elseif CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS == nil then
-				CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2;
 			end
 		end
 	end

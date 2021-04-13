@@ -62,7 +62,8 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
 
     local enable_nor_ulthuan_invasion = endExpMct:get_option_by_key("enable_nor_ne_ulthuan");
     local enable_nor_ulthuan_invasion_value = enable_nor_ulthuan_invasion:get_finalized_setting();
-    CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS.invasions["nor_ne_ulthuan"].enabled = enable_nor_ulthuan_invasion_value;
+    CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS.invasions["nor_ne_ulthuan_mid"].enabled = enable_nor_ulthuan_invasion_value;
+    CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS.invasions["nor_ne_ulthuan_late"].enabled = enable_nor_ulthuan_invasion_value;
 
     local enable_nor_eastern_invasion = endExpMct:get_option_by_key("enable_nor_eastern_invasion");
     local enable_nor_eastern_invasion_value = enable_nor_eastern_invasion:get_finalized_setting();
