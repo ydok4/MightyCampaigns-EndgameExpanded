@@ -11,10 +11,10 @@ mc_endgame_expanded:set_description(cls_prefix..mod_prefix.."_description", true
 -- Chaos
 mc_endgame_expanded:add_new_section("ci_chaos_army_spawns", cls_prefix..mod_prefix.."_section_name_ci_chaos_army_spawns", true)
 
-local enable_chaos_wastes_invasion = mc_endgame_expanded:add_new_option("enable_chaos_wastes_invasions", "checkbox");
+--[[local enable_chaos_wastes_invasion = mc_endgame_expanded:add_new_option("enable_chaos_wastes_invasions", "checkbox");
 enable_chaos_wastes_invasion:set_default_value(true);
 enable_chaos_wastes_invasion:set_text(cls_prefix..mod_prefix.."_title_enable_chaos_wastes_invasions", true);
-enable_chaos_wastes_invasion:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_chaos_wastes_invasions", true);
+enable_chaos_wastes_invasion:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_chaos_wastes_invasions", true);--]]
 
 local enable_chaos_naggaroth_invasion = mc_endgame_expanded:add_new_option("enable_chaos_naggaroth_invasion", "checkbox");
 enable_chaos_naggaroth_invasion:set_default_value(true);
@@ -83,6 +83,6 @@ enable_cst_noctilus_invasion:set_tooltip_text(cls_prefix..mod_prefix.."_descript
 -- Other
 mc_endgame_expanded:add_new_section("ci_other_army_spawns", cls_prefix..mod_prefix.."_section_name_ci_other_army_spawns", true);
 local enable_rogue_vashnarr_invasion = mc_endgame_expanded:add_new_option("enable_rogue_vashnarr_invasion", "checkbox");
-enable_rogue_vashnarr_invasion:set_default_value(true);
+enable_rogue_vashnarr_invasion:set_default_value(false);
 enable_rogue_vashnarr_invasion:set_text(cls_prefix..mod_prefix.."_title_enable_rogue_vashnarr_invasion", true);
 enable_rogue_vashnarr_invasion:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_rogue_vashnarr_invasion", true);

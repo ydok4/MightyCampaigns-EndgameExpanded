@@ -11,12 +11,15 @@ require 'script/_lib/core/helpers/EndEx_DataHelpers';
 
 function z_mc_endgame_expanded()
     local enableLogging = true;
+    if CI_EVENT_DATA == nil then
+        return;
+    end
     out("EndEx: Main mod function");
     if core:is_mod_loaded("mct_campaign_init")
     and get_mct then
         out("EndEx: Found MCT reborn");
         local mct = get_mct();
-        --EndgameExpandedCheckMCTRebornOptions(core, mct);
+        EndgameExpandedCheckMCTRebornOptions(core, mct);
     else
         out("EndEx: No MCT");
     end
@@ -36,9 +39,9 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     out("EndEx: Initialising MCT Options");
     local endExpMct = mct:get_mod_by_key("mc_endgame_expanded");
 
-    local enable_chaos_wastes_invasions = endExpMct:get_option_by_key("enable_chaos_wastes_invasions");
+    --[[local enable_chaos_wastes_invasions = endExpMct:get_option_by_key("enable_chaos_wastes_invasions");
     local enable_chaos_wastes_invasions_value = enable_chaos_wastes_invasions:get_finalized_setting();
-    CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].enabled = enable_chaos_wastes_invasions_value;
+    CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].enabled = enable_chaos_wastes_invasions_value;--]]
 
     local enable_chaos_naggaroth_invasion = endExpMct:get_option_by_key("enable_chaos_naggaroth_invasion");
     local enable_chaos_naggaroth_invasion_value = enable_chaos_naggaroth_invasion:get_finalized_setting();

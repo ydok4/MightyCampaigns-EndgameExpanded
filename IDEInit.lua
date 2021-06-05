@@ -434,6 +434,7 @@ function get_cm()
                 military_force_for_command_queue_index = function() return testMilitaryForce; end,
                 turn_number = function() return turn_number; end,
                 difficulty_level =  function() return 3; end,
+                random_percent = function() return true; end,
                 world = function()
                     return {
                         faction_by_key = function ()
@@ -735,7 +736,7 @@ local mock_faction_turn_start_context = {
 };
 
 
-CI_DATA.CI_INVASION_STAGE = 2;
+
 
 CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS = 1;
 
@@ -768,7 +769,7 @@ CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SP
 
 CI_setup();
 CI_DATA.CI_SETTING = 2;
-local CI_CharacterCreated = {
+--[[local CI_CharacterCreated = {
     Key = "CI_CharacterCreated",
     Context = {
         character = function()
@@ -789,8 +790,9 @@ local CI_FactionTurnStartChaos = {
     },
 };
 turn_number = 2;
-mock_listeners:trigger_listener(CI_FactionTurnStartChaos);
-
+mock_listeners:trigger_listener(CI_FactionTurnStartChaos);--]]
+turn_number = 30;
+CI_DATA.CI_INVASION_STAGE = 1;
 CI_FactionTurnStart(mock_faction_turn_start_context);
 
 CI_DATA.CI_INVASION_STAGE = 2;

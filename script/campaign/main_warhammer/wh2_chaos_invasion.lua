@@ -4,11 +4,11 @@ CI_EVENTS = {
 	-- rises events
 	MID_GAME = {key = "MID_GAME", required_stage = 2, first_turn = 80, last_turn = 90, army_spawns = 3, agent_spawns = 3, chaos_effect = "rises"},
 	-- major invasion events
-	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 90, last_turn = 100, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
+	END_GAME = {key = "END_GAME", required_stage = 3, first_turn = 120, last_turn = 130, army_spawns = 8, agent_spawns = 4, chaos_effect = ""},
 	VICTORY = {key = "VICTORY", required_stage = -1, first_turn = -1, last_turn = -1, army_spawns = 0, agent_spawns = 0, chaos_effect = ""}
 };
 CI_RECURRING_EVENTS = {
-	{key = "CHS_DOOM_TIDE_MID", required_stage = 2, turn_interval = 1, spawns = 3, },
+	{key = "CHS_DOOM_TIDE_MID", required_stage = 2, turn_interval = 1, spawns = 3, }, -- This gets checked every turn to see if a spawn triggers
 	-- Expansion happens during the mid game and late game
 	{key = "SKV_UNDERCITY_EXPANSION", required_stage = 2, turn_interval = 2, spawns = 1, },
 	-- These only trigger during the late game
@@ -126,7 +126,10 @@ CI_EVENT_DATA = {
 				wh_main_sc_chs_chaos = -1,
 				wh_main_sc_nor_norsca = -1,
 				-- New
-				wh2_main_sc_skv_skaven = -1,
+				wh2_main_skv_clan_moulder = -1,
+				wh2_main_skv_clan_eshin = -1,
+				wh2_main_skv_clan_pestilens = -1,
+				wh2_dlc12_skv_clan_fester = -1,
 				-- Targeted
 				wh_main_vmp_vampire_counts = 2, -- I've found the Vamps need all the help they can get
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the darklands invasion doesn't get distracted by the vamps
@@ -161,7 +164,7 @@ CI_EVENT_DATA = {
 						["immortal"] = true,
 						["force_key"] = "CI_archaon",
 						["force_xp"] = 9,
-						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable",
+						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon",
 						["spawn_pos_center"] = {x = 775, y = 625}
 					},
 					["kholek"] = {
@@ -964,7 +967,7 @@ CI_EVENT_DATA = {
 			invasions = {
 				lustria_def_chs = {
 					key = "lustria_def_chs",
-					enabled = true,
+					enabled = false,
 					positions = {
 						{40, 336}, {33, 334}, {6, 337},
 					},
@@ -1266,13 +1269,14 @@ function CI_setup()
 			end
 		end
 
-		if cm:is_new_game() == true 
-		and _G.IsIDE == false then
+		if cm:is_new_game() == true
+		and not _G.IsIDE then
 			if cm:is_multiplayer() == false then
 				out.chaos("Reading Singleplayer Chaos Setting");
 				local shared_states_manager = cm:model():shared_states_manager();
 				local chaos_setting_value = shared_states_manager:get_state_as_float_value("ChaosInvasion");
 				CI_DATA.CI_SETTING = chaos_setting_value + 1;
+				out.chaos("Chaos invasion setting is: "..CI_DATA.CI_SETTING);
 			else
 				out.chaos("Defaulting Multiplayer Chaos Setting");
 				CI_DATA.CI_SETTING = 2;
@@ -1514,6 +1518,7 @@ function CI_FactionTurnStart(context)
 			-- Check for recurring triggers
 			for i = 1, #CI_RECURRING_EVENTS do
 				out.chaos("CI_RECURRING_EVENTS[i].turn_interval: "..CI_RECURRING_EVENTS[i].turn_interval);
+				out.chaos("CI_RECURRING_EVENTS[i].key: "..CI_RECURRING_EVENTS[i].key);
 				if CI_RECURRING_EVENTS[i].required_stage == CI_DATA.CI_INVASION_STAGE
 				and ((turn_number - CI_DATA.CI_INVASION_STAGE_START_TURN) % CI_RECURRING_EVENTS[i].turn_interval == 0) then
 					if CI_RECURRING_EVENTS[i].key == "SKV_UNDERCITY_EXPANSION" then
@@ -2069,6 +2074,7 @@ function CI_Event_Doom_Tide(event)
 	-- So once all the beastmen are wiped then more chaos can spawn more often
 	or currentNumberOfHordes <= math.floor(spawnedNumberOfHordes)) then
 		out.chaos("Checking Doom tide");
+		out.chaos("Difficulty multiplier: "..CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier);
 		local anySpawned = false;
 		local showMessage = false;
 		-- The main invasion needs a constant flow of chaos warriors
@@ -2260,11 +2266,9 @@ function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier
 					local army_count = math.ceil(num_armies * invasion.army_spawn_multiplier);
 					out.chaos("CI_spawn: "..spawn_faction_key.." ("..tostring(army_count)..")");
 					local difficulty_multiplier = 1;
-					if event == nil then
+					if not ignoreDifficultyMultiplier then
+						out.chaos("Using difficulty multiplier");
 						difficulty_multiplier = CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
-					end
-					if ignoreDifficultyMultiplier == true then
-						difficulty_multiplier = 1;
 					end
 					local num_armies_mod = army_count * difficulty_multiplier;
 					num_armies_mod = math.ceil(num_armies_mod);
