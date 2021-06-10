@@ -158,13 +158,13 @@ function CharacterGenerator:GetCharacterNameForSubculture(faction, agentSubType)
     self.Logger:Log("Getting name for "..nameGroup);
     local namePool = _G.CG_NameResources.name_groups_to_names[nameGroup];
     local canUseFemaleNames = self:GetGenderForAgentSubType(agentSubType);
-
+    --self.Logger:Log("Got agent subtype gender for: "..agentSubType);
     local doOnce = false;
     local nameKey = "";
     local forename_object = "";
     local family_name_object = "";
     local family_name_chance = self:GetFamilyNameChance(factionSubculture);
-
+    --self.Logger:Log("Family name chance: "..family_name_chance);
     local factionLords = {};
     local failSafe = 0;
     if namePool == nil then
@@ -246,6 +246,7 @@ function CharacterGenerator:GetValidNameForType(namePool, canUseFemaleNames, nam
     end
 
     if nameTypes ~= nil then
+        --self.Logger:Log("Before");
         local randomName = GetRandomObjectKeyFromList(nameTypes);
         --self.Logger:Log("Generating name "..randomName);
         local nameId = nameTypes[randomName];

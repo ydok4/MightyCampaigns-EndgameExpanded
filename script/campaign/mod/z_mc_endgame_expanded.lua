@@ -4,6 +4,9 @@ _G.AG = AG;
 CG = {};
 _G.CG = CG;
 
+-- Required for helpers who can't access it without either importing or the global tag
+_G.weighted_list = weighted_list;
+
 -- Models
 require 'script/_lib/core/model/ArmyGenerator';
 require 'script/_lib/core/model/CharacterGenerator';
@@ -166,17 +169,15 @@ function LoadAdditionalResources()
             AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
             MandatoryUnits = {
                 wh_dlc03_bst_inf_cygor_0 = 1,
-                wh_dlc03_bst_mon_chaos_spawn_0 = 1,
             },
-            UnitTags = {"Gors", "WarBeasts", "Monsters" },
+            UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
         };
         CI_EVENT_DATA.Invasions.CI_BEASTMEN_FOREST_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage1"] = {
             AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
             MandatoryUnits = {
                 wh_dlc03_bst_inf_cygor_0 = 1,
-                wh_dlc03_bst_mon_chaos_spawn_0 = 1,
             },
-            UnitTags = {"Gors", "WarBeasts", "Monsters" },
+            UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
         };
 
         CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage2"] = {

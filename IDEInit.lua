@@ -539,6 +539,7 @@ function get_cm()
         end,
         apply_custom_effect_bundle_to_region = function() end,
         apply_effect_bundle_to_faction_province = function() end,
+        apply_custom_effect_bundle_to_faction = function() end,
         get_difficulty = function() return "hard"; end,
         add_first_tick_callback = function() end,
         appoint_character_to_most_expensive_force = function() end,
@@ -791,28 +792,35 @@ local CI_FactionTurnStartChaos = {
 };
 turn_number = 2;
 mock_listeners:trigger_listener(CI_FactionTurnStartChaos);--]]
+_G.CG:GetCharacterNameForSubculture(testFaction, "dlc07_chs_sorcerer_lord_shadow");
+
 turn_number = 30;
 CI_DATA.CI_INVASION_STAGE = 1;
 CI_FactionTurnStart(mock_faction_turn_start_context);
 
 CI_DATA.CI_INVASION_STAGE = 2;
-CI_Event_2_MidGame(CI_EVENTS["MID_GAME"]);
-CI_Event_Doom_Tide(CI_RECURRING_EVENTS[1]);
-CI_DATA.CI_INVASION_STAGE = 3;
-CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
-CI_Event_Doom_Tide(CI_RECURRING_EVENTS[3]);
-testFaction.subculture = function()
-    return "wh_main_sc_chs_chaos";
-end;
-
-
-CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);
 
 testFaction.subculture = function()
     return "wh_dlc03_sc_bst_beastmen";
 end;
 
-CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);
+CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS, _G.CI_EVENTS["MID_GAME"]);
+
+CI_Event_2_MidGame(CI_EVENTS["MID_GAME"]);
+CI_Event_Doom_Tide(CI_RECURRING_EVENTS[1]);
+CI_DATA.CI_INVASION_STAGE = 3;
+CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
+CI_Event_Doom_Tide(CI_RECURRING_EVENTS[3]);
+
+
+
+testFaction.subculture = function()
+    return "wh_main_sc_chs_chaos";
+end;
+CI_spawn_invasion_for_event(_G.CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS, _G.CI_EVENTS[CI_DATA.CI_INVASION_STAGE]);
+
+
+
 
 CI_FactionTurnStart(mock_faction_turn_start_context);
 

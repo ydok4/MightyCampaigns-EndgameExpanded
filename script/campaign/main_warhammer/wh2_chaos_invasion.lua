@@ -227,9 +227,9 @@ CI_EVENT_DATA = {
 					AgentSubtypes = {"chs_sorcerer_lord_death", "chs_sorcerer_lord_fire", "chs_sorcerer_lord_metal", "dlc07_chs_sorcerer_lord_shadow", },
 					MandatoryUnits = {
 						wh_main_chs_mon_chaos_spawn = 1,
-						wh_dlc01_chs_inf_forsaken_0 = 3,
+						wh_dlc01_chs_inf_forsaken_0 = 2,
 					},
-					UnitTags = { "ChaosWarriors", "Monsters", },
+					UnitTags = { "Marauders", "ChaosWarriors", "Monsters", },
 				},
 				ChaosLordWarriorsInvasionStage2 = {
 					Key = "ChaosLordWarriorsInvasionStage2",
@@ -435,10 +435,10 @@ CI_EVENT_DATA = {
 				BeastLordGorsChaosInvasionStage1 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
 					MandatoryUnits = {
-						wh_dlc03_bst_inf_bestigor_herd_0 = 2,
-						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
+						wh_dlc03_bst_inf_bestigor_herd_0 = 1,
+						wh_dlc03_bst_mon_chaos_spawn_0 = 2,
 					},
-					UnitTags = {"Gors", "WarBeasts", "Centigors", },
+					UnitTags = {"Ungors", "Gors", "Centigors", },
 				},
 				BeastLordMonstersChaosInvasionStage1 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
@@ -446,7 +446,7 @@ CI_EVENT_DATA = {
 						wh_dlc03_bst_mon_giant_0 = 1,
 						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
 					},
-					UnitTags = {"Gors", "WarBeasts", },
+					UnitTags = {"Ungors", "Gors", "WarBeasts", },
 				},
 				BeastLordGorsChaosInvasionStage2 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
@@ -489,12 +489,12 @@ CI_EVENT_DATA = {
 							BeastLordMonstersChaosInvasionStage1 = {
 								Key = "BeastLordMonstersChaosInvasionStage1",
 								Buildings = { "wh_dlc03_horde_beastmen_herd_3", "wh_dlc03_horde_beastmen_gors_3", "wh_dlc03_horde_beastmen_creatures_2", "wh_dlc03_horde_beastmen_razorgors_1", "wh_dlc03_horde_beastmen_weapons_1", },
-								Weighting = 2,
+								Weighting = 1,
 							},
 							GreatBrayShamanChaosInvasionStage1 = {
 								Key = "GreatBrayShamanChaosInvasionStage1",
 								Buildings = { "wh_dlc03_horde_beastmen_herd_3", "wh_dlc03_horde_beastmen_gors_3", "wh_dlc03_horde_beastmen_centigors_1", "wh_dlc03_horde_beastmen_weapons_1", "wh_dlc03_horde_beastmen_arcane_1", },
-								Weighting = 3,
+								Weighting = 2,
 							},
 						},
 						-- Invasion stage 3 (end game)
@@ -1259,7 +1259,9 @@ function CI_setup()
 
 			-- Tweak number of army spawns and spawn turn if the human player is Kislev or Kraka Drak
 			if player_faction:subculture() == "wh_main_sc_ksl_kislev"
-			or player_faction:name() == "wh_main_dwf_kraka_drak" then
+			or player_faction:name() == "wh_main_dwf_kraka_drak"
+			or player_faction:name() == "wh2_main_skv_clan_moulder"
+			and not CI_DEBUG == true then
 				CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
 				CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
 				CI_EVENTS["MID_GAME"].first_turn = 90;
@@ -1591,7 +1593,6 @@ function CI_FactionTurnStart(context)
 				out.chaos("All events triggered. Progressing to next stage.");
 				out.chaos("Last stage: "..CI_DATA.CI_INVASION_STAGE);
 				CI_DATA.CI_INVASION_STAGE_START_TURN = turn_number;
-				CI_DATA.CI_INVASION_LAST_DOOM_TIDE = turn_number;
 				CI_DATA.CI_INVASION_STAGE = CI_DATA.CI_INVASION_STAGE + 1;
 				out.chaos("Next stage: "..CI_DATA.CI_INVASION_STAGE);
 			end
@@ -1741,6 +1742,8 @@ function CI_Event_2_MidGame(event)
 			out.dec_tab("chaos");
 		end
 		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 5;
+		local turn_number = cm:model():turn_number();
+		CI_DATA.CI_INVASION_LAST_DOOM_TIDE = turn_number;
 	end
 	CI_SPAWNED_EVENTS[event.key] = true;
 end
@@ -1784,6 +1787,8 @@ function CI_Event_3_EndGame(event)
 		-- CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS will increase during the mid game so we only want to top it up
 		-- a little. It will continue to grow while the invasion does well
 		CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS = 2 + CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS;
+		local turn_number = cm:model():turn_number();
+		CI_DATA.CI_INVASION_LAST_DOOM_TIDE = turn_number;
 		CI_invasion_effect_bundle_update();
 
 		cm:register_instant_movie("Warhammer/chs_rises");
@@ -2364,54 +2369,40 @@ function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier
 end
 
 function GetRandomItemFromWeightedList(items, returnKey)
-    local validItems = {};
-    local sumOfWeight = 0;
+	local weighted_list = weighted_list:new();
     for key, data in pairs(items) do
-        if data["Weighting"] ~= nil and data["Weighting"] > 0 then
-            sumOfWeight = sumOfWeight + data["Weighting"];
-            validItems[key] = data;
+        if returnKey == true then
+            weighted_list:add_item(key, data["Weighting"]);
+        else
+            weighted_list:add_item(data, data["Weighting"]);
         end
     end
 
-    local weightingSeed = Random(sumOfWeight, 0);
-    local lastKey = "";
-    local lastData = "";
-    for key, data in pairs(validItems) do
-        if weightingSeed < data["Weighting"]
-         then
-            if returnKey == true then
-                return key;
-            else
-                return data;
-            end
-        end
-        weightingSeed = weightingSeed - data["Weighting"];
-        lastKey = key;
-        lastData = data;
-    end
-    if returnKey == true then
-        return lastKey;
-    else
-        return lastData;
-    end
+    local result = weighted_list:weighted_select();
+    return result;
 end
 
 function GetRandomObjectFromList(objectList)
-    local tempTable = {}
-    for key, value in pairs(objectList) do
-      tempTable[#tempTable + 1] = key; --Store keys in another table
+    local weighted_list = weighted_list:new();
+    for key, data in pairs(objectList) do
+        weighted_list:add_item(data, 1);
     end
-    local index = tempTable[Random(#tempTable)];
-    return objectList[index];
+
+    local result = weighted_list:random_select();
+    return result;
 end
 
 function GetRandomObjectKeyFromList(objectList)
-    local tempTable = {}
-    for key, value in pairs(objectList) do
-      tempTable[#tempTable + 1] = key; --Store keys in another table
+	if weighted_list == nil then
+		out.chaos("Chaos weighted list is nil");
+	end
+    local weighted_list = weighted_list:new();
+    for key, data in pairs(objectList) do
+        weighted_list:add_item(key, 1);
     end
-    local index = tempTable[Random(#tempTable)];
-    return index;
+
+    local result = weighted_list:random_select();
+    return result;
 end
 
 function Random(limit, start)
@@ -2443,7 +2434,7 @@ function CI_get_army_data(invasionData, armyFactionKey, armyArchetypes)
 		while armyArchetypeResources == nil do
 			out.chaos("Getting army archetypes key");
 			armyArchetypeKey = GetRandomItemFromWeightedList(armyArchetypes, true);
-			armyArchetypeResources =  invasionData.army_archetypes[armyArchetypeKey];
+			armyArchetypeResources = invasionData.army_archetypes[armyArchetypeKey];
 		end
 		out.chaos("armyArchetypeKey: "..armyArchetypeKey);
 		for key, value in pairs(armyArchetypeResources.AgentSubtypes) do
@@ -2808,7 +2799,9 @@ function CI_invasion_effect_bundle_update()
 		cm:remove_effect_bundle("wh2_main_bundle_chaos_invasion", human_factions[i]);
 		cm:apply_custom_effect_bundle_to_faction(effect_bundle_faction, faction);
 	end
-
+	if _G.IsIDE == true then
+		return;
+	end
 	local region_list = cm:model():world():region_manager():region_list();
 
 	for i = 0, region_list:num_items() - 1 do
@@ -2840,20 +2833,21 @@ function CI_update_global_diplomacy(diplomacyValue)
 	end
 	-- Bring norscans into the fight in the old world
 	for index, norscan_faction_key in pairs(diplomacy.CI_NORSCAN_FACTIONS) do
-		for index2, enemy_of_chaos in pairs(diplomacy.CI_Manual_diplomacy_changes.EnemiesOfChaos) do
-			local faction = cm:get_faction(enemy_of_chaos);
-			if faction
-			and faction:is_null_interface() == false
-			and faction:is_dead() == false then
-				--[[cm:callback(function()
-					cm:force_alliance(invasion_spawn_data.faction_key, norscan_faction_key, true);
-					cm:force_diplomacy("faction:"..invasion_spawn_data.faction_key, "faction:"..faction_key, "war,break vassal,break alliance,break client state", false, false, true);
-				end, 
-				0.2);--]]
-				cm:callback(function()
-					cm:force_declare_war(norscan_faction_key, enemy_of_chaos, false, false);
-				end, 
-				0.3);
+		local norscanFaction = cm:get_faction(norscan_faction_key);
+		if norscanFaction
+			and norscanFaction:is_null_interface() == false
+			and norscanFaction:is_dead() == false
+			and not norscanFaction:is_human() then
+			for index2, enemy_of_chaos in pairs(diplomacy.CI_Manual_diplomacy_changes.EnemiesOfChaos) do
+				local faction = cm:get_faction(enemy_of_chaos);
+				if faction
+				and faction:is_null_interface() == false
+				and faction:is_dead() == false then
+					cm:callback(function()
+						cm:force_declare_war(norscan_faction_key, enemy_of_chaos, false, false);
+					end, 
+					0.3);
+				end
 			end
 		end
 	end

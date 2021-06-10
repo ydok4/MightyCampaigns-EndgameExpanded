@@ -41,21 +41,40 @@ function Random(limit, start)
 end
 
 function GetRandomObjectFromList(objectList)
-    local tempTable = {}
-    for key, value in pairs(objectList) do
-      tempTable[#tempTable + 1] = key; --Store keys in another table
+    local weightedList = _G.weighted_list:new();
+    for key, data in pairs(objectList) do
+        weightedList:add_item(data, 1);
     end
-    local index = tempTable[Random(#tempTable)];
-    return objectList[index];
+
+    local result = weightedList:random_select();
+    return result;
 end
 
 function GetRandomObjectKeyFromList(objectList)
-    local tempTable = {}
-    for key, value in pairs(objectList) do
-      tempTable[#tempTable + 1] = key; --Store keys in another table
+    if _G.weighted_list == nil then
+		out("Normal weighted list is nil");
+	end
+    local weightedList = weighted_list:new();
+    for key, data in pairs(objectList) do
+        weightedList:add_item(key, 1);
     end
-    local index = tempTable[Random(#tempTable)];
-    return index;
+
+    local result = weightedList:random_select();
+    return result;
+end
+
+function GetRandomItemFromWeightedList(items, returnKey)
+    local weightedList = _G.weighted_list:new();
+    for key, data in pairs(items) do
+        if returnKey == true then
+            weightedList:add_item(key, data["Weighting"]);
+        else
+            weightedList:add_item(data, data["Weighting"]);
+        end
+    end
+
+    local result = weightedList:weighted_select();
+    return result;
 end
 
 function FindTableObjectByKeyPartial(objectList, partialValue)
@@ -100,37 +119,4 @@ function GetMatchingKeyMatchingLocalisedString(keys, stringToMatch, keyPrefix)
         end
     end
     return nil;
-end
-
-function GetRandomItemFromWeightedList(items, returnKey)
-    local validItems = {};
-    local sumOfWeight = 0;
-    for key, data in pairs(items) do
-        if data["Weighting"] ~= nil and data["Weighting"] > 0 then
-            sumOfWeight = sumOfWeight + data["Weighting"];
-            validItems[key] = data;
-        end
-    end
-
-    local weightingSeed = Random(sumOfWeight, 0);
-    local lastKey = "";
-    local lastData = "";
-    for key, data in pairs(validItems) do
-        if weightingSeed < data["Weighting"]
-         then
-            if returnKey == true then
-                return key;
-            else
-                return data;
-            end
-        end
-        weightingSeed = weightingSeed - data["Weighting"];
-        lastKey = key;
-        lastData = data;
-    end
-    if returnKey == true then
-        return lastKey;
-    else
-        return lastData;
-    end
 end
