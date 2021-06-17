@@ -1329,6 +1329,7 @@ function CI_setup()
 				function(context)
 					local faction = context:faction();
 					return CI_SPAWNED_EVENTS["END_GAME"] == true
+					and not CI_SPAWNED_EVENTS["VICTORY"] == true
 					and faction:name() == "wh_main_chs_chaos"
 					and not faction:is_dead();
 				end,
@@ -1652,15 +1653,37 @@ function CI_CharacterConvalescedOrKilled(context)
 	and CI_SPAWNED_EVENTS["END_GAME"] then
 		local character = context:character();
 		local faction = character:faction();
-
+		out.chaos("Someone died during the endgame");
 		if faction:name() == CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key then
 			if (character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true) or
 					character:character_subtype("chs_kholek_suneater") == true or
 					character:character_subtype("chs_prince_sigvald") == true then
+				out.chaos("Someone died: "..character:character_subtype_key());
+				local human_factions = cm:get_human_factions();
+				for i = 1, #human_factions do
+					local humanFaction = cm:get_faction(human_factions[i]);
+					if humanFaction
+					and not humanFaction:is_null_interface() then
+						local humanFactionKey = humanFaction:name();
+						if character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true then
+							out.chaos("Canceling Archaon mission");
+							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+						elseif character:character_subtype("chs_kholek_suneater") == true  then
+							out.chaos("Canceling Kholek mission");
+							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
+						elseif character:character_subtype("chs_prince_sigvald") == true  then
+							out.chaos("Canceling Sigvald mission");
+							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
+						end
+					end
+				end
+
 				local archaon, kholek, sigvald = CI_invasion_deaths();
 				CI_invasion_effect_bundle_update();
 				if archaon == 0 and kholek == 0 and sigvald == 0 then
+					out.chaos("Starting Victory");
 					CI_Event_4_Victory(CI_EVENTS["VICTORY"]);
+					out.chaos("Finished Victory");
 				end
 			end
 		end
@@ -1713,7 +1736,7 @@ function CI_Event_2_MidGame(event)
 		if _G.IsIDE == true then
 			testFaction.subculture = function()
 				return "wh_dlc03_sc_bst_beastmen";
-			end;
+			end
 		end
 		CI_spawn_invasion_for_event(CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS, event);
 		if _G.IsIDE == true then
@@ -1853,6 +1876,7 @@ function CI_Event_4_Victory(event)
 		local humanFaction = cm:get_faction(human_factions[i]);
 		if humanFaction
 		and not humanFaction:is_null_interface() then
+			local humanFactionKey = humanFaction:name();
 			local secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_secondary_detail";
 			if humanFaction:culture() == "wh_main_vmp_vampire_counts" then
 				secondary_detail = "event_feed_strings_text_wh_event_feed_string_scripted_event_chaos_invasion_defeated_secondary_detail_vmp";
@@ -1866,6 +1890,11 @@ function CI_Event_4_Victory(event)
 			);
 			cm:remove_effect_bundle("wh2_main_bundle_chaos_invasion", human_factions[i]);
 			out.chaos("Showing Chaos Event : "..human_factions[i]);
+
+			-- Lets test this theory
+			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
+			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
 		end
 	end
 
@@ -1881,16 +1910,10 @@ function CI_Event_4_Victory(event)
 	end
 
 	local chaos_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
-	local chaos_force_list = chaos_faction:military_force_list();
+	cm:kill_all_armies_for_faction(chaos_faction);
 
-	for i = 0, chaos_force_list:num_items() - 1 do
-		local force = chaos_force_list:item_at(i);
-
-		if force:has_general() == true then
-			local force_cqi = force:general_character():command_queue_index();
-			cm:kill_character(force_cqi, true, true);
-		end
-	end
+	local beastmen_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.faction_key);
+	cm:kill_all_armies_for_faction(beastmen_faction);
 
 	cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
 	cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_spawned", true);
@@ -1899,9 +1922,11 @@ function CI_Event_4_Victory(event)
 	CI_personality_swap(4);
 
 	cm:callback(function()
+		out.chaos("CI_update_global_diplomacy");
 		CI_update_global_diplomacy(true);
 	end,
-	0.3);
+	0.2);
+	CI_SPAWNED_EVENTS[event.key] = true;
 	out.dec_tab("chaos");
 end
 
@@ -2628,7 +2653,7 @@ function CI_personality_swap(override)
 			end
 
 			local faction_name = faction:name();
-
+			out.chaos("Changing personality for faction: "..faction_name);
 			if override then
 				cm:cai_force_personality_change_with_override_round_number(faction_name, round_override);
 			else
@@ -2732,6 +2757,7 @@ function CI_personality_swap(override)
 			end
 		end
 	end
+	out.chaos("Finished personality change");
 end
 
 function CI_invasion_deaths()
@@ -2816,37 +2842,45 @@ function CI_invasion_effect_bundle_update()
 end
 
 function CI_update_global_diplomacy(diplomacyValue)
+	out.chaos("CI_update_global_diplomacy");
 	local diplomacy = CI_EVENT_DATA.Diplomacy;
 	for chaos_culture, value in pairs(diplomacy.CI_Manual_diplomacy_changes.ForcesOfChaos) do
 		for order_culture, value in pairs(diplomacy.CI_Manual_diplomacy_changes.ForcesOfOrder) do
 			cm:callback(function()
-				cm:force_diplomacy("culture:"..chaos_culture, "culture:"..order_culture, "peace", false, false, true);
+				cm:force_diplomacy("culture:"..chaos_culture, "culture:"..order_culture, "peace", diplomacyValue, diplomacyValue, true);
 			end, 
 			0.1);
 		end
 		for unaligned_culture, value in pairs(diplomacy.CI_Manual_diplomacy_changes.Unaligned) do
 			cm:callback(function()
-				cm:force_diplomacy("culture:"..chaos_culture, "culture:"..unaligned_culture, "peace", false, false, true);
+				cm:force_diplomacy("culture:"..chaos_culture, "culture:"..unaligned_culture, "peace", diplomacyValue, diplomacyValue, true);
 			end, 
 			0.1);
 		end
 	end
-	-- Bring norscans into the fight in the old world
-	for index, norscan_faction_key in pairs(diplomacy.CI_NORSCAN_FACTIONS) do
-		local norscanFaction = cm:get_faction(norscan_faction_key);
-		if norscanFaction
+	-- Only bring them into the war if we're removing the option for peace
+	if diplomacyValue == false then
+		-- Bring norscans into the fight in the old world
+		for index, norscan_faction_key in pairs(diplomacy.CI_NORSCAN_FACTIONS) do
+			out.chaos("Getting norscan faction: "..norscan_faction_key);
+			local norscanFaction = cm:get_faction(norscan_faction_key);
+			if norscanFaction
 			and norscanFaction:is_null_interface() == false
 			and norscanFaction:is_dead() == false
 			and not norscanFaction:is_human() then
-			for index2, enemy_of_chaos in pairs(diplomacy.CI_Manual_diplomacy_changes.EnemiesOfChaos) do
-				local faction = cm:get_faction(enemy_of_chaos);
-				if faction
-				and faction:is_null_interface() == false
-				and faction:is_dead() == false then
-					cm:callback(function()
-						cm:force_declare_war(norscan_faction_key, enemy_of_chaos, false, false);
-					end, 
-					0.3);
+				out.chaos("Norscan faction is valid");
+				for index2, enemy_of_chaos in pairs(diplomacy.CI_Manual_diplomacy_changes.EnemiesOfChaos) do
+					out.chaos("Getting enemy of chaos: "..enemy_of_chaos);
+					local faction = cm:get_faction(enemy_of_chaos);
+					if faction
+					and faction:is_null_interface() == false
+					and faction:is_dead() == false then
+						out.chaos("Enemy of chaos is valid");
+						cm:callback(function()
+							cm:force_declare_war(norscan_faction_key, enemy_of_chaos, false, false);
+						end, 
+						0.3);
+					end
 				end
 			end
 		end

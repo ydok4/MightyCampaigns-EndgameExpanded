@@ -792,6 +792,8 @@ local CI_FactionTurnStartChaos = {
 };
 turn_number = 2;
 mock_listeners:trigger_listener(CI_FactionTurnStartChaos);--]]
+CI_Event_4_Victory();
+
 _G.CG:GetCharacterNameForSubculture(testFaction, "dlc07_chs_sorcerer_lord_shadow");
 
 turn_number = 30;
@@ -811,6 +813,7 @@ CI_Event_Doom_Tide(CI_RECURRING_EVENTS[1]);
 CI_DATA.CI_INVASION_STAGE = 3;
 CI_Event_3_EndGame(CI_EVENTS["END_GAME"]);
 CI_Event_Doom_Tide(CI_RECURRING_EVENTS[3]);
+
 
 
 
