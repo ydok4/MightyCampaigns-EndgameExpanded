@@ -1,0 +1,104 @@
+With Warhammer 3 coming up I wanted to see if it was possible to improve the vanilla end game invasions before we get the new and improved Chaos factions.
+
+[quote]Recommended Chaos Invasion difficulty is Very Hard[/quote] 
+[quote]This does not change the Chaos Invasion mechanics when playing as Norsca or Chaos[/quote]
+[quote]Requires new campaign for best results[/quote]
+
+[h1]Features:[/h1]
+[list]
+[*]Improved army composition with more thematic armies (and custom unit/lord support).
+[*]New and Improved Chaos spawn locations (Darklands spawns)
+[*]New world invasion spawns featuring Skaven in Lustria, Vashnarr in Lustria (disabled by default), Vampire Coast spawns and additional Norscan spawn locations. All are customisable through MCT
+[*]Additional razed settlement mechanics (includes restored Doom Tide event)
+[*]Tailored diplomacy; war declaration and alliances have been tuned to support the invasions
+[/list]
+
+[h2]Improved army composition[/h2]
+Army spawns have been changed to fit thematic compositions. 
+
+This includes support for Balint's/Chaos Robies Daemons (
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2244883018]Plague Bearers[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248933803]Bloodletters[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2213244530]Daemonettes[/url] need to be installed), [url=https://steamcommunity.com/workshop/filedetails/?id=1243153086]Mixu's TTL[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1201392754 ]Deco's Expanded Beastmen[/url].
+Eg in the late game invasion, Monster themed armies lead by Mixu's Shaggoth Champion may be present.
+
+The buildings that hordes spawn with have been improved and will add thematically appropriate buildings.
+Lords will spawned with randomised levels (Capped with minimum and maximum values), this should increase the variety of mounts you see.
+
+[h2]New and Improved Chaos spawns[/h2]
+Invasion spawn times have been brought forward 10 turns to 80 and 120 and will start within 10 turns (as opposed to 20).
+
+Archaon and friends will spawn at the rear of the invasion with reduced movement. This makes it less likely for the invasion to be defeated during the first push and forces the player to cut a path to the invasion leaders.
+
+Missions have been added to track where Archaon, Kholek and Sigvald are on the campaign map.
+
+Archaon, Kholek and Sigvald will be automatically appointed to the strongest available army upon recovery from their wounds. They will have the effects they originally spawned with (upkeep reduction, replenishment, movement penalty etc) reapplied.
+
+[b]General spawn tweaks[/b]
+[list]
+[*]The main Chaos Invasion has less Chaos armies but more Beastmen armies.
+[*]Naggaroth Chaos Invasion has less armies, helps Dark Elves become a late game threat.
+[*]The Norscan Norsca invasions have removed some spawn points so they spawn closer to the Old World.
+[*]Spawn locations have been added east of the Worlds Edge Mountains.
+[*]A Norscan invasion force will spawn in the mid and late game near North East Ulthuan.
+[*]Recurring spawns added for Beastmen, Skaven and Chaos (see additional razed settlement mechanics below).
+[*]Playing as Kislev, Kraka Drak or Clan Moulder will push out the invasion spawn times (Mid begins at 90-100 and End game begins at 130-140) and decrease the number of Chaos and Beastmen armies in the main force.
+[/list]
+
+[h2]New World invasion spawns[/h2]
+Skaven will spawn in Southern Lustria (at the same time as the mid (Clan Fester) and late game (Clan Pestilens))
+Cylostra will receive an invasion force near South West Ulthuan in the mid game invasion.
+Noctilus will receive an invasion force near South East Ulthuan in the late game invasion.
+Vashnarr will receive an invasion force near the tip of Lustria in the late game invasion (disabled by default).
+All invasions can be enabled/disabled through [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2136347705]Mod Configuration Tool: Reborn[/url].
+
+[h2]The Doom Tide[/h2]
+The Doom tide mechanic has been brought back with some changes.
+A new wave will spawn periodically but can respawn early if enough Warriors of Chaos and Warherd of Chaos armies are defeated.
+Waves will stop spawning if Archaon, Sigvald and Kholek are defeated or if there are no respawns remaining.
+By default, they have 6 respawns but will gain an additional respawn for every 10 settlements raised.
+The end game event will also grant them 2 additional waves.
+
+When a Doom Tide occurs, Naggaroth and Darklands invasions will gain an additional spawn but only if the existing invasion has lost enough armies.
+
+[h2]Additional razed settlement mechanics[/h2]
+The global chaos corruption counter has been tweaked so the count will increase when a settlement is razed by ANY Beastmen, Chaos, Norscan or Skaven faction.
+
+Every 5 razed settlements increases the number of Beastmen Forest Spawns and Skaven Undercity Army spawns throughout the Old World.
+Every couple of turns, if enough settlements have been raised a Beastmen Herd and/or Skaven Undercity Army will spawn throughout the Old World.
+This forces the Order tide to split their forces to deal with the spawns inside their territory and gives the main invasion room to do its thing.
+
+These spawns can be disabled.
+
+[h2]Tailored diplomacy[/h2]
+Invasion diplomacy behaves differently depending on the invasion stage and which faction is invading.
+
+Eg 1 the mid game chaos invasion won't declare war on Kraka Drak and the Silver Pinnacle so the AI focuses more on weakening Kislev and Dwarf factions.
+Eg 2 Vashnarr will only be forced into war with the relevant Lustria factions (Hexoatl, Itza, Huntsmarshals expedition) instead of declaring war on almost everyone like Chaos/Norsca/Beastmen
+
+Any Norscan factions alive when the late game invasion triggers will be forced into an unbreakable alliance with the main chaos faction and forced into war with the a subset of Old World factions (Nordland, Ostland, Middenland, Couronne etc).
+
+[h2]Anything else?[/h2]
+I've restored the unique event which appears when the player defeats Chaos as the Vampire Counts
+
+[h2]Crashes[/h2]
+If you experience a crash after one of the named Chaos characters is defeated. Disable the 'Enable Tracking Missions' option under the General section of MCT.
+
+[h2]Balance and Compatibility[/h2]
+I've play tested this on Hard campaign difficulty and Very Hard Chaos Invasion difficulty while using [url=https://steamcommunity.com/workshop/filedetails/?id=1214959308]Boyz Will Be Boyz - Closer to Tabletop overhaul (CTT)[/url] and my own [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2294629023]Dynamic AI Restrictions[/url].
+Other overhauls and mods may have a different experience.
+
+This replaces the wh2_chaos_invasion script and will interfere with any mods doing the same.
+Notably this include Ultimate Chaos and SFO: Grimhammer.
+
+This should work with SFO: Grimhammer but the Chaos armies will not spawn with SFO's new units.
+Ultimate Chaos is untested.
+
+This mod may not work in multiplayer, there has been at least one instance of a reported desync when the Doom Tide spawns. Use in multiplayer at your own risk. If you do use it, please let me know how well it works.
+
+Check out some of the other mods I've worked on: 
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2445901610]Wondrous Wizard Levels[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2294629023]Dynamic AI Restrictions[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=1593262224]Public Order: Expanded[/url]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2348882773]Wood Elf Enchanted Arrow Upgrades CTT patch[/url]
+
+
+[img]https://i.imgur.com/C6v7SRP.gif[/img]

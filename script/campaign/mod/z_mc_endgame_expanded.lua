@@ -42,9 +42,21 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     out("EndEx: Initialising MCT Options");
     local endExpMct = mct:get_mod_by_key("mc_endgame_expanded");
 
-    --[[local enable_chaos_wastes_invasions = endExpMct:get_option_by_key("enable_chaos_wastes_invasions");
-    local enable_chaos_wastes_invasions_value = enable_chaos_wastes_invasions:get_finalized_setting();
-    CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].enabled = enable_chaos_wastes_invasions_value;--]]
+    local enable_tracking_missions = endExpMct:get_option_by_key("enable_chaos_tracking_missions");
+    local enable_tracking_missions_value = enable_tracking_missions:get_finalized_setting();
+    out("enable_tracking_missions_value: "..tostring(enable_tracking_missions_value));
+    if enable_tracking_missions_value == false then
+        out("EndEx: Cancelling missions");
+        local human_factions = cm:get_human_factions();
+
+	    for i = 1, #human_factions do
+            local humanFaction = cm:get_faction(human_factions[i]);
+            local humanFactionKey = humanFaction:name();
+            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
+            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
+        end
+    end
 
     local enable_chaos_naggaroth_invasion = endExpMct:get_option_by_key("enable_chaos_naggaroth_invasion");
     local enable_chaos_naggaroth_invasion_value = enable_chaos_naggaroth_invasion:get_finalized_setting();

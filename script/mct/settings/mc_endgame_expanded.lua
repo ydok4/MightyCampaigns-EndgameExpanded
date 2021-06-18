@@ -8,13 +8,16 @@ mc_endgame_expanded:set_title(cls_prefix..mod_prefix.."_mod_title", true);
 mc_endgame_expanded:set_author("Ydok4");
 mc_endgame_expanded:set_description(cls_prefix..mod_prefix.."_description", true);
 
--- Chaos
-mc_endgame_expanded:add_new_section("ci_chaos_army_spawns", cls_prefix..mod_prefix.."_section_name_ci_chaos_army_spawns", true)
+-- General
+mc_endgame_expanded:add_new_section("ci_general_settings", cls_prefix..mod_prefix.."_section_name_ci_general_settings", true);
 
---[[local enable_chaos_wastes_invasion = mc_endgame_expanded:add_new_option("enable_chaos_wastes_invasions", "checkbox");
-enable_chaos_wastes_invasion:set_default_value(true);
-enable_chaos_wastes_invasion:set_text(cls_prefix..mod_prefix.."_title_enable_chaos_wastes_invasions", true);
-enable_chaos_wastes_invasion:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_chaos_wastes_invasions", true);--]]
+local enable_chaos_tracking_missions = mc_endgame_expanded:add_new_option("enable_chaos_tracking_missions", "checkbox");
+enable_chaos_tracking_missions:set_default_value(true);
+enable_chaos_tracking_missions:set_text(cls_prefix..mod_prefix.."_title_enable_chaos_tracking_missions", true);
+enable_chaos_tracking_missions:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_chaos_tracking_missions", true);
+
+-- Chaos
+mc_endgame_expanded:add_new_section("ci_chaos_army_spawns", cls_prefix..mod_prefix.."_section_name_ci_chaos_army_spawns", true);
 
 local enable_chaos_naggaroth_invasion = mc_endgame_expanded:add_new_option("enable_chaos_naggaroth_invasion", "checkbox");
 enable_chaos_naggaroth_invasion:set_default_value(true);

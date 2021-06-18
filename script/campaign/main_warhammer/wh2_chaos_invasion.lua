@@ -1336,44 +1336,9 @@ function CI_setup()
 				function(context)
 					out.chaos("Checking for characters to appoint");
 					local chaos_faction = context:faction();
-					local deadCharacters = {};
-					local char_list = chaos_faction:character_list();
-					for i = 0, char_list:num_items() - 1 do
-						local current_char = char_list:item_at(i);
-						if current_char:character_subtype("chs_archaon") or current_char:character_subtype("chs_kholek_suneater") or current_char:character_subtype("chs_prince_sigvald") then
-							out.chaos("Found special character:"..current_char:character_subtype_key());
-							if current_char:is_wounded() == true then
-								out.chaos("Special character is wounded");
-							end
-							if current_char:has_military_force() == true then
-								out.chaos("Special character has military force");
-							end
-							if current_char:has_military_force() == false
-							and current_char:is_wounded() == false then
-								if current_char:character_subtype("chs_archaon") == true and current_char:is_faction_leader() == true then
-									deadCharacters["chs_archaon"] = {
-										cqi = current_char:command_queue_index(),
-										familyCqi = current_char:family_member():command_queue_index(),
-									};
-									out.chaos("Found Archaon without army: "..current_char:command_queue_index());
-								elseif current_char:character_subtype("chs_kholek_suneater") == true then
-									deadCharacters["chs_kholek_suneater"] = {
-										cqi = current_char:command_queue_index(),
-										familyCqi = current_char:family_member():command_queue_index(),
-									};
-									out.chaos("Found Kholek without army: "..current_char:command_queue_index());
-								elseif current_char:character_subtype("chs_prince_sigvald") == true then
-									deadCharacters["chs_prince_sigvald"] = {
-										cqi = current_char:command_queue_index(),
-										familyCqi = current_char:family_member():command_queue_index(),
-									};
-									out.chaos("Found Sigvald without army: "..current_char:command_queue_index());
-								end
-							end
-						end
-					end
-					if not next(deadCharacters) then
-						out.chaos("No dead special characters found");
+					local specialCharacters = CI_GetChaosSpecialCharacterData(false, false);
+					if not next(specialCharacters) then
+						out.chaos("No alive special characters without armies");
 						return;
 					end
 					local forceList = chaos_faction:military_force_list();
@@ -1396,7 +1361,7 @@ function CI_setup()
 					end
 					table.sort(strongestForces, function(a,b) return a.strength > b.strength; end);
 					local appointedForceIndex = 1;
-					for subtype, cqiData in pairs(deadCharacters) do
+					for subtype, cqiData in pairs(specialCharacters) do
 						out.chaos("Assigning: "..subtype);
 						if strongestForces[appointedForceIndex] == nil then
 							out.chaos("Not enough forces to assign special character to...breaking");
@@ -1404,32 +1369,35 @@ function CI_setup()
 						end
 						cm:appoint_character_to_force("character_cqi:"..cqiData.cqi, strongestForces[appointedForceIndex].cqi);
 						out.chaos("Appointed to force: "..strongestForces[appointedForceIndex].cqi);
-						cm:callback(function()
-							if subtype == "chs_archaon" then
-								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon", strongestForces[appointedForceIndex].cqi, 0);
-							elseif subtype == "chs_prince_sigvald" then
-								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_sigvald", strongestForces[appointedForceIndex].cqi, 0);
-							elseif subtype == "chs_kholek_suneater" then
-								cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_kholek", strongestForces[appointedForceIndex].cqi, 0);
-							end
-						end,
-						0.5);
-						local missionString = "";
-						if subtype == "chs_archaon" then
-							missionString = "mc_endgame_expanded_archaon_tracker";
-						elseif subtype == "chs_prince_sigvald" then
-							missionString = "mc_endgame_expanded_sigvald_tracker";
-						elseif subtype == "chs_kholek_suneater" then
-							missionString = "mc_endgame_expanded_kholek_tracker";
-						end
-						if missionString ~= "" then
-							local human_factions = cm:get_human_factions();
-							for i = 1, #human_factions do
-								CI_Event_Missions(human_factions[i], cqiData.familyCqi, missionString);
-							end
-						end
 						appointedForceIndex = appointedForceIndex + 1;
 					end
+					-- We wrap this in a callback to ensure we've got the new CQIs
+					cm:callback(function()
+						local appointedSpecialCharacters = CI_GetChaosSpecialCharacterData(false, true);
+						for agentSubtype, agentSubtypeData in pairs(appointedSpecialCharacters) do
+							-- We need to check if this character was previously not leading an army
+							if specialCharacters[agentSubtype] ~= nil then
+								local missionString = "";
+								if agentSubtype == "chs_archaon" then
+									cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon", agentSubtypeData.cqi, 0);
+									missionString = "mc_endgame_expanded_archaon_tracker";
+								elseif agentSubtype == "chs_prince_sigvald" then
+									cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_sigvald", agentSubtypeData.cqi, 0);
+									missionString = "mc_endgame_expanded_sigvald_tracker";
+								elseif agentSubtype == "chs_kholek_suneater" then
+									cm:apply_effect_bundle_to_force("wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_kholek", agentSubtypeData.cqi, 0);
+									missionString = "mc_endgame_expanded_kholek_tracker";
+								end
+								if missionString ~= "" then
+									local human_factions = cm:get_human_factions();
+									for i = 1, #human_factions do
+										CI_Event_Missions(human_factions[i], agentSubtypeData.familyCqi, missionString);
+									end
+								end
+							end
+						end
+					end,
+					0.5);
 					out.chaos("Finished checking special characters")
 				end,
 				true
@@ -1438,23 +1406,28 @@ function CI_setup()
 				"CI_CharacterRazedSettlement",
 				"CharacterRazedSettlement",
 				true,
-				function(context) CI_CharacterRazedSettlement(context) end,
+				function(context)
+					CI_CharacterRazedSettlement(context);
+				end,
 				true
 			);
 			core:add_listener(
 				"CI_CharacterConvalescedOrKilled",
 				"CharacterConvalescedOrKilled",
 				true,
-				function(context) CI_CharacterConvalescedOrKilled(context) end,
+				function(context) 
+					CI_CharacterConvalescedOrKilled(context);
+				end,
 				true
 			);
-			core:add_listener(
+			--[[core:add_listener(
 				"CI_CharacterCreated",
 				"CharacterCreated",
 				function(context)
 					local character = context:character();
 					return cm:is_new_game() == false
 					and CI_SPAWNED_EVENTS["END_GAME"] == true
+					and not CI_SPAWNED_EVENTS["VICTORY"] == true
 					and (character:character_subtype("chs_archaon") == true
 					or character:character_subtype("chs_prince_sigvald") == true
 					or character:character_subtype("chs_kholek_suneater") == true);
@@ -1480,7 +1453,7 @@ function CI_setup()
 					end
 				end,
 				true
-			);
+			);--]]
 		else
 			out.chaos("Disabling Chaos Invasion! (Off Setting)");
 			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
@@ -1490,6 +1463,43 @@ function CI_setup()
 		out.chaos("Disabling Chaos Invasion! (Human Chaos)");
 	end
 	out.dec_tab("chaos");
+end
+
+function CI_GetChaosSpecialCharacterData(isWounded, hasMilitaryForce)
+	if isWounded == nil then
+		isWounded = false;
+	end
+	if hasMilitaryForce == nil then
+		hasMilitaryForce = false;
+	end
+
+	local specialCharacters = {};
+	local chaos_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
+	local char_list = chaos_faction:character_list();
+	for i = 0, char_list:num_items() - 1 do
+		local current_char = char_list:item_at(i);
+		if current_char:character_subtype("chs_archaon")
+		or current_char:character_subtype("chs_kholek_suneater")
+		or current_char:character_subtype("chs_prince_sigvald") then
+			out.chaos("Found special character:"..current_char:character_subtype_key());
+			if current_char:is_wounded() == true then
+				out.chaos("Special character is wounded");
+			end
+			if current_char:has_military_force() == true then
+				out.chaos("Special character has military force");
+			end
+			if current_char:is_wounded() == isWounded
+			and current_char:has_military_force() == hasMilitaryForce then
+				specialCharacters[current_char:character_subtype_key()] = {
+					has_military_force = current_char:has_military_force(),
+					is_wounded = current_char:is_wounded(),
+					cqi = current_char:command_queue_index(),
+					familyCqi = current_char:family_member():command_queue_index(),
+				};
+			end
+		end
+	end
+	return specialCharacters;
 end
 
 function CI_FactionTurnStart(context)
@@ -1513,7 +1523,7 @@ function CI_FactionTurnStart(context)
 				out.chaos("Razed regions in stage 2: "..CI_DATA.CI_RAZED_REGIONS_STAGE_2);
 				out.chaos("Skaven undercity spawns: "..CI_DATA.CI_RAZED_SKAVEN_CITY_SPAWNS);
 				out.chaos("Beastmen forest spawns: "..CI_DATA.CI_RAZED_BEASTMEN_CITY_SPAWNS);
-				out.chaos("Chaos wave spawns: "..CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS)
+				out.chaos("Chaos wave spawns: "..CI_DATA.CI_RAZED_CHAOS_WAVE_SPAWNS);
 			end
 			CI_DATA.CI_LAST_UPDATE = turn_number;
 			out.chaos("turn_number: "..turn_number);
@@ -1655,35 +1665,35 @@ function CI_CharacterConvalescedOrKilled(context)
 		local faction = character:faction();
 		out.chaos("Someone died during the endgame");
 		if faction:name() == CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key then
-			if (character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true) or
-					character:character_subtype("chs_kholek_suneater") == true or
-					character:character_subtype("chs_prince_sigvald") == true then
-				out.chaos("Someone died: "..character:character_subtype_key());
-				local human_factions = cm:get_human_factions();
-				for i = 1, #human_factions do
-					local humanFaction = cm:get_faction(human_factions[i]);
-					if humanFaction
-					and not humanFaction:is_null_interface() then
-						local humanFactionKey = humanFaction:name();
-						if character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true then
-							out.chaos("Canceling Archaon mission");
-							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
-						elseif character:character_subtype("chs_kholek_suneater") == true  then
-							out.chaos("Canceling Kholek mission");
-							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
-						elseif character:character_subtype("chs_prince_sigvald") == true  then
-							out.chaos("Canceling Sigvald mission");
-							cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
-						end
-					end
-				end
-
 				local archaon, kholek, sigvald = CI_invasion_deaths();
 				CI_invasion_effect_bundle_update();
 				if archaon == 0 and kholek == 0 and sigvald == 0 then
 					out.chaos("Starting Victory");
 					CI_Event_4_Victory(CI_EVENTS["VICTORY"]);
 					out.chaos("Finished Victory");
+				else
+					if (character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true) or
+					character:character_subtype("chs_kholek_suneater") == true or
+					character:character_subtype("chs_prince_sigvald") == true then
+					out.chaos("Someone died: "..character:character_subtype_key());
+					local human_factions = cm:get_human_factions();
+					for i = 1, #human_factions do
+						local humanFaction = cm:get_faction(human_factions[i]);
+						if humanFaction
+						and not humanFaction:is_null_interface() then
+							local humanFactionKey = humanFaction:name();
+							if character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true then
+								out.chaos("Canceling Archaon mission");
+								cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+							elseif character:character_subtype("chs_kholek_suneater") == true  then
+								out.chaos("Canceling Kholek mission");
+								cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
+							elseif character:character_subtype("chs_prince_sigvald") == true  then
+								out.chaos("Canceling Sigvald mission");
+								cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
+							end
+						end
+					end
 				end
 			end
 		end
