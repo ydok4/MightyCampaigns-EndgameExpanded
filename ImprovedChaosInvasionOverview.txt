@@ -85,7 +85,7 @@ A random selection of undercities in the same areas as above spawn an undercity 
 	
 Attempts to solve several issues with the vanilla end game invasions.
 This is intended to bring back some of the 'o shit' factor present in WH1 without (only) increasing the number of armies spawned.
-This is achieved through tuning the spawn behaviour of the vanilla chaos/beastmen armies as well as introducing more mid/late game spawns.
+This is achieved through tuning the spawn behaviour of the vanilla chaos/beastmen armies as well as introducing new spawn location for mid/late game invasions.
 
 Features:
 -Improved army composition with more thematic armies (and custom unit/lord support).
@@ -110,22 +110,32 @@ The Norscan Norsca invasions has removed some spawn points so they spawn closer 
 Additional spawns locations have been added east of the worlds edge mountains. They will harass the Dwarfs and open up a second front.
 A Norscan invasion force will spawn in the mid and late game near North East Ulthuan.
 Recurring spawns added for Beastmen, Skaven and Chaos (see additional razed settlement mechanics below)
-Playing as Kislev or Kraka Drak will push out the invasion spawn times (Mid begins at 95-105 and End game begins at 105-115) and decrease the number of Chaos and Beastmen armies in the main force.
+Playing as Kislev or Kraka Drak will push out the invasion spawn times (Mid begins at 90-100 and End game begins at 130-140) and decrease the number of Chaos and Beastmen armies in the main force.
 
 New world invasion spawn
 Skaven will spawn in Southern Lustria (at the same time as the mid (Clan Fester) and late game (Clan Pestilens))
-Vashnarr will spawn in between mid and late game in Northern Lustria
 Cylostra will receive an invasion force near South West Ulthuan in the mid game invasion.
 Noctilus will receive an invasion force near South East Ulthuan in the late game invasion.
+Vashnarr will receive an invasion force near the tip of Lustria in the late game invasion.
 All invasions can be enabled/disabled.
 
 Earlier invasion spawns
 Invasion spawn times have been brought forward so the Order aligned AI is not as effective at dealing with the invasion.
+
+The Doom Tide
+The Doom tide mechanic has been brought back with some additional tweaks.
+A new wave will spawn every 5/8 turns since the last invasion spawn (Mid invasion is every 8, late is every 5).
+A wave may spawn early if enough Warriors of Chaos and Warherd of Chaos armies are defeated.
+Waves will stop spawning if Archaon, Sigvald and Kholek are defeated in the end game or if there are no waves remaining.
+By default, they have 6 respawns but will gain an additional respawn for every 10 settlements raised.
+The end game event will also grant them 2 additional waves.
+Like other spawns, the number of armies spawning will scale depending on invasion difficulty level.
+When a Doom Tide occurs, Naggaroth and Darklands invasions will gain an additional spawn but if only the existing invasion has lost enough armies.
+
 The invasion spawns are closer together so that the second wave can still capitilise on any progress the first wave made.
 This also helps some of the start locations which are a bit safer, feel less stale.
 Mid game will start between turn 80 and 90 (vanilla is 90 and 110)
-Vashnarr will spawn between turn 85 and 95
-Mid game will start between turn 95 and 105 (vanilla is 140 and 160)
+End game will start between turn 120 and 130 (vanilla is 140 and 160)
 
 Additional razed settlement mechanics
 The global chaos corruption counter has been tweaked so the count will increase when a settlement is razed by ANY Beastmen, Chaos, Norscan or Skaven faction (in the base game it is just the main chaos faction and the invasion beastmen/norscan factions that increase this).
@@ -135,12 +145,12 @@ This forces the Order tide to split their forces to deal with the spawns inside 
 During the mid game event the number of razed settlements will increase the amount of available Beastmen spawns. When the end game begins, the number of spawns will decrease as herds are spawned throughout the Old World.
 During the mid game event Skaven undercities will spawn throughout the world. When the end game begins these undercities will spawn Skaven Undercity armies and decrease the number of available spawns. Note: Undercities will periodically expand throughout the old world without decreasing this counter.
 These spawns can be disabled.
-The Chaos wave mechanic has been brought back. At the minimum there will be 2 waves but for every 10 settlements raised another wave will be added.
-When the total number of armies in the main chaos force and the Warherd of Chaos are below 75% of their initial spawn value, another wave will spawn of chaos armies.
-The number of chaos armies will scale depending on difficulty level but it should be around half of what originally spawned.
 
 Tailored diplomacy
 Invasion diplomacy behaves differently depending on the invasion stage (ie mid/late) and which faction is invading.
 Eg 1 the mid game chaos invasion won't declare war on Kraka Drak and the Silver Pinnacle so the AI focuses more on weakening Kislev and Dwarf factions.
 Eg 2 Vashnarr will only be forced into war with the relevant Lustria factions (Hexoatl, Itza, Huntsmarshals expedition) instead of declaring war on almost everyone like Chaos/Norsca/Beastmen
 Any Norscan factions alive when the late game invasion triggers will be forced into an unbreakable alliance with the main chaos faction and forced into war with the a subset of Old World factions (Nordland, Ostland, Middenland, Couronne etc).
+
+Other
+Restored the unique text for when the player defeats chaos as the Vampire Counts

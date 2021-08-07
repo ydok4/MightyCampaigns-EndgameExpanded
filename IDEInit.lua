@@ -566,6 +566,7 @@ function get_cm()
         end,
         complete_scripted_mission_objective = function()
         end,
+        cancel_custom_mission = function() end,
     };
 end
 

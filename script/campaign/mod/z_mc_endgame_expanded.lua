@@ -18,13 +18,15 @@ function z_mc_endgame_expanded()
         return;
     end
     out("EndEx: Main mod function");
-    if core:is_mod_loaded("mct_campaign_init")
-    and get_mct then
+    if get_mct then
         out("EndEx: Found MCT reborn");
         local mct = get_mct();
         EndgameExpandedCheckMCTRebornOptions(core, mct);
     else
         out("EndEx: No MCT");
+        if cm:is_new_game() == false then
+            DisableTrackingMissions();
+        end
     end
 
     AG = ArmyGenerator:new({});
@@ -45,17 +47,10 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     local enable_tracking_missions = endExpMct:get_option_by_key("enable_chaos_tracking_missions");
     local enable_tracking_missions_value = enable_tracking_missions:get_finalized_setting();
     out("enable_tracking_missions_value: "..tostring(enable_tracking_missions_value));
-    if enable_tracking_missions_value == false then
-        out("EndEx: Cancelling missions");
-        local human_factions = cm:get_human_factions();
-
-	    for i = 1, #human_factions do
-            local humanFaction = cm:get_faction(human_factions[i]);
-            local humanFactionKey = humanFaction:name();
-            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
-            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
-            cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
-        end
+    enable_tracking_missions_value = false;
+    if enable_tracking_missions_value == false
+    and cm:is_new_game() == false then
+        DisableTrackingMissions();
     end
 
     local enable_chaos_naggaroth_invasion = endExpMct:get_option_by_key("enable_chaos_naggaroth_invasion");
@@ -110,6 +105,18 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     out("EndEx: Finished MCT Option setup");
 end
 
+function DisableTrackingMissions()
+    out("EndEx: Cancelling missions");
+    local human_factions = cm:get_human_factions();
+    for i = 1, #human_factions do
+        local humanFaction = cm:get_faction(human_factions[i]);
+        local humanFactionKey = humanFaction:name();
+        cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+        cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
+        cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
+    end
+end
+
 function LoadAdditionalResources()
     if effect.get_localised_string("land_units_onscreen_name_rbt_nurgle_daemon") ~= ""
     and effect.get_localised_string("land_units_onscreen_name_kho_bloodletter") ~= ""
@@ -137,15 +144,6 @@ function LoadAdditionalResources()
             UnitTags = {"Beasts", "Monsters", "ChaosCavalry"},
         };
 
-        --Beastmen
-        CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.army_archetypes["DoomBullChaosInvasionStage2"] = {
-            AgentSubtypes = {"bst_doombull", },
-            MandatoryUnits = {
-                wh_dlc03_bst_inf_minotaurs_0 = 2,
-            },
-            UnitTags = {"Gors", "WarBeasts", "Minotaurs"},
-        };
-
         -- Norsca
         CI_EVENT_DATA.Invasions.CI_NORSCA_ARMY_SPAWNS.army_archetypes["ShamanLordMonstersChaosInvasionStage1"] = {
             AgentSubtypes = {"nor_shaman_sorcerer_lord_death", "nor_shaman_sorcerer_lord_fire", "nor_shaman_sorcerer_lord_metal",  },
@@ -171,50 +169,6 @@ function LoadAdditionalResources()
         require 'script/_lib/dbexports/MixuDataResources'
         if _G.CG_NameResources then
             _G.CG_NameResources:ConcatTableWithKeys(_G.CG_NameResources.campaign_character_data, GetMixuDataResources());
-        end
-    end
-
-    -- Deco Bray Shaman
-    if effect.get_localised_string("agent_subtypes_description_text_override_bst_bray_shaman_wild") ~= "" then
-        out("EndEx: Loading Deco Beastmen data");
-        CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage1"] = {
-            AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
-            MandatoryUnits = {
-                wh_dlc03_bst_inf_cygor_0 = 1,
-            },
-            UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
-        };
-        CI_EVENT_DATA.Invasions.CI_BEASTMEN_FOREST_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage1"] = {
-            AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
-            MandatoryUnits = {
-                wh_dlc03_bst_inf_cygor_0 = 1,
-            },
-            UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
-        };
-
-        CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage2"] = {
-            AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
-            MandatoryUnits = {
-                wh_dlc03_bst_inf_cygor_0 = 2,
-                wh_dlc03_bst_mon_chaos_spawn_0 = 1,
-            },
-            UnitTags = {"Gors", "WarBeasts", "Monsters" },
-        };
-        CI_EVENT_DATA.Invasions.CI_BEASTMEN_FOREST_SPAWNS.army_archetypes["GreatBrayShamanChaosInvasionStage2"] = {
-            AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
-            MandatoryUnits = {
-                wh_dlc03_bst_inf_cygor_0 = 2,
-                wh_dlc03_bst_mon_chaos_spawn_0 = 1,
-            },
-            UnitTags = {"Gors", "WarBeasts", "Monsters" },
-        };
-
-        require 'script/_lib/dbexports/DecoDataResources'
-        out("EndEx: Loading Deco agent data");
-        -- Load the name resources
-        -- This is separate so I can use this in other mods
-        if _G.CG_NameResources then
-            _G.CG_NameResources:ConcatTableWithKeys(_G.CG_NameResources.campaign_character_data, GetDecoAgentDataResources());
         end
     end
 

@@ -130,6 +130,7 @@ CI_EVENT_DATA = {
 				wh2_main_skv_clan_eshin = -1,
 				wh2_main_skv_clan_pestilens = -1,
 				wh2_dlc12_skv_clan_fester = -1,
+				wh2_main_rogue_hung_warband = -1,
 				-- Targeted
 				wh_main_vmp_vampire_counts = 2, -- I've found the Vamps need all the help they can get
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the darklands invasion doesn't get distracted by the vamps
@@ -427,6 +428,7 @@ CI_EVENT_DATA = {
 				wh2_main_sc_skv_skaven = -1,
 				-- Targeted
 				wh_main_vmp_vampire_counts = 2,
+				wh2_main_rogue_hung_warband = -1,
 				wh2_dlc16_vmp_lahmian_sisterhood = 2, -- Ensures the badlands invasion doesn't get distracted by the vamps
 				wh_main_dwf_kraka_drak = 2, -- Chaos typically splits its forces to deal with kraka drak. We can let the norscan invasion deal with them.
 				wh2_main_rogue_def_chs_vashnaar = -1,
@@ -448,6 +450,13 @@ CI_EVENT_DATA = {
 					},
 					UnitTags = {"Ungors", "Gors", "WarBeasts", },
 				},
+				GreatBrayShamanChaosInvasionStage1 = {
+					AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
+					MandatoryUnits = {
+						wh_dlc03_bst_inf_cygor_0 = 1,
+					},
+					UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
+				},
 				BeastLordGorsChaosInvasionStage2 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
 					MandatoryUnits = {
@@ -463,6 +472,22 @@ CI_EVENT_DATA = {
 						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
 					},
 					UnitTags = {"Gors", "WarBeasts", "Monsters" },
+				},
+				GreatBrayShamanChaosInvasionStage2 = {
+					AgentSubtypes = {"wh2_twa04_bst_great_bray_shaman_beasts", "wh2_twa04_bst_great_bray_shaman_death", "wh2_twa04_bst_great_bray_shaman_shadows", "wh2_twa04_bst_great_bray_shaman_wild", },
+					MandatoryUnits = {
+						wh_dlc03_bst_inf_cygor_0 = 2,
+						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
+					},
+					UnitTags = {"Gors", "WarBeasts", "Monsters" },
+				},
+				DoomBullChaosInvasionStage2 = {
+					AgentSubtypes = {"wh2_dlc17_bst_doombull", },
+					MandatoryUnits = {
+						wh_dlc03_bst_inf_minotaurs_0 = 2,
+						cr_bst_mon_ghorgon_0 = 1,
+					},
+					UnitTags = {"Gors", "WarBeasts", "Minotaurs"},
 				},
 			},
 			invasions = {
@@ -537,6 +562,7 @@ CI_EVENT_DATA = {
 				wh_main_sc_vmp_vampire_counts = 2,
 				wh2_main_rogue_def_chs_vashnaar = -1,
 				wh_main_dwf_kraka_drak = 2,
+				wh2_main_rogue_hung_warband = -1,
 				-- Stops the norscan invasions (NE Ulthuan) from being distracted by the some of the AI in the Mid invasion
 				wh2_main_def_naggarond = 2,
 				wh2_main_def_har_ganeth = 2,
@@ -731,6 +757,9 @@ CI_EVENT_DATA = {
 				wh2_main_hef_order_of_loremasters = true,
 				wh2_dlc11_def_the_blessed_dread = true,
 				wh2_main_dwf_spine_of_sotek_dwarfs = true,
+				wh2_dlc13_emp_the_huntmarshals_expedition = true,
+				wh2_dlc11_cst_vampire_coast = true,
+				wh2_main_emp_new_world_colonies = true,
 			},
 			alliance_factions = {
 				-- Invasion factions
@@ -925,7 +954,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 1,
+					army_spawn_multiplier = 0.75,
 					army_compositions = {
 						-- Invasion stage 3 (End game)
 						[3] = {
@@ -1038,6 +1067,13 @@ CI_EVENT_DATA = {
 					},
 					UnitTags = {"Gors", "WarBeasts", "Centigors", },
 				},
+				GreatBrayShamanChaosInvasionStage1 = {
+					AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
+					MandatoryUnits = {
+						wh_dlc03_bst_inf_cygor_0 = 1,
+					},
+					UnitTags = {"Ungors", "Gors", "WarBeasts", "Monsters" },
+				},
 				BeastLordGorsChaosInvasionStage2 = {
 					AgentSubtypes = {"dlc03_bst_beastlord", },
 					MandatoryUnits = {
@@ -1045,6 +1081,14 @@ CI_EVENT_DATA = {
 						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
 					},
 					UnitTags = {"Gors", "WarBeasts", "Centigors", },
+				},
+				GreatBrayShamanChaosInvasionStage2 = {
+					AgentSubtypes = {"bst_bray_shaman_beasts", "bst_bray_shaman_death", "bst_bray_shaman_wild", },
+					MandatoryUnits = {
+						wh_dlc03_bst_inf_cygor_0 = 2,
+						wh_dlc03_bst_mon_chaos_spawn_0 = 1,
+					},
+					UnitTags = {"Gors", "WarBeasts", "Monsters" },
 				},
 			},
 			invasions = {
@@ -1209,6 +1253,8 @@ CI_DATA = {
 	CI_RAZED_REGIONS = 0,
 	CI_LAST_EFFECT = "",
 	CI_AUTORUN = false,
+	CI_EARLY_TURNS = 0,
+	CI_EXTRA_ARMIES = 0,
 	-- New
 	CI_INVASION_STAGE_START_TURN = 0,
 	CI_INVASION_LAST_DOOM_TIDE = 0,
@@ -1261,9 +1307,14 @@ function CI_setup()
 			if player_faction:subculture() == "wh_main_sc_ksl_kislev"
 			or player_faction:name() == "wh_main_dwf_kraka_drak"
 			or player_faction:name() == "wh2_main_skv_clan_moulder"
+			or player_faction:name() == "wh2_dlc11_def_the_blessed_dread"
 			and not CI_DEBUG == true then
-				CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
-				CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
+				if player_faction:name() == "wh2_dlc11_def_the_blessed_dread" then
+					CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS.invasions["skv_invade_lustria_late"].army_spawn_multiplier = 0.8;
+				else
+					CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
+					CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
+				end
 				CI_EVENTS["MID_GAME"].first_turn = 90;
 				CI_EVENTS["MID_GAME"].last_turn = 100;
 				CI_EVENTS["END_GAME"].first_turn = 130;
@@ -1458,6 +1509,8 @@ function CI_setup()
 			out.chaos("Disabling Chaos Invasion! (Off Setting)");
 			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
 			cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_spawned", true);
+			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_defeated", true);
+			cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_defeated", true);
 		end
 	else
 		out.chaos("Disabling Chaos Invasion! (Human Chaos)");
@@ -1494,7 +1547,7 @@ function CI_GetChaosSpecialCharacterData(isWounded, hasMilitaryForce)
 					has_military_force = current_char:has_military_force(),
 					is_wounded = current_char:is_wounded(),
 					cqi = current_char:command_queue_index(),
-					familyCqi = current_char:family_member():command_queue_index(),
+					--familyCqi = current_char:family_member():command_queue_index(),
 				};
 			end
 		end
@@ -1659,24 +1712,30 @@ function CI_CharacterRazedSettlement(context)
 end
 
 function CI_CharacterConvalescedOrKilled(context)
+	out.chaos("Someone died during the endgame: "..CI_DATA.CI_INVASION_STAGE);
+	if CI_SPAWNED_EVENTS["END_GAME"] then
+		out.chaos("END_GAME event has spawned");
+	end
 	if CI_DATA.CI_INVASION_STAGE == 3 
 	and CI_SPAWNED_EVENTS["END_GAME"] then
 		local character = context:character();
 		local faction = character:faction();
 		out.chaos("Someone died during the endgame");
 		if faction:name() == CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key then
-				local archaon, kholek, sigvald = CI_invasion_deaths();
-				CI_invasion_effect_bundle_update();
-				if archaon == 0 and kholek == 0 and sigvald == 0 then
-					out.chaos("Starting Victory");
-					CI_Event_4_Victory(CI_EVENTS["VICTORY"]);
-					out.chaos("Finished Victory");
-				else
-					if (character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true) or
-					character:character_subtype("chs_kholek_suneater") == true or
-					character:character_subtype("chs_prince_sigvald") == true then
-					out.chaos("Someone died: "..character:character_subtype_key());
-					local human_factions = cm:get_human_factions();
+			out.chaos("Chaos faction character died during endgame");
+			local archaon, kholek, sigvald = CI_invasion_deaths();
+			CI_invasion_effect_bundle_update();
+			if archaon == 0 and kholek == 0 and sigvald == 0 then
+				out.chaos("Starting Victory");
+				CI_Event_4_Victory(CI_EVENTS["VICTORY"]);
+				out.chaos("Finished Victory");
+			else
+				if (character:character_subtype("chs_archaon") == true and character:is_faction_leader() == true) or
+				character:character_subtype("chs_kholek_suneater") == true or
+				character:character_subtype("chs_prince_sigvald") == true then
+				out.chaos("Someone died: "..character:character_subtype_key());
+					-- #Mission
+					--[[local human_factions = cm:get_human_factions();
 					for i = 1, #human_factions do
 						local humanFaction = cm:get_faction(human_factions[i]);
 						if humanFaction
@@ -1693,7 +1752,7 @@ function CI_CharacterConvalescedOrKilled(context)
 								cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
 							end
 						end
-					end
+					end--]]
 				end
 			end
 		end
@@ -1832,7 +1891,7 @@ function CI_Event_3_EndGame(event)
 		end,
 		0.3);
 
-		cm:callback(function()
+		--[[cm:callback(function()
 			-- Grabs CQIs required for mission
 			out.chaos("Starting mission setup");
 			local chaos_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
@@ -1871,8 +1930,10 @@ function CI_Event_3_EndGame(event)
 			-- The event hasn't finished spawning until these missions are setup
 			CI_SPAWNED_EVENTS[event.key] = true;
 		end,
-		0.5);
+		0.5);--]]
 	end
+	-- #MISSION - Make sure this fires after the missions are setup (if/when they are fixed)
+	CI_SPAWNED_EVENTS[event.key] = true;
 	out.dec_tab("chaos");
 end
 
@@ -1900,11 +1961,10 @@ function CI_Event_4_Victory(event)
 			);
 			cm:remove_effect_bundle("wh2_main_bundle_chaos_invasion", human_factions[i]);
 			out.chaos("Showing Chaos Event : "..human_factions[i]);
-
-			-- Lets test this theory
-			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
+			-- #Mission
+			--[[cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_archaon_tracker");
 			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_sigvald_tracker");
-			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");
+			cm:cancel_custom_mission(humanFactionKey, "mc_endgame_expanded_kholek_tracker");--]]
 		end
 	end
 
@@ -1941,13 +2001,18 @@ function CI_Event_4_Victory(event)
 end
 
 function CI_Event_Missions(faction, characterFamilyCqi, missionString)
-	local mm = mission_manager:new(faction, missionString);
+	-- #Mission
+	-- Disabled until I'm sure the crashes are gone
+	if true then
+		return;
+	end
+	--[[local mm = mission_manager:new(faction, missionString);
 	mm:set_mission_issuer("CLAN_ELDERS");
 	mm:add_new_objective("KILL_CHARACTER_BY_ANY_MEANS");
 	mm:add_condition("family_member "..characterFamilyCqi);
 	mm:add_payload("effect_bundle{bundle_key mc_endgame_expanded_archaon_tracker_dummy_reward;turns 0;}");
 	mm:set_should_whitelist(false);
-	mm:trigger();
+	mm:trigger();--]]
 end
 
 function CI_Event_2_Undercity_Expansion(event)
@@ -2388,7 +2453,7 @@ function CI_spawn_invasion(invasion_data, num_armies, ignoreDifficultyMultiplier
 					end
 					if invasion.faction_key_override ~= nil then
 						cm:callback(function()
-							CI_declare_war(invasion_data, spawn_faction_key);
+							MC_ENDEX_CI_declare_war(invasion_data, spawn_faction_key);
 						end, 0.2);
 					end
 					out.dec_tab("chaos");
@@ -2903,7 +2968,7 @@ function CI_update_invasion_diplomacy(invasion_spawn_data)
 		CI_setup_alliances(invasion_spawn_data);
 	end
 	-- Then declare war, alliance allies will be dragged into the war
-	CI_declare_war(invasion_spawn_data);
+	MC_ENDEX_CI_declare_war(invasion_spawn_data);
 end
 
 function CI_setup_alliances(invasion_spawn_data)
@@ -2923,7 +2988,7 @@ function CI_setup_alliances(invasion_spawn_data)
 	end
 end
 
-function CI_declare_war(invasion_spawn_data, faction_key_override)
+function MC_ENDEX_CI_declare_war(invasion_spawn_data, faction_key_override)
 	local warring_faction = invasion_spawn_data.faction_key;
 	if faction_key_override ~= nil then
 		warring_faction = faction_key_override;

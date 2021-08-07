@@ -269,7 +269,7 @@ function CharacterGenerator:GetGenderForAgentSubType(agentSubType)
     if agentResources ~= nil then
         return agentResources.IsFemale == "true";
     end
-    self.Logger:Log("Error: Could not find agent resources");
+    self.Logger:Log("Error: Could not find agent resources for subtype: "..agentSubType);
 end
 
 function CharacterGenerator:GetRandomCharacterTrait(faction, generalSubType)

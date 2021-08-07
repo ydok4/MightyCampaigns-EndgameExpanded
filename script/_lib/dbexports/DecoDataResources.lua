@@ -17,18 +17,5 @@ function GetDecoAgentDataResources()
 			AgentType = "general",
 			IsFemale = "false",
 		},
-		-- Beastmen
-		bst_bray_shaman_beasts = {
-			AgentType = "general",
-			IsFemale = "false",
-		},
-		bst_bray_shaman_death = {
-			AgentType = "general",
-			IsFemale = "false",
-		},
-		bst_bray_shaman_wild = {
-			AgentType = "general",
-			IsFemale = "false",
-		},
 	};
 end

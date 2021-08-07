@@ -259,6 +259,7 @@ function GetSubcultureArmyPoolDataResources()
                 },
                 Late = {
                     { wh_dlc03_bst_inf_minotaurs_1 = 1, wh_dlc03_bst_inf_minotaurs_2 = 1, },
+                    wh2_dlc17_bst_mon_ghorgon_0 = 1,
                 },
             },
             WarBeasts = {
@@ -268,7 +269,7 @@ function GetSubcultureArmyPoolDataResources()
                 },
                 Mid = {
                     { wh_dlc05_bst_mon_harpies_0 = 1, wh_dlc03_bst_inf_chaos_warhounds_1 = 1, },
-                    wh_dlc03_bst_feral_manticore = 1,
+                    { wh_dlc03_bst_feral_manticore = 1, wh2_dlc17_bst_cav_tuskgor_chariot_0 = 1, },
                 },
                 Late = {
                     wh_dlc03_bst_inf_razorgor_herd_0 = 1,
@@ -297,7 +298,7 @@ function GetSubcultureArmyPoolDataResources()
                 },
                 Late = {
                     wh_dlc03_bst_mon_chaos_spawn_0 = 2,
-                    { wh_dlc03_bst_mon_giant_0 = 1, wh_dlc03_bst_inf_cygor_0 = 1, },
+                    { wh_dlc03_bst_inf_cygor_0 = 1, wh2_dlc17_bst_mon_jabberslythe_0 = 1, },
                 },
             },
         },
