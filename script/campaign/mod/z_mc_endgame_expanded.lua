@@ -36,7 +36,8 @@ function z_mc_endgame_expanded()
     CG:Initialise(enableLogging);
     _G.CG = CG;
     LoadAdditionalResources();
-
+    CI_debug_setup();
+    MC_ENDEX_CI_Initialisation();
     out("EndEx: Finished setup");
 end
 
@@ -44,14 +45,17 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     out("EndEx: Initialising MCT Options");
     local endExpMct = mct:get_mod_by_key("mc_endgame_expanded");
 
-    local enable_tracking_missions = endExpMct:get_option_by_key("enable_chaos_tracking_missions");
+    --[[local enable_tracking_missions = endExpMct:get_option_by_key("enable_chaos_tracking_missions");
     local enable_tracking_missions_value = enable_tracking_missions:get_finalized_setting();
-    out("enable_tracking_missions_value: "..tostring(enable_tracking_missions_value));
-    enable_tracking_missions_value = false;
+    out("enable_tracking_missions_value: "..tostring(enable_tracking_missions_value));--]]
+    local enable_tracking_missions_value = false;
     if enable_tracking_missions_value == false
     and cm:is_new_game() == false then
         DisableTrackingMissions();
     end
+    local enable_debug_mode = endExpMct:get_option_by_key("enable_debug_mode");
+    local enable_debug_mode_value = enable_debug_mode:get_finalized_setting();
+    CI_DEBUG = enable_debug_mode_value;
 
     local enable_chaos_naggaroth_invasion = endExpMct:get_option_by_key("enable_chaos_naggaroth_invasion");
     local enable_chaos_naggaroth_invasion_value = enable_chaos_naggaroth_invasion:get_finalized_setting();

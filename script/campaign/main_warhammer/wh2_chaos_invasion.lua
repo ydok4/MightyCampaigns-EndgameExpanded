@@ -176,7 +176,7 @@ CI_EVENT_DATA = {
 						["faction_leader"] = false,
 						["immortal"] = true,
 						["force_key"] = "CI_kholek",
-						["force_xp"] = 0,
+						["force_xp"] = 7,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_kholek",
 						["spawn_pos_center"] = {x = 770, y = 625}
 					},
@@ -188,7 +188,7 @@ CI_EVENT_DATA = {
 						["faction_leader"] = false,
 						["immortal"] = true,
 						["force_key"] = "CI_sigvald",
-						["force_xp"] = 0,
+						["force_xp"] = 7,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_sigvald",
 						["spawn_pos_center"] = {x = 780, y = 625}
 					},
@@ -200,7 +200,7 @@ CI_EVENT_DATA = {
 						["faction_leader"] = false,
 						["immortal"] = true,
 						["force_key"] = "CI_sarthorael",
-						["force_xp"] = 0,
+						["force_xp"] = 8,
 						["effect"] = "wh_main_bundle_military_upkeep_free_force_unbreakable_endgame_expanded_archaon",
 						["spawn_pos_center"] = {x = 775, y = 628}
 					}
@@ -798,7 +798,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 5,
 					max_character_xp_levels = 12,
-					army_spawn_multiplier = 2,
+					army_spawn_multiplier = 1.75,
 					army_compositions = {
 						-- Invasion stage 2 (Mid game)
 						[2] = {
@@ -820,7 +820,7 @@ CI_EVENT_DATA = {
 					},
 					min_character_xp_levels = 10,
 					max_character_xp_levels = 20,
-					army_spawn_multiplier = 1.5,
+					army_spawn_multiplier = 1.25,
 					army_compositions = {
 						-- Invasion stage 3 (end game)
 						[3] = {
@@ -1275,7 +1275,6 @@ CI_ARMY_SETTINGS = {
 };
 
 function CI_setup()
-	CI_debug_setup();
 	out.chaos("CI_setup()");
 	out.inc_tab("chaos");
 
@@ -1301,24 +1300,6 @@ function CI_setup()
 				out.dec_tab("chaos");
 				Setup_Norsca_Chaos_Invasion();
 				return;
-			end
-
-			-- Tweak number of army spawns and spawn turn if the human player is Kislev or Kraka Drak
-			if player_faction:subculture() == "wh_main_sc_ksl_kislev"
-			or player_faction:name() == "wh_main_dwf_kraka_drak"
-			or player_faction:name() == "wh2_main_skv_clan_moulder"
-			or player_faction:name() == "wh2_dlc11_def_the_blessed_dread"
-			and not CI_DEBUG == true then
-				if player_faction:name() == "wh2_dlc11_def_the_blessed_dread" then
-					CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS.invasions["skv_invade_lustria_late"].army_spawn_multiplier = 0.8;
-				else
-					CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
-					CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
-				end
-				CI_EVENTS["MID_GAME"].first_turn = 90;
-				CI_EVENTS["MID_GAME"].last_turn = 100;
-				CI_EVENTS["END_GAME"].first_turn = 130;
-				CI_EVENTS["END_GAME"].last_turn = 140;
 			end
 		end
 
@@ -1712,12 +1693,12 @@ function CI_CharacterRazedSettlement(context)
 end
 
 function CI_CharacterConvalescedOrKilled(context)
-	out.chaos("Someone died during the endgame: "..CI_DATA.CI_INVASION_STAGE);
-	if CI_SPAWNED_EVENTS["END_GAME"] then
+	--[[if CI_SPAWNED_EVENTS["END_GAME"] then
 		out.chaos("END_GAME event has spawned");
-	end
+	end--]]
 	if CI_DATA.CI_INVASION_STAGE == 3 
 	and CI_SPAWNED_EVENTS["END_GAME"] then
+		--out.chaos("Someone died during the endgame: "..CI_DATA.CI_INVASION_STAGE);
 		local character = context:character();
 		local faction = character:faction();
 		out.chaos("Someone died during the endgame");
@@ -2184,41 +2165,48 @@ function CI_Event_Doom_Tide(event)
 		local showMessage = false;
 		-- The main invasion needs a constant flow of chaos warriors
 		-- This is a higher limit that the Darklands and Naggaroth
-		local spawnedNumberOfMainInvasionHordes = math.ceil(event.spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
-		local currentNumberOfMainInvasionHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items();
-		if currentNumberOfMainInvasionHordes <= math.floor(spawnedNumberOfMainInvasionHordes * 3)
-		or event.key == "END_GAME" then
-			local numberOfSpawns = event.spawns - 1;
-			local spawnForInvasionLocations = {
-				chaos_wastes = true,
-			};
-			CI_spawn_invasion(invasion, numberOfSpawns, false, spawnForInvasionLocations);
-			out.chaos("Spawned chaos wasteland tide armies");
-			anySpawned = true;
-			showMessage = true;
+		if invasion.invasions["chaos_wastes"].enabled == true then
+			local spawnedNumberOfMainInvasionHordes = math.ceil(event.spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+			local currentNumberOfMainInvasionHordes = cm:get_faction("wh_main_chs_chaos"):military_force_list():num_items();
+			if currentNumberOfMainInvasionHordes <= math.floor(spawnedNumberOfMainInvasionHordes * 3)
+			or event.key == "END_GAME" then
+				local numberOfSpawns = event.spawns - 1;
+				local spawnForInvasionLocations = {
+					chaos_wastes = true,
+				};
+				CI_spawn_invasion(invasion, numberOfSpawns, false, spawnForInvasionLocations);
+				out.chaos("Spawned chaos wasteland tide armies");
+				anySpawned = true;
+				showMessage = true;
+			end
 		end
 		
 		-- These areas only need to respawn when they are weak
 		-- These values should come back up to their initial spawn numbers
-		local spawnedNumberOfNaggarothHordes = math.ceil(event.spawns * invasion.invasions["naggaroth"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
-		local currentNumberOfNaggarothHordes = cm:get_faction("wh2_main_chs_chaos_incursion_def"):military_force_list():num_items();
-		if currentNumberOfNaggarothHordes <= math.floor(spawnedNumberOfNaggarothHordes * 0.6) then
-			local spawnForNaggarothInvasionLocations = {
-				naggaroth = true,
-			};
-			CI_spawn_invasion(invasion, event.spawns - 1, false, spawnForNaggarothInvasionLocations);
-			out.chaos("Spawned naggaroth tide armies");
-			anySpawned = true;
+		if invasion.invasions["naggaroth"].enabled == true then
+			local spawnedNumberOfNaggarothHordes = math.ceil(event.spawns * invasion.invasions["naggaroth"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+			local currentNumberOfNaggarothHordes = cm:get_faction("wh2_main_chs_chaos_incursion_def"):military_force_list():num_items();
+			if currentNumberOfNaggarothHordes <= math.floor(spawnedNumberOfNaggarothHordes * 0.6) then
+				local spawnForNaggarothInvasionLocations = {
+					naggaroth = true,
+				};
+				CI_spawn_invasion(invasion, event.spawns - 1, false, spawnForNaggarothInvasionLocations);
+				out.chaos("Spawned naggaroth tide armies");
+				anySpawned = true;
+			end
 		end
-		local spawnedNumberOfDarklandsHordes = math.ceil(event.spawns * invasion.invasions["darklands"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
-		local currentNumberOfDarklandsHordes = cm:get_faction("wh2_main_chs_chaos_incursion_hef"):military_force_list():num_items();
-		if currentNumberOfDarklandsHordes <= math.floor(spawnedNumberOfDarklandsHordes * 0.4) then
-			local spawnForInvasionDarklandsLocations = {
-				darklands = true,
-			};
-			CI_spawn_invasion(invasion, event.spawns, false, spawnForInvasionDarklandsLocations);
-			out.chaos("Spawned darklands tide armies");
-			anySpawned = true;
+
+		if invasion.invasions["darklands"].enabled == true then
+			local spawnedNumberOfDarklandsHordes = math.ceil(event.spawns * invasion.invasions["darklands"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;
+			local currentNumberOfDarklandsHordes = cm:get_faction("wh2_main_chs_chaos_incursion_hef"):military_force_list():num_items();
+			if currentNumberOfDarklandsHordes <= math.floor(spawnedNumberOfDarklandsHordes * 0.4) then
+				local spawnForInvasionDarklandsLocations = {
+					darklands = true,
+				};
+				CI_spawn_invasion(invasion, event.spawns, false, spawnForInvasionDarklandsLocations);
+				out.chaos("Spawned darklands tide armies");
+				anySpawned = true;
+			end
 		end
 		if showMessage == true then
 			local human_factions = cm:get_human_factions();			
@@ -2265,7 +2253,7 @@ function CI_spawn_invasion_for_event(invasion_data, event)
 		end
 	end
 	if not _G.IsIDE then
-		CI_spawn_unique_characters(invasion_data);
+		MC_ENDEX_CI_spawn_unique_characters(invasion_data);
 	end
 	CI_spawn_invasion(invasion_data, event.army_spawns);
 	CI_spawn_agents(invasion_data, event.agent_spawns);
@@ -2275,13 +2263,13 @@ function CI_spawn_invasion_for_event(invasion_data, event)
 	0.2);
 end
 
-function CI_spawn_unique_characters(invasion_data)
+function MC_ENDEX_CI_spawn_unique_characters(invasion_data)
 	if invasion_data.special_characters == nil
 	or invasion_data.special_characters[CI_DATA.CI_INVASION_STAGE] == nil then
 		out.chaos("No special characters to spawn");
 		return;
 	end
-	out.chaos("CI_spawn_unique_characters()");
+	out.chaos("MC_ENDEX_CI_spawn_unique_characters()");
 	out.inc_tab("chaos");
 	local characters_for_stage = invasion_data.special_characters[CI_DATA.CI_INVASION_STAGE];
 	for key, characterData in pairs(characters_for_stage) do
@@ -3236,6 +3224,35 @@ function CI_debug_setup()
 
 		if player then
 			cm:make_region_visible_in_shroud(player, "wh_main_chaos_wastes");
+		end
+	end
+end
+
+-- This gets called from the z_mc_endgame_expanded script it needs to be separate because behaviour changes
+-- depending on debug mode
+function MC_ENDEX_CI_Initialisation()
+	if CI_DATA.CI_AUTORUN == false then
+		local human_factions = cm:get_human_factions();
+		local player_faction = cm:model():world():faction_by_key(human_factions[1]);
+		-- This could be merged with the parent if but keeping it separate to match the setup script
+		if cm:is_multiplayer() == false then
+			-- Tweak number of army spawns and spawn turn if the human player is Kislev or Kraka Drak
+			if player_faction:subculture() == "wh_main_sc_ksl_kislev"
+			or player_faction:name() == "wh_main_dwf_kraka_drak"
+			or player_faction:name() == "wh2_main_skv_clan_moulder"
+			or player_faction:name() == "wh2_dlc11_def_the_blessed_dread"
+			and not CI_DEBUG == true then
+				if player_faction:name() == "wh2_dlc11_def_the_blessed_dread" then
+					CI_EVENT_DATA.Invasions.CI_SKAVEN_LUSTRIA_ARMY_SPAWNS.invasions["skv_invade_lustria_late"].army_spawn_multiplier = 0.8;
+				else
+					CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["chaos_wastes"].army_spawn_multiplier = 0.6;
+					CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.invasions["bst_chaos_wastes"].army_spawn_multiplier = 0.3;
+				end
+				CI_EVENTS["MID_GAME"].first_turn = 90;
+				CI_EVENTS["MID_GAME"].last_turn = 100;
+				CI_EVENTS["END_GAME"].first_turn = 130;
+				CI_EVENTS["END_GAME"].last_turn = 140;
+			end
 		end
 	end
 end
