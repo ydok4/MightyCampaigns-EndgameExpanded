@@ -1490,6 +1490,7 @@ function CI_setup()
 			out.chaos("Disabling Chaos Invasion! (Off Setting)");
 			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
 			cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_spawned", true);
+			
 			cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_defeated", true);
 			cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_defeated", true);
 		end
@@ -1960,14 +1961,27 @@ function CI_Event_4_Victory(event)
 		end
 	end
 
-	local chaos_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
-	cm:kill_all_armies_for_faction(chaos_faction);
+	local chaos_faction_main = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.faction_key);
+	cm:kill_all_armies_for_faction(chaos_faction_main);
+
+	if CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["naggaroth"].enabled == true then
+		local chaos_faction_def = cm:model():world():faction_by_key("wh2_main_chs_chaos_incursion_def");
+		cm:kill_all_armies_for_faction(chaos_faction_def);
+	end
+
+	if CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["darklands"].enabled == true then
+		local chaos_faction_hef = cm:model():world():faction_by_key("wh2_main_chs_chaos_incursion_hef");
+		cm:kill_all_armies_for_faction(chaos_faction_hef);
+	end
 
 	local beastmen_faction = cm:model():world():faction_by_key(CI_EVENT_DATA.Invasions.CI_BEASTMEN_ARMY_SPAWNS.faction_key);
 	cm:kill_all_armies_for_faction(beastmen_faction);
 
 	cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_spawned", true);
 	cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_spawned", true);
+
+	cm:complete_scripted_mission_objective("wh_main_short_victory", "archaon_defeated", true);
+	cm:complete_scripted_mission_objective("wh_main_long_victory", "archaon_defeated", true);
 
 	CI_apply_chaos_corruption(event.chaos_effect);
 	CI_personality_swap(4);
