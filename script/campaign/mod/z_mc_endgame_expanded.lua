@@ -57,6 +57,11 @@ function EndgameExpandedCheckMCTRebornOptions(core, mct)
     local enable_debug_mode_value = enable_debug_mode:get_finalized_setting();
     CI_DEBUG = enable_debug_mode_value;
 
+
+    local enable_doom_tide = endExpMct:get_option_by_key("enable_doom_tide");
+    local enable_doom_tide_value = enable_doom_tide:get_finalized_setting();
+    CI_ENABLE_DOOM_TIDE = enable_doom_tide;
+
     local enable_chaos_naggaroth_invasion = endExpMct:get_option_by_key("enable_chaos_naggaroth_invasion");
     local enable_chaos_naggaroth_invasion_value = enable_chaos_naggaroth_invasion:get_finalized_setting();
     CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS.invasions["naggaroth"].enabled = enable_chaos_naggaroth_invasion_value;

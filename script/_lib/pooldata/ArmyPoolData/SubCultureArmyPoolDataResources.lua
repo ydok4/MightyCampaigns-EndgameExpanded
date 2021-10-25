@@ -1385,11 +1385,11 @@ function GetSubcultureArmyPoolDataResources()
 
                 },
                 Mid = {
-                    wh_main_chs_inf_chosen_0 = 1,
+                    wh_main_chs_inf_chosen_0 = 2,
                 },
                 Late = {
                     wh_main_chs_inf_chosen_0 = 1,
-                    { wh_main_chs_inf_chosen_1 = 1, wh_dlc01_chs_inf_chosen_2 = 2 },
+                    { wh_main_chs_inf_chosen_1 = 2, wh_dlc01_chs_inf_chosen_2 = 2 },
                 },
             },
             Beasts = {
@@ -1405,7 +1405,7 @@ function GetSubcultureArmyPoolDataResources()
                     { wh_main_chs_mon_trolls = 1, wh_main_chs_mon_chaos_warhounds_1 = 1 },
                     wh_dlc01_chs_mon_trolls_1 = 1,
                 },
-                Monsters = {
+            Monsters = {
                     Early = {
 
                     },

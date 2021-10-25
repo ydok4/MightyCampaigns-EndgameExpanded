@@ -1,4 +1,5 @@
 CI_DEBUG = false;
+CI_ENABLE_DOOM_TIDE = true;
 CI_EVENTS = {
 	INTRO = {key = "INTRO", required_stage = 1, first_turn = 15, last_turn = 25, army_spawns = 0, agent_spawns = 0, chaos_effect = ""},
 	-- rises events
@@ -221,7 +222,15 @@ CI_EVENT_DATA = {
 			army_archetypes = {
 				ChaosLord = {
 					AgentSubtypes = {"chs_lord", },
+					MandatoryUnits = {
+						wh_main_chs_art_hellcannon = 1,
+						wh_dlc06_chs_inf_aspiring_champions_0 = 1,
+					},
 					UnitTags = {"Marauders", "MarauderHorsemen", "ChaosWarriors", "Beasts", },
+				},
+				ChaosCavalryLordStage1 = {
+					AgentSubtypes = {"chs_lord", },
+					UnitTags = {"MarauderHorsemen", "Beasts", "ChaosCavalry", },
 				},
 				ChaosSorcerorLordInvasionStage1 = {
 					Key = "ChaosSorcerorLordInvasionStage1",
@@ -230,7 +239,7 @@ CI_EVENT_DATA = {
 						wh_main_chs_mon_chaos_spawn = 1,
 						wh_dlc01_chs_inf_forsaken_0 = 2,
 					},
-					UnitTags = { "Marauders", "ChaosWarriors", "Monsters", },
+					UnitTags = { "ChaosWarriors", "Monsters", "Beasts", },
 				},
 				ChaosLordWarriorsInvasionStage2 = {
 					Key = "ChaosLordWarriorsInvasionStage2",
@@ -272,7 +281,11 @@ CI_EVENT_DATA = {
 						[2] = {
 							ChaosLord = {
 								Key = "ChaosLord",
-								Weighting = 5,
+								Weighting = 3,
+							},
+							ChaosCavalryLordStage1 = {
+								Key = "ChaosCavalryLordStage1",
+								Weighting = 1,
 							},
 							ChaosSorcerorLordInvasionStage1 = {
 								Key = "ChaosSorcerorLordInvasionStage1",
@@ -282,14 +295,14 @@ CI_EVENT_DATA = {
 							ChaosSorcerorLordDaemons = {
 								Key = "ChaosSorcerorLordDaemons",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_2", "wh_main_horde_chaos_forge_1", "wh_main_horde_chaos_magic_2"},
-								Weighting = 1,
+								Weighting = 2,
 							},
 						},
 						-- Invasion stage 3 (End game)
 						[3] = {
 							ChaosLordWarriorsInvasionStage2 = {
 								Key = "ChaosLordWarriorsInvasionStage2",
-								Weighting = 3,
+								Weighting = 2,
 							},
 							ChaosLordMonstersInvasionStage2 = {
 								Key = "ChaosLordMonstersInvasionStage2",
@@ -304,7 +317,7 @@ CI_EVENT_DATA = {
 							DragonOgreInvasionStage2 = {
 								Key = "DragonOgreInvasionStage2",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_forge_2", "wh_main_horde_chaos_trolls_1", "wh_main_horde_chaos_dragon_ogres_2", },
-								Weighting = 1,
+								Weighting = 2,
 							},
 						},
 					},
@@ -331,7 +344,11 @@ CI_EVENT_DATA = {
 						[2] = {
 							ChaosLord = {
 								Key = "ChaosLord",
-								Weighting = 5,
+								Weighting = 3,
+							},
+							ChaosCavalryLordStage1 = {
+								Key = "ChaosCavalryLordStage1",
+								Weighting = 1,
 							},
 							ChaosSorcerorLordInvasionStage1 = {
 								Key = "ChaosSorcerorLordInvasionStage1",
@@ -341,7 +358,7 @@ CI_EVENT_DATA = {
 							ChaosSorcerorLordDaemons = {
 								Key = "ChaosSorcerorLordDaemons",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_2", "wh_main_horde_chaos_forge_1", "wh_main_horde_chaos_magic_2"},
-								Weighting = 1,
+								Weighting = 2,
 							},
 						},
 						-- Invasion stage 3 (end game)
@@ -353,12 +370,12 @@ CI_EVENT_DATA = {
 							ChaosSorcerorLordDaemons = {
 								Key = "ChaosSorcerorLordDaemons",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_forge_2", "wh_main_horde_chaos_magic_2"},
-								Weighting = 4,
+								Weighting = 2,
 							},
 							DragonOgreInvasionStage2 = {
 								Key = "DragonOgreInvasionStage2",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_forge_2", "wh_main_horde_chaos_trolls_1", "wh_main_horde_chaos_dragon_ogres_2", },
-								Weighting = 1,
+								Weighting = 2,
 							},
 						},
 					},
@@ -382,7 +399,11 @@ CI_EVENT_DATA = {
 						[2] = {
 							ChaosLord = {
 								Key = "ChaosLord",
-								Weighting = 5,
+								Weighting = 2,
+							},
+							ChaosCavalryLordStage1 = {
+								Key = "ChaosCavalryLordStage1",
+								Weighting = 2,
 							},
 							ChaosSorcerorLordInvasionStage1 = {
 								Key = "ChaosSorcerorLordInvasionStage1",
@@ -394,11 +415,15 @@ CI_EVENT_DATA = {
 						[3] = {
 							ChaosLordWarriorsInvasionStage2 = {
 								Key = "ChaosLordWarriorsInvasionStage2",
-								Weighting = 3,
+								Weighting = 2,
 							},
 							ChaosLordMonstersInvasionStage2 = {
 								Key = "ChaosLordMonstersInvasionStage2",
 								Buildings = {"wh_main_horde_chaos_settlement_5", "wh_main_horde_chaos_warriors_3", "wh_main_horde_chaos_forge_2", "wh_main_horde_chaos_trolls_1", "wh_main_horde_chaos_giants_1", },
+								Weighting = 2,
+							},
+							ChaosCavalryLordStage1 = {
+								Key = "ChaosCavalryLordStage1",
 								Weighting = 2,
 							},
 						},
@@ -509,7 +534,7 @@ CI_EVENT_DATA = {
 						[2] = {
 							BeastLordGorsChaosInvasionStage1 = {
 								Key = "BeastLordGorsChaosInvasionStage1",
-								Weighting = 4,
+								Weighting = 2,
 							},
 							BeastLordMonstersChaosInvasionStage1 = {
 								Key = "BeastLordMonstersChaosInvasionStage1",
@@ -526,7 +551,7 @@ CI_EVENT_DATA = {
 						[3] = {
 							BeastLordGorsChaosInvasionStage2 = {
 								Key = "BeastLordGorsChaosInvasionStage2",
-								Weighting = 4,
+								Weighting = 3,
 							},
 							DoomBullChaosInvasionStage2 = {
 								Key = "DoomBullChaosInvasionStage2",
@@ -2147,6 +2172,9 @@ function CI_Event_3_Forest_Spawns(event)
 end
 
 function CI_Event_Doom_Tide(event)
+	if CI_ENABLE_DOOM_TIDE == false then
+		return;
+	end
 	local turn_number = cm:model():turn_number();
 	local invasion = CI_EVENT_DATA.Invasions.CI_CHAOS_ARMY_SPAWNS;
 	local spawnedNumberOfHordes = math.ceil(event.spawns * invasion.invasions["chaos_wastes"].army_spawn_multiplier) * CI_ARMY_SETTINGS[CI_DATA.CI_SETTING].multiplier;

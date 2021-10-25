@@ -17,7 +17,7 @@ With Warhammer 3 coming up I wanted to see if it was possible to improve the van
 Army spawns have been changed to fit thematic compositions. 
 
 This includes support for Balint's/Chaos Robies Daemons (
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2244883018]Plague Bearers[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248933803]Bloodletters[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2213244530]Daemonettes[/url] need to be installed), [url=https://steamcommunity.com/workshop/filedetails/?id=1243153086]Mixu's TTL[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1201392754 ]Deco's Expanded Beastmen[/url].
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2244883018]Plague Bearers[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2248933803]Bloodletters[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2213244530]Daemonettes[/url] need to be installed) and [url=https://steamcommunity.com/workshop/filedetails/?id=1243153086]Mixu's TTL[/url].
 Eg in the late game invasion, Monster themed armies lead by Mixu's Shaggoth Champion may be present.
 
 The buildings that hordes spawn with have been improved and will add thematically appropriate buildings.
@@ -27,8 +27,6 @@ Lords will spawned with randomised levels (Capped with minimum and maximum value
 Invasion spawn times have been brought forward 10 turns to 80 and 120 and will start within 10 turns (as opposed to 20).
 
 Archaon and friends will spawn at the rear of the invasion with reduced movement. This makes it less likely for the invasion to be defeated during the first push and forces the player to cut a path to the invasion leaders.
-
-Missions have been added to track where Archaon, Kholek and Sigvald are on the campaign map.
 
 Archaon, Kholek and Sigvald will be automatically appointed to the strongest available army upon recovery from their wounds. They will have the effects they originally spawned with (upkeep reduction, replenishment, movement penalty etc) reapplied.
 
@@ -79,9 +77,6 @@ Any Norscan factions alive when the late game invasion triggers will be forced i
 [h2]Anything else?[/h2]
 I've restored the unique event which appears when the player defeats Chaos as the Vampire Counts
 
-[h2]Crashes[/h2]
-If you experience a crash after one of the named Chaos characters is defeated. Disable the 'Enable Tracking Missions' option under the General section of MCT.
-
 [h2]Balance and Compatibility[/h2]
 I've play tested this on Hard campaign difficulty and Very Hard Chaos Invasion difficulty while using [url=https://steamcommunity.com/workshop/filedetails/?id=1214959308]Boyz Will Be Boyz - Closer to Tabletop overhaul (CTT)[/url] and my own [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2294629023]Dynamic AI Restrictions[/url].
 Other overhauls and mods may have a different experience.
@@ -94,11 +89,13 @@ Ultimate Chaos is untested.
 
 This mod may not work in multiplayer, there has been at least one instance of a reported desync when the Doom Tide spawns. Use in multiplayer at your own risk. If you do use it, please let me know how well it works.
 
-Check out some of the other mods I've worked on: 
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2445901610]Wondrous Wizard Levels[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2294629023]Dynamic AI Restrictions[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=1593262224]Public Order: Expanded[/url]
-[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2348882773]Wood Elf Enchanted Arrow Upgrades CTT patch[/url]
+[h2]Known issues[/h2]
+[h3]Can't end turn/can't move armies[/h3]
+This is a vanilla issue that can happen when lots of scripted events fire. It can happen with Wulfharts campaign. If you've got any quest battles try and teleport to them. Otherwise reload a previous save and perform some different actions (eg move to a different spot, build something). Another thing to try is to disable some of the spawns.
 
+If that doesn't work there isn't much I can do unfortunately.
+
+[h3]Multiplayer[/h3]
+This mod may not work in multiplayer, there has been at least one instance of a reported desync when the Doom Tide spawns. Use in multiplayer at your own risk. If you do use it, please let me know how well it works so I can update the description.
 
 [img]https://i.imgur.com/C6v7SRP.gif[/img]

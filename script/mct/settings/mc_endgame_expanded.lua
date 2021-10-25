@@ -21,6 +21,11 @@ enable_debug_mode:set_default_value(false);
 enable_debug_mode:set_text(cls_prefix..mod_prefix.."_title_enable_debug_mode", true);
 enable_debug_mode:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_debug_mode", true);
 
+local enable_doom_tide = mc_endgame_expanded:add_new_option("enable_doom_tide", "checkbox");
+enable_doom_tide:set_default_value(true);
+enable_doom_tide:set_text(cls_prefix..mod_prefix.."_title_enable_doom_tide", true);
+enable_doom_tide:set_tooltip_text(cls_prefix..mod_prefix.."_description_enable_doom_tide", true);
+
 -- Chaos
 mc_endgame_expanded:add_new_section("ci_chaos_army_spawns", cls_prefix..mod_prefix.."_section_name_ci_chaos_army_spawns", true);
 
